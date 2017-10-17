@@ -3,8 +3,10 @@
  */
 package com.archsystemsinc.qam.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,9 +25,9 @@ public class HealthCommunity {
 	private String nameOfInitiative;
 	private String orgName;
 	private String notes;
-	private Long addressId;
-	private Long socialMediaId;
-	private Long categoryId;
+	private Address address;
+	private SocialMedia socialMedia;
+	private Category category;
 	private String msaName;
 	private Long uniqueId;
 	private String mapDisplay;
@@ -71,33 +73,29 @@ public class HealthCommunity {
 		this.notes = notes;
 	}
 	
-	@OneToOne
-	@Column(name = "Address_Id")
-	public Long getAddressId() {
-		return addressId;
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "address", cascade = CascadeType.ALL)
+	public Address getAddress() {
+		return address;
 	}
-	public void setAddressId(Long addressId) {
-		this.addressId = addressId;
-	}
-	
-	@OneToOne
-	@Column(name = "Social_Media_Id")
-	public Long getSocialMediaId() {
-		return socialMediaId;
-	}
-	public void setSocialMediaId(Long socialMediaId) {
-		this.socialMediaId = socialMediaId;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
-	@OneToOne
-	@Column(name = "Category_Id")
-	public Long getCategoryId() {
-		return categoryId;
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "socialMedia", cascade = CascadeType.ALL)
+	public SocialMedia getSocialMedia() {
+		return socialMedia;
 	}
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public void setSocialMedia(SocialMedia socialMedia) {
+		this.socialMedia = socialMedia;
 	}
 	
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	@Column(name = "Msa_Name")
 	public String getMsaName() {
 		return msaName;
