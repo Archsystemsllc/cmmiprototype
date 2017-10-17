@@ -17,13 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.archsystemsinc.qam.model.FileData;
 import com.archsystemsinc.qam.model.TemplateConfigData;
 import com.archsystemsinc.qam.model.TemplateData;
-import com.archsystemsinc.qam.repository.FileDataRepository;
-import com.archsystemsinc.qam.repository.TemplateConfigRepository;
-import com.archsystemsinc.qam.repository.TemplateRepository;
+import com.archsystemsinc.qam.service.FileDataService;
 import com.archsystemsinc.qam.utils.PoiUtils;
 
 /**
- * @author Prakash
+ * @author Prakash T
  *
  */
 @RestController
@@ -32,66 +30,49 @@ public class TestService {
 	private static final Logger log = Logger.getLogger(TestService.class);
 	
 	@Autowired
-	private FileDataRepository fileDataRepository;
-	
-	@Autowired
-	private TemplateRepository templateRepository;
-	
-	@Autowired
-	private TemplateConfigRepository templateConfigRepository;
+	private FileDataService fileDataService;
 	
 
 	@RequestMapping(value = "/createTemplate", method = RequestMethod.POST)
 	public List<TemplateData> createTemplate(@RequestParam(value="name", required=true) String name){
-		log.debug("--> createTemplate"+templateRepository);
+		log.debug("--> createTemplate");
 		TemplateData data = new TemplateData();
 		data.setName(name);
-		templateRepository.save(data);
+		fileDataService.createTemplate(data);
 		log.debug("<-- createTemplate");
-		return templateRepository.findAll();
+		return fileDataService.getAllTemplates();
 	}
 	
 	@RequestMapping(value = "/listTemplates", method = RequestMethod.GET)
 	public List<TemplateData> listTemplates(){
-		return templateRepository.findAll();
+		return fileDataService.getAllTemplates();
 	}
 	
 	@RequestMapping(value = "/createTemplateConfig", method = RequestMethod.POST)
 	public List<TemplateConfigData> createTemplateConfig(TemplateConfigData data){
 		log.debug("--> createTemplate"+data);
-		templateConfigRepository.save(data);
+		fileDataService.createTemplateConfig(data);
 		log.debug("<-- createTemplate");
-		return templateConfigRepository.findAll();
+		return fileDataService.listTemplateConfigs();
 	}
 	
 	@RequestMapping(value = "/listTemplateConfigs", method = RequestMethod.GET)
 	public List<TemplateConfigData> listTemplateConfigs(){
-		return templateConfigRepository.findAll();
-	}
-	
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public List<FileData> uploadFile(@RequestParam(value="templateId", required=true) Long templateId, FileData data){
-		log.debug("--> uploadFile"+fileDataRepository);
-		fileDataRepository.save(data);
-		log.debug("<-- uploadFile");
-		return fileDataRepository.findAll();
+		return fileDataService.listTemplateConfigs();
 	}
 	
 	
 	@RequestMapping(value = "/uploadFileData/{templateId}", method = RequestMethod.POST)
 	public List<FileData> uploadFileData(@PathVariable Long templateId, @RequestParam("file") MultipartFile uploadedFile){
 		log.debug("--> uploadFileData:"+templateId);
-		TemplateConfigData configData = templateConfigRepository.findOne(templateId);
-		List<FileData> data = PoiUtils.parseFile(uploadedFile, configData);
-		log.debug("data::"+data);
-		fileDataRepository.save(data);
+		fileDataService.uploadFileData(templateId, uploadedFile);
 		log.debug("<-- uploadFileData");
-		return fileDataRepository.findAll();
+		return fileDataService.listFileData();
 	}
 	
 	@RequestMapping(value = "/listFileData", method = RequestMethod.GET)
 	public List<FileData> listFileData(){
-		return fileDataRepository.findAll();
+		return fileDataRepository.listFileData();
 	}
 	
 }
