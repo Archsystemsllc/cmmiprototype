@@ -72,7 +72,7 @@ public class TestService {
 	
 	@RequestMapping(value = "/listFileData", method = RequestMethod.GET)
 	public List<FileData> listFileData(){
-		return fileDataRepository.listFileData();
+		return fileDataService.listFileData();
 	}
 	
 }
