@@ -14,8 +14,8 @@ import javax.persistence.Table;
  * @author PrakashTotta
  *
  */
-@Entity
-@Table(name = "CATEGORY")
+//@Entity
+//@Table(name = "CATEGORY")
 public class Category {
 	private Long id;
 	private String categoryName;

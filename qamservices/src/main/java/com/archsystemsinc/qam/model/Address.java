@@ -14,8 +14,8 @@ import javax.persistence.Table;
  * @author Prakash T
  *
  */
-@Entity
-@Table(name = "ADDRESS")
+//@Entity
+//@Table(name = "ADDRESS")
 public class Address {
 	private Long id;
 	private String location;

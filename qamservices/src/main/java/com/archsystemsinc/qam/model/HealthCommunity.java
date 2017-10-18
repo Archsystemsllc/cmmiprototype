@@ -17,8 +17,8 @@ import javax.persistence.Table;
  * @author Prakash T
  *
  */
-@Entity
-@Table(name = "HEALTH_COMMUNITY")
+//@Entity
+//@Table(name = "HEALTH_COMMUNITY")
 public class HealthCommunity {
 	private Long id;
 	private Long templateId;

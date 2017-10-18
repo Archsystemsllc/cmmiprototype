@@ -14,8 +14,8 @@ import javax.persistence.Table;
  * @author Prakash T
  *
  */
-@Entity
-@Table(name = "SOCIAL_MEDEIA")
+//@Entity
+//@Table(name = "SOCIAL_MEDEIA")
 public class SocialMedia {
 	private Long id;
 	private String facebook;

@@ -6,5 +6,6 @@ import com.archsystemsinc.qam.model.Category;
 
 /**
  */
-public interface CategoryRepository extends JpaRepository<Category, Long>{
+public interface CategoryRepository //extends JpaRepository<Category, Long>
+{
 }
