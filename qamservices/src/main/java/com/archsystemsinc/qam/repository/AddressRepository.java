@@ -6,6 +6,6 @@ import com.archsystemsinc.qam.model.Address;
 
 /**
  */
-public interface AddressRepository //extends JpaRepository<Address, Long>
+public interface AddressRepository extends JpaRepository<Address, Long>
 {
 }

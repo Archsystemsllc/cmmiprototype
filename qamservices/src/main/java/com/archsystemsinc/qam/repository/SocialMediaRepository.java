@@ -6,6 +6,6 @@ import com.archsystemsinc.qam.model.SocialMedia;
 
 /**
  */
-public interface SocialMediaRepository //extends JpaRepository<SocialMedia, Long>
+public interface SocialMediaRepository extends JpaRepository<SocialMedia, Long>
 {
 }

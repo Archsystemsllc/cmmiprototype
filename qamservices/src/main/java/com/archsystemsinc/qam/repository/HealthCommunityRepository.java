@@ -11,7 +11,7 @@ import com.archsystemsinc.qam.model.HealthCommunity;
  * @author Prakash T
  *
  */
-public interface HealthCommunityRepository //extends JpaRepository<HealthCommunity, Long>
+public interface HealthCommunityRepository extends JpaRepository<HealthCommunity, Long>
 {
 
 }

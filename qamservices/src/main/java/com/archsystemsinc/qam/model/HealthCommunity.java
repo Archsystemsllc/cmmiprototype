@@ -6,34 +6,52 @@ package com.archsystemsinc.qam.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
  * @author Prakash T
  *
  */
-//@Entity
-//@Table(name = "HEALTH_COMMUNITY")
+@Entity
+@Table(name = "HEALTH_COMMUNITY")
 public class HealthCommunity {
-	private Long id;
-	private Long templateId;
-	private String nameOfInitiative;
-	private String orgName;
-	private String notes;
-	private Address address;
-	private SocialMedia socialMedia;
-	private Category category;
-	private String msaName;
-	private Long uniqueId;
-	private String mapDisplay;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@PrimaryKeyJoinColumn
+	@Column(name = "id")
+	private Long id;
+	@Column(name = "TEMPLATE_ID")
+	private Long templateId;
+	@Column(name = "Name_Of_Initiative")
+	private String nameOfInitiative;
+	@Column(name = "Org_Name")
+	private String orgName;
+	@Column(name = "Notes")
+	private String notes;
+	//@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "healthCommunity")
+	private Address address;
+	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "healthCommunity")
+	private SocialMedia socialMedia;
+	
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "healthCommunity")
+	private Category category;
+	
+	@Column(name = "Msa_Name")
+	private String msaName;
+	@Column(name = "Unique_Id")
+	private Long uniqueId;
+	@Column(name = "Map_Display")
+	private String mapDisplay;
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -41,7 +59,7 @@ public class HealthCommunity {
 		this.id = id;
 	}
 	
-	@Column(name = "TEMPLATE_ID")
+	
 	public Long getTemplateId() {
 		return templateId;
 	}
@@ -49,7 +67,7 @@ public class HealthCommunity {
 		this.templateId = templateId;
 	}
 	
-	@Column(name = "Name_Of_Initiative")
+
 	public String getNameOfInitiative() {
 		return nameOfInitiative;
 	}
@@ -57,7 +75,7 @@ public class HealthCommunity {
 		this.nameOfInitiative = nameOfInitiative;
 	}
 	
-	@Column(name = "Org_Name")
+	
 	public String getOrgName() {
 		return orgName;
 	}
@@ -65,7 +83,7 @@ public class HealthCommunity {
 		this.orgName = orgName;
 	}
 	
-	@Column(name = "Notes")
+	
 	public String getNotes() {
 		return notes;
 	}
@@ -73,7 +91,6 @@ public class HealthCommunity {
 		this.notes = notes;
 	}
 	
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "address", cascade = CascadeType.ALL)
 	public Address getAddress() {
 		return address;
 	}
@@ -81,7 +98,6 @@ public class HealthCommunity {
 		this.address = address;
 	}
 	
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "socialMedia", cascade = CascadeType.ALL)
 	public SocialMedia getSocialMedia() {
 		return socialMedia;
 	}
@@ -89,14 +105,13 @@ public class HealthCommunity {
 		this.socialMedia = socialMedia;
 	}
 	
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
 	public Category getCategory() {
 		return category;
 	}
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	@Column(name = "Msa_Name")
+	
 	public String getMsaName() {
 		return msaName;
 	}
@@ -104,7 +119,7 @@ public class HealthCommunity {
 		this.msaName = msaName;
 	}
 	
-	@Column(name = "Unique_Id")
+	
 	public Long getUniqueId() {
 		return uniqueId;
 	}
@@ -112,13 +127,14 @@ public class HealthCommunity {
 		this.uniqueId = uniqueId;
 	}
 	
-	@Column(name = "Map_Display")
+	
 	public String getMapDisplay() {
 		return mapDisplay;
 	}
 	public void setMapDisplay(String mapDisplay) {
 		this.mapDisplay = mapDisplay;
 	}
+	
 	
 	
 }
