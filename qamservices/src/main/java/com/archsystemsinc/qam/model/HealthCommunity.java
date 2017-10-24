@@ -51,7 +51,15 @@ public class HealthCommunity {
 	@Column(name = "Map_Display")
 	private String mapDisplay;
 	
+	@Column(name = "status")
+	private boolean status=true;
 	
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	public Long getId() {
 		return id;
 	}
