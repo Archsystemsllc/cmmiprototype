@@ -18,7 +18,6 @@ import com.archsystemsinc.qam.model.FileData;
 import com.archsystemsinc.qam.model.TemplateConfigData;
 import com.archsystemsinc.qam.model.TemplateData;
 import com.archsystemsinc.qam.service.FileDataService;
-import com.archsystemsinc.qam.utils.PoiUtils;
 	
 	/**
  * @author Prakash T
@@ -34,13 +33,11 @@ public class TestService {
 	
 
 	@RequestMapping(value = "/createTemplate", method = RequestMethod.POST)
-	public List<TemplateData> createTemplate(@RequestParam(value="name", required=true) String name){
+	public TemplateData createTemplate(@RequestParam(value="name", required=true) String name){
 		log.debug("--> createTemplate");
 		TemplateData data = new TemplateData();
 		data.setName(name);
-		fileDataService.createTemplate(data);
-		log.debug("<-- createTemplate");
-		return fileDataService.getAllTemplates();
+		return fileDataService.createTemplate(data);
 	}
 	
 	@RequestMapping(value = "/listTemplates", method = RequestMethod.GET)

@@ -38,8 +38,8 @@ public class HealthCommunityDataService {
 	 * 
 	 * @param data
 	 */
-	public void createHealthTemplateConfig(HealthDataTemplateConfig data){
-		healthDataTemplateConfigRepositoty.save(data);
+	public HealthDataTemplateConfig createHealthTemplateConfig(HealthDataTemplateConfig data){
+		return healthDataTemplateConfigRepositoty.save(data);
 	}
 	
 	
@@ -58,10 +58,10 @@ public class HealthCommunityDataService {
 	 * @param templateId
 	 * @param uploadedFile
 	 */
-	public void uploadHealthData(Long templateId, MultipartFile uploadedFile) {
+	public List<HealthCommunity> uploadHealthData(Long templateId, MultipartFile uploadedFile) {
 		HealthDataTemplateConfig configData = healthDataTemplateConfigRepositoty.findOne(templateId);
 		List<HealthCommunity> data = PoiUtils.parseHealthDataFile(uploadedFile, configData);	
-		healthCommunityRepository.save(data);
+		return healthCommunityRepository.save(data);
 		
 	}
 

@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,11 +38,9 @@ public class FileUploadService {
 	 * @return
 	 */
 	@RequestMapping(value = "/createHealthDataTemplateConfig", method = RequestMethod.POST)
-	public List<HealthDataTemplateConfig> createHealthDataTemplateConfig(HealthDataTemplateConfig data) {
+	public HealthDataTemplateConfig createHealthDataTemplateConfig(HealthDataTemplateConfig data) {
 		log.debug("--> createTemplate" + data);
-		healthCommunityDataService.createHealthTemplateConfig(data);
-		log.debug("<-- createTemplate");
-		return healthCommunityDataService.listHealthTemplateConfigs();
+		return healthCommunityDataService.createHealthTemplateConfig(data);
 	}
 
 	/**
@@ -65,9 +62,7 @@ public class FileUploadService {
 	public List<HealthCommunity> uploadHealthData(@PathVariable Long templateId,
 			@RequestParam("file") MultipartFile uploadedFile) {
 		log.debug("--> uploadFileData:" + templateId);
-		healthCommunityDataService.uploadHealthData(templateId, uploadedFile);
-		log.debug("<-- uploadFileData");
-		return healthCommunityDataService.listHealthData();
+		return healthCommunityDataService.uploadHealthData(templateId, uploadedFile);
 	}
 
 	/**

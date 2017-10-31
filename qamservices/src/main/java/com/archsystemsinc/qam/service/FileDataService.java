@@ -12,11 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.archsystemsinc.qam.model.FileData;
-import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.TemplateConfigData;
 import com.archsystemsinc.qam.model.TemplateData;
 import com.archsystemsinc.qam.repository.FileDataRepository;
-import com.archsystemsinc.qam.repository.HealthDataTemplateConfigRepositoty;
 import com.archsystemsinc.qam.repository.TemplateConfigRepository;
 import com.archsystemsinc.qam.repository.TemplateRepository;
 import com.archsystemsinc.qam.utils.PoiUtils;
@@ -41,8 +39,8 @@ public class FileDataService {
 	
 	
 	
-	public void createTemplate(TemplateData data){
-		templateRepository.save(data);
+	public TemplateData createTemplate(TemplateData data){
+		return templateRepository.save(data);
 	}
 	
 	public List<TemplateData> getAllTemplates(){
