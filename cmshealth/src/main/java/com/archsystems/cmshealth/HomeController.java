@@ -25,6 +25,13 @@ public class HomeController {
 		return modelAndView;
 	}
 	
+	@RequestMapping("/trailtemplate")
+	public ModelAndView trailTemplate(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("trail");
+		return modelAndView;
+	}
+	
 
 
 }
