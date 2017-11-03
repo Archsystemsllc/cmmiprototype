@@ -9,6 +9,7 @@
 	$("#templateCreation").hide();
 	$("#statusID").hide();
 	$("#fieldStatus").hide();
+	$("#uploadStatus").hide();
 	
 	
 	document.body.style.backgroundImage = "url('resources/images/image1.jpg')";
@@ -23,6 +24,8 @@
 			$("#templateListDiv").hide();
 			$("#configSubmit").hide();
 			$("#mainDiv").hide();
+			$("#uploadStatus").hide();
+			
 			$("#divTemplates").show();
 			$("#templateCreation").hide();
 			$("#statusID").hide();
@@ -79,6 +82,7 @@
 			        
 			       // alert(html);
 				})
+				$("#uploadStatus").show();
 				$("#uploadStatus").html(responseString);
                 },
                 error: function (error) {
