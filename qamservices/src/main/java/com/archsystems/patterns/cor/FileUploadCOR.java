@@ -108,7 +108,7 @@ public class FileUploadCOR extends AbstractChain {
 			//TODO: Core has failed and must send message and attempt recovery based on error type
 			logger.error(monitor.toString());
 		}
-		logger.info(monitor.toString());
+//		logger.info(monitor.toString());
 		return payload;
 	}
 /*	public CollectorContext getCctx() {
