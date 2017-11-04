@@ -18,6 +18,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.archsystemsinc.exception.FileUploadException;
+import com.archsystemsinc.logging.monitor.Monitor;
+import com.archsystemsinc.logging.monitor.StageMonitor;
 import com.archsystemsinc.qam.model.Address;
 import com.archsystemsinc.qam.model.Category;
 import com.archsystemsinc.qam.model.FileData;
@@ -94,14 +97,15 @@ public class PoiUtils {
 		}
 	}
 	
-	
-	
-	
+		
 
-	public static List<HealthCommunity> parseHealthDataFile(MultipartFile uploadedFile, HealthDataTemplateConfig configData) {
+	public static List<HealthCommunity> parseHealthDataFile(MultipartFile uploadedFile,
+			HealthDataTemplateConfig configData,StageMonitor monitor) throws FileUploadException{
 		log.debug("--> parseHealthFile");
+		monitor.appendMessage(monitor.getCurrentStage(), "Parse file name: "+uploadedFile.getName());
 		List<HealthCommunity> dataList = new ArrayList<HealthCommunity>();
 		Workbook providersFileWorkbook = null;
+
 		try {
 			providersFileWorkbook = WorkbookFactory.create(uploadedFile.getInputStream());
 			Sheet providersFileSheet = providersFileWorkbook.getSheetAt(0);
@@ -109,28 +113,42 @@ public class PoiUtils {
             int providersFileRowCount = providersFileSheet.getPhysicalNumberOfRows();
 			int totalNumberOfRows = providersFileRowCount - 1;
 			log.debug("totalNumberOfRows::"+totalNumberOfRows);
+			monitor.appendMessage(monitor.getCurrentStage(), "Parse file name,number of rows: "
+					+uploadedFile.getName()+"' "+totalNumberOfRows);
 			HealthCommunity data = null;
+			long rowNum=0;
 			while (providersFileRowIterator.hasNext()){
-				Row providersFileRow = (Row) providersFileRowIterator.next();
-				
-				if (providersFileRow.getRowNum() > 0 && providersFileRow.getRowNum() <= providersFileRowCount){
-					data = new HealthCommunity();
-					data.setTemplateId(configData.getTemplateId());
-					log.debug("ROW - " + providersFileRow.getRowNum());
-					Iterator<Cell> iterator = providersFileRow.cellIterator();
-					while (iterator.hasNext()) {
-						Cell hssfCell = (Cell) iterator.next();
-						int cellIndex = hssfCell.getColumnIndex();
-						 updateHealthFileData(cellIndex, hssfCell, data, configData);
-						 log.debug(data);
+				try {
+					Row providersFileRow = (Row) providersFileRowIterator.next();
+					
+					if (providersFileRow.getRowNum() > 0 && providersFileRow.getRowNum() <= providersFileRowCount){
+						data = new HealthCommunity();
+						data.setTemplateId(configData.getTemplateId());
+						log.debug("ROW - " + providersFileRow.getRowNum());
+						rowNum = providersFileRow.getRowNum();
+						Iterator<Cell> iterator = providersFileRow.cellIterator();
+						while (iterator.hasNext()) {
+							Cell hssfCell = (Cell) iterator.next();
+							int cellIndex = hssfCell.getColumnIndex();
+							 updateHealthFileData(cellIndex, hssfCell, data, configData);
+							 log.debug(data);
+						}
+						dataList.add(data);
 					}
-					dataList.add(data);
+				}catch(Exception e) {
+					//So this will be reported with the file name, not randomly threaded through the console output.
+					//this is a key area for error reporting in an enterprise context. The file parsing 
+					// is a common area where a difficult to find issue will occur. 
+					monitor.appendMessage(monitor.getCurrentStage(),"Failed for row: "+rowNum);
 				}
 			}
 		} catch (EncryptedDocumentException | InvalidFormatException
-				| IOException e) {
+				| IOException e) {			
+			monitor.appendMessage(monitor.getCurrentStage(), "Failed parsing file: "+uploadedFile.getName());
 			
-			e.printStackTrace();
+			log.error(e);
+			throw new FileUploadException(e.getMessage());
+			
 		}
 		
 		log.debug("<-- parseHealthFile");
@@ -202,4 +220,6 @@ public class PoiUtils {
 			data.setOrgName(cellData.getStringCellValue());
 		}
 	}
+	
+	
 }

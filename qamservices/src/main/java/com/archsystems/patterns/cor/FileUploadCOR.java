@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.archsystems.patterns.cor.stage.ConfigStage;
+import com.archsystems.patterns.cor.stage.ParseStage;
+import com.archsystems.patterns.cor.stage.SaveStage;
 import com.archsystemsinc.exception.ExceptionUtils;
 import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.logging.monitor.StageMonitor;
@@ -37,10 +40,10 @@ public class FileUploadCOR extends AbstractChain {
 	//}
 
 	@Override
-	public void initialize() {
-		
-		
-
+	public void initialize() {		
+		push(new SaveStage());
+		push(new ParseStage());
+		push(new ConfigStage());
 	}
 	
 
@@ -55,12 +58,12 @@ public class FileUploadCOR extends AbstractChain {
 	}
 
 	@Override
-	public Stage pop(TransferObject payload, StageMonitor mon, String servletThreadId) throws FileUploadException{
+	public Stage pop(TransferObject payload, StageMonitor mon) throws FileUploadException{
 		Stage stage = stack.pop();
 		
 		monitor.startStage(stage.getStageName());
 		try{
-			stage.execute(payload, monitor, servletThreadId);
+			stage.execute(payload, monitor);
 		}catch(Exception e){
 			//e.printStackTrace();
 			monitor.stopStage(stage.getStageName(), StageMonitor.FAILED, e.getMessage()  );
@@ -68,32 +71,37 @@ public class FileUploadCOR extends AbstractChain {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			throw new FileUploadException(e.getMessage());
 		}
-		
-
+		monitor.stopStage(stage.getStageName(), StageMonitor.STOP, "Stage completed");
+		logger.info(monitor.reportStage(stage.getStageName()));
 		return stage;
 	}
 
-	public FileUploadTO executeChain() throws FileUploadException {
-		// Indicate not to use the map 
-		executeChain("0");
-		return payload;
-	}
+
 	
 	@Override
-	public TransferObject executeChain( String servletThreadId) throws FileUploadException{
+	public TransferObject executeChain( TransferObject inParams) throws FileUploadException{
 		Stage previous;
-		while(!stack.isEmpty()){
-			try {
-				previous = pop(payload,monitor,servletThreadId);
-
-				payload = (FileUploadTO) previous.getPayload();
-			} catch (FileUploadException e) {
-				
-				logger.error(ExceptionUtils.getStackTrace(e));
-				//TODO: Core has failed and must send message and attempt recovery based on error type
+		try {
+			payload = (FileUploadTO)inParams;
+			while(!stack.isEmpty()){
+				try {
+					previous = pop(payload,monitor);
+	
+					payload = (FileUploadTO) previous.getPayload();
+				} catch (FileUploadException e) {
+					monitor.appendMessage("Main COR execution", "failed executing a stage.");
+					logger.error(ExceptionUtils.getStackTrace(e));
+					//TODO: Core has failed and must send message and attempt recovery based on error type
+					logger.error(monitor.toString());
+				}
 			}
+		}catch(Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			monitor.appendMessage("Main COR execution", "failed in the outer try block.");
+			//TODO: Core has failed and must send message and attempt recovery based on error type
+			logger.error(monitor.toString());
 		}
-		//logger.debug(monitor.toString());
+		logger.debug(monitor.toString());
 		return payload;
 	}
 /*	public CollectorContext getCctx() {

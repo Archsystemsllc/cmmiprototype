@@ -12,7 +12,8 @@ public interface Stage {
 
 	public String getStageName();
 
-	Stage execute(TransferObject payload, StageMonitor monitor, String servletThreadId)throws FileUploadException;
+	//Stage execute(TransferObject payload, StageMonitor monitor, String servletThreadId)throws FileUploadException;
 
+	Stage execute(TransferObject payload,StageMonitor monitor) throws FileUploadException;
 
 }

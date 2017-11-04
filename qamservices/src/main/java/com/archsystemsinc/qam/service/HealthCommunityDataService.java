@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.archsystems.patterns.cor.FileUploadCOR;
+import com.archsystems.patterns.cor.FileUploadTO;
+import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
@@ -59,10 +62,23 @@ public class HealthCommunityDataService {
 	 * @param uploadedFile
 	 */
 	public List<HealthCommunity> uploadHealthData(Long templateId, MultipartFile uploadedFile) {
-		HealthDataTemplateConfig configData = healthDataTemplateConfigRepositoty.findOne(templateId);
-		List<HealthCommunity> data = PoiUtils.parseHealthDataFile(uploadedFile, configData);	
-		return healthCommunityRepository.save(data);
-		
+		//HealthDataTemplateConfig configData = healthDataTemplateConfigRepositoty.findOne(templateId);
+		//List<HealthCommunity> data = PoiUtils.parseHealthDataFile(uploadedFile, configData);	
+		//return healthCommunityRepository.save(data);
+		FileUploadCOR fcor = new FileUploadCOR();
+		fcor.initialize();
+		FileUploadTO fto = new FileUploadTO();
+		//List<HealthCommunity> uploadHealthData(Long templateId, MultipartFile uploadedFile) {
+		fto.setTemplateId(templateId);
+		fto.setUploadedFile(uploadedFile);
+		try {
+			fcor.executeChain(fto);
+		} catch (FileUploadException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//TODO: Define service interface to report error
+		return fto.getSavedData();
 	}
 
 	
