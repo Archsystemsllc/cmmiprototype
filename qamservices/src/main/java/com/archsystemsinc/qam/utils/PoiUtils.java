@@ -131,7 +131,7 @@ public class PoiUtils {
 							Cell hssfCell = (Cell) iterator.next();
 							int cellIndex = hssfCell.getColumnIndex();
 							 updateHealthFileData(cellIndex, hssfCell, data, configData);
-							 log.debug(data);
+							 //log.debug(data);
 						}
 						dataList.add(data);
 					}

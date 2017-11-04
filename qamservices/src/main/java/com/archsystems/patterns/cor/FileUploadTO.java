@@ -14,6 +14,12 @@ public class FileUploadTO extends TransferObject {
 	List<HealthCommunity> parsedData;
 	List<HealthCommunity> savedData;
 	
+	
+	@Override
+	public String toString() {
+		return "FileUploadTO [templateId=" + templateId + ", configData=" + configData + ", parsedData=" + parsedData
+				+ ", savedData=" + savedData + "]";
+	}
 	public long getTemplateId() {
 		return templateId;
 	}

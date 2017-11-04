@@ -4,8 +4,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.archsystems.patterns.cor.stage.ConfigStage;
 import com.archsystems.patterns.cor.stage.ParseStage;
@@ -13,24 +14,29 @@ import com.archsystems.patterns.cor.stage.SaveStage;
 import com.archsystemsinc.exception.ExceptionUtils;
 import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.logging.monitor.StageMonitor;
-/*import com.comcast.rasp.domain.StackMessage;
-import com.comcast.rasp.domain.TransferObject;
-import com.comcast.rasp.exception.ExceptionUtils;
-import com.comcast.rasp.exception.RaspException;*/
 /*
  * The Collector COR initializes a Singleton (or accesses it if it exists already)
  *  and inserts a Visitor for managing messages during this session. The Visitor
  *   contains a StackMessage for collecting information on the stack executions
  *   for this request.
  */
+@Service
 public class FileUploadCOR extends AbstractChain {
-	
-	private static Logger logger = LoggerFactory.getLogger(FileUploadCOR.class);
-
+	private static final Logger logger = Logger.getLogger(FileUploadCOR.class);	
 	private FileUploadTO payload;
 	private Deque<Stage> stack = new ArrayDeque<>();
 	private StageMonitor monitor = new StageMonitor();
-//	CollectorContext cctx;
+
+	@Autowired
+	private ConfigStage configStage;
+	@Autowired
+	private ParseStage parseStage;
+	
+	@Autowired
+	private SaveStage saveStage;
+	
+	
+	//	CollectorContext cctx;
 
 	public FileUploadCOR() {
 	}
@@ -41,9 +47,9 @@ public class FileUploadCOR extends AbstractChain {
 
 	@Override
 	public void initialize() {		
-		push(new SaveStage());
-		push(new ParseStage());
-		push(new ConfigStage());
+		push(saveStage);
+		push(parseStage);
+		push(configStage);
 	}
 	
 
@@ -62,6 +68,7 @@ public class FileUploadCOR extends AbstractChain {
 		Stage stage = stack.pop();
 		
 		monitor.startStage(stage.getStageName());
+		logger.debug("payload::"+payload);
 		try{
 			stage.execute(payload, monitor);
 		}catch(Exception e){
@@ -101,7 +108,7 @@ public class FileUploadCOR extends AbstractChain {
 			//TODO: Core has failed and must send message and attempt recovery based on error type
 			logger.error(monitor.toString());
 		}
-		logger.debug(monitor.toString());
+		logger.info(monitor.toString());
 		return payload;
 	}
 /*	public CollectorContext getCctx() {
