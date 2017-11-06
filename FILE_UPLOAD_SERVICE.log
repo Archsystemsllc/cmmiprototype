@@ -1,0 +1,102 @@
+-------------------------------------
+/var/log/tomcat8/catalina.out
+-------------------------------------
+--- Monitoring Stage log report: Save Stage --- 
+Status: STOP
+Message: 
+Saved data for file, count: file' 32
+Stage completed
+Start DDD MM YYYY HH MM SS mmm: Mon Nov 06 02:03:38 UTC 2017
+Start millis: 1509933818351
+End DDD MM YYYY HH MM SS mmm: Mon Nov 06 02:03:38 UTC 2017
+End millis: 1509933818518
+stop - start (Duration in millis)  = 167
+--- Monitoring stage: Save Stage report completed. ---
+
+2017-11-06 02:10:18 INFO  FileUploadCOR:82 - 
+
+--- Monitoring Stage log report: Configuration Stage --- 
+Status: STOP
+Message: 
+Found configData for template: 1
+Stage completed
+Start DDD MM YYYY HH MM SS mmm: Mon Nov 06 02:10:18 UTC 2017
+Start millis: 1509934218434
+End DDD MM YYYY HH MM SS mmm: Mon Nov 06 02:10:18 UTC 2017
+End millis: 1509934218488
+stop - start (Duration in millis)  = 54
+--- Monitoring stage: Configuration Stage report completed. ---
+
+2017-11-06 02:10:18 INFO  FileUploadCOR:82 - 
+
+--- Monitoring Stage log report: Parse Stage --- 
+Status: STOP
+Message: 
+Parse file name: file
+Parse file name,number of rows: file' 32
+Parsed file data file name, count: file, 32
+Stage completed
+Start DDD MM YYYY HH MM SS mmm: Mon Nov 06 02:10:18 UTC 2017
+Start millis: 1509934218490
+End DDD MM YYYY HH MM SS mmm: Mon Nov 06 02:10:18 UTC 2017
+End millis: 1509934218618
+stop - start (Duration in millis)  = 128
+--- Monitoring stage: Parse Stage report completed. ---
+
+2017-11-06 02:10:18 INFO  FileUploadCOR:82 - 
+
+--- Monitoring Stage log report: Save Stage --- 
+Status: STOP
+Message: 
+Saved data for file, count: file' 32
+Stage completed
+Start DDD MM YYYY HH MM SS mmm: Mon Nov 06 02:10:18 UTC 2017
+Start millis: 1509934218619
+End DDD MM YYYY HH MM SS mmm: Mon Nov 06 02:10:18 UTC 2017
+End millis: 1509934218802
+stop - start (Duration in millis)  = 183
+--- Monitoring stage: Save Stage report completed. ---
+
+2017-11-06 19:59:57 INFO  FileUploadCOR:82 - 
+
+--- Monitoring Stage log report: Configuration Stage --- 
+Status: STOP
+Message: 
+Found configData for template: 1
+Stage completed
+Start DDD MM YYYY HH MM SS mmm: Mon Nov 06 19:59:57 UTC 2017
+Start millis: 1509998397296
+End DDD MM YYYY HH MM SS mmm: Mon Nov 06 19:59:57 UTC 2017
+End millis: 1509998397326
+stop - start (Duration in millis)  = 30
+--- Monitoring stage: Configuration Stage report completed. ---
+
+2017-11-06 19:59:57 INFO  FileUploadCOR:82 - 
+
+--- Monitoring Stage log report: Parse Stage --- 
+Status: STOP
+Message: 
+Parse file name: file
+Parse file name,number of rows: file' 32
+Parsed file data file name, count: file, 32
+Stage completed
+Start DDD MM YYYY HH MM SS mmm: Mon Nov 06 19:59:57 UTC 2017
+Start millis: 1509998397327
+End DDD MM YYYY HH MM SS mmm: Mon Nov 06 19:59:57 UTC 2017
+End millis: 1509998397452
+stop - start (Duration in millis)  = 125
+--- Monitoring stage: Parse Stage report completed. ---
+
+2017-11-06 19:59:57 INFO  FileUploadCOR:82 - 
+
+--- Monitoring Stage log report: Save Stage --- 
+Status: STOP
+Message: 
+Saved data for file, count: file' 32
+Stage completed
+Start DDD MM YYYY HH MM SS mmm: Mon Nov 06 19:59:57 UTC 2017
+Start millis: 1509998397454
+End DDD MM YYYY HH MM SS mmm: Mon Nov 06 19:59:57 UTC 2017
+End millis: 1509998397611
+stop - start (Duration in millis)  = 157
+--- Monitoring stage: Save Stage report completed. ---
