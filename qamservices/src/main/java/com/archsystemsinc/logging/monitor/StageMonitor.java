@@ -11,6 +11,7 @@ public class StageMonitor extends Monitor{
 	public static final String START="START";
 	public static final String STOP="STOP";	
 	public static final String FAILED="FAILED";
+	private String currentStage = "";
 
 	LinkedHashMap <String, Message>messages = new LinkedHashMap<String, Message>();
 	
@@ -47,17 +48,17 @@ public class StageMonitor extends Monitor{
 		public String toString() {
 
 		    StringBuilder result = new StringBuilder();
-		    result.append("\n\n--- Monitoring Stage: "+stage+" --- ");
+		    result.append("\n\n--- Monitoring Stage log report: "+stage+" --- ");
 		    result.append("\nStatus: "+state);
 		    result.append("\nMessage: "+message);
 		    result.append("\nStart DDD MM YYYY HH MM SS mmm: "+startDate);
 		    result.append("\nStart millis: "+start);
-		    result.append("\n--- Monitoring stage: "+stage +" - "+state+" ---\n ");
+		   // result.append("\n--- Monitoring stage: "+stage +" - "+state+" ---\n ");
 		    if(stop>0){
 		    	result.append("\nEnd DDD MM YYYY HH MM SS mmm: "+endDate);
 		    	result.append("\nEnd millis: "+stop);
 		    	result.append("\nstop - start (Duration in millis)  = "+(stop - start));
-		    	result.append("\n--- Monitoring stage: "+stage +" completed. ---\n");
+		    	result.append("\n--- Monitoring stage: "+stage +" report completed. ---\n");
 		    }
 		    return result.toString();
 		}
@@ -96,7 +97,8 @@ public class StageMonitor extends Monitor{
 	}///End Inner Class
 	
 	public void startStage(String stage){
-		 messages.put(stage, new Message(stage,START,""));
+		this.setCurrentStage(stage);
+		messages.put(stage, new Message(stage,START,""));
 	}
 	
 	public void appendMessage(String stage_l,String message1){
@@ -135,6 +137,14 @@ public class StageMonitor extends Monitor{
 		}catch(Exception e){
 			return "Warning - stage: "+ stage+"not found.";
 		}
+	}
+
+	public String getCurrentStage() {
+		return currentStage;
+	}
+
+	public void setCurrentStage(String currentStage) {
+		this.currentStage = currentStage;
 	}
 	
 }
