@@ -10,27 +10,24 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 	
-
+	//upload file
 	@RequestMapping("/")
 	public ModelAndView viewMyPage(){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("home");
+		modelAndView.setViewName("upload-file");
 		return modelAndView;
 	}
 	
-	@RequestMapping("/listoftemplate")
+	
+	//create template
+	@RequestMapping("/createtemplate")
 	public ModelAndView listOfTemplate(){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("listoftemplates");
+		modelAndView.setViewName("create-template");
 		return modelAndView;
 	}
 	
-	@RequestMapping("/trailtemplate")
-	public ModelAndView trailTemplate(){
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("trail");
-		return modelAndView;
-	}
+
 	
 
 
