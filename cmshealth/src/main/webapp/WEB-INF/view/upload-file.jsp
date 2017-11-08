@@ -102,7 +102,7 @@ up.jQuery  = $;
           console.log(selecteditem);
         }
 
-      })(up.jQuery);
+      }(up.jQuery));
     </script>
     <div id="whole">
       <div id=jumbo class="jumbotron jumbotron-fluid">

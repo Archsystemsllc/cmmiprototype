@@ -129,7 +129,7 @@ up.jQuery  = $;
         });  // ajax
       });  // #configSubmit.click
     });  // document.ready()
-  })(up.jQuery);
+  }(up.jQuery));
 </script>
 <div id="whole">
   <div id="templateCreation" class="jumbotron jumbotron-fluid"
