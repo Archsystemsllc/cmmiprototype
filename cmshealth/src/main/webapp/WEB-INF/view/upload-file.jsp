@@ -2,9 +2,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-  
-  <script src="resources/jquery-3.2.1.js"></script>
  
+  <script src="resources/jquery-3.2.1.js"></script>
+
+<script>
+var up={}
+up.jQuery  = $;
+</script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>UPLOAD</title>
@@ -18,8 +23,10 @@
   </head>
   <body>
     <script>
-    jQuery.noConflict()(function($) {  // jQuery wrapper for uPortal
-        $(document).ready(function () {
+(function($) {  // jQuery wrapper for uPortal
+    	$(document).ready(function () {
+
+        	
           // load templates
           getListTemplates();
 
@@ -95,7 +102,7 @@
           console.log(selecteditem);
         }
 
-      });(up.jQuery)
+      })(up.jQuery);
     </script>
     <div id="whole">
       <div id=jumbo class="jumbotron jumbotron-fluid">

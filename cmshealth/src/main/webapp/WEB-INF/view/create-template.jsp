@@ -7,6 +7,10 @@
 
 <script src="resources/jquery-3.2.1.js"></script>
 
+<script>
+var up={}
+up.jQuery  = $;
+</script>
 
 <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -18,7 +22,7 @@
 </head>
 <body>
 <script>
-jQuery.noConflict()(function($) {  // jQuery wrapper for uPortal
+(function($) {  // jQuery wrapper for uPortal
     $(document).ready(function () {
       $("#templateListDiv").show();
       $("#configSubmit").hide();
@@ -125,7 +129,7 @@ jQuery.noConflict()(function($) {  // jQuery wrapper for uPortal
         });  // ajax
       });  // #configSubmit.click
     });  // document.ready()
-  });//(up.jQuery)
+  })(up.jQuery);
 </script>
 <div id="whole">
   <div id="templateCreation" class="jumbotron jumbotron-fluid"
