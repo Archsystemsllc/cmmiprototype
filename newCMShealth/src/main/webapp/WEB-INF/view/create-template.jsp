@@ -7,35 +7,52 @@
 
 <script src="resources/jquery-3.2.1.js"></script>
 
+
 <script>
 var up={}
 up.jQuery  = $;
+var mappedItems = {};
 </script>
 
-<link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
-<link rel="stylesheet"
-  href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-<link
-  href="https://fonts.googleapis.com/css?family=Cookie|Fredericka+the+Great"
-  rel="stylesheet">
+
+  <link rel="stylesheet" href="resources/css/uswds.css" />
+  <link rel="stylesheet" href="resources/css/uswds.min.css" />
+  <link rel="stylesheet" href="resources/css/uswds.min.css.map" />
+  
+  
+    <style>
+.jumbotron {
+	width: 50%;
+	margin-top: 150px;
+	margin-right: 350px;
+	margin-left: 350px;
+	padding: 50px 0px 50px 90px;
+	color: #3d3d3d;
+	background-color: hsla(180, 2%, 87%, 0.5);
+}
+</style>
 </head>
 <body>
 <script>
 (function($) {  // jQuery wrapper for uPortal
     $(document).ready(function () {
       $("#templateListDiv").show();
-      $("#configSubmit").hide();
-      $("#mainDiv").hide();
-      $("#statusID").hide();
-      $("#fieldStatus").hide();
+   //   $("#configSubmit").hide();
+    //  $("#mainDiv").hide();
+    //  $("#statusID").hide();
+     // $("#fieldStatus").hide();
+      
+      document.body.style.backgroundImage = "url('resources/images/image1.jpg')";
+    	document.body.style.backgroundRepeat="no-repeat";
+    	document.body.style.backgroundSize="cover";
+
 
       function getListTemplates() {
         var username="qamadmin";
         var password="123456";
         $.ajax({
             type:'GET',
-            url:'http://cmstest.us-east-1.elasticbeanstalk.com/api/listTemplates',
+            url:'http://localhost:8080/qamservices/api/listTemplates',
                    enctype:'multipart/form-data',
                    contentType: false,
                    processData: false,
@@ -69,7 +86,7 @@ up.jQuery  = $;
         if (templatecreate.name!=null && templatecreate.name!='') {
           $.ajax({
               type: 'POST',
-              url: 'http://cmstest.us-east-1.elasticbeanstalk.com/api/createTemplate',
+              url: 'http://localhost:8080/qamservices/api/createTemplate',
               enctype:'multipart/form-data',
               data:formData,
               contentType: false,
@@ -77,10 +94,11 @@ up.jQuery  = $;
               headers:{  "Authorization": "Basic " + btoa(username+":"+password)},
               success: function(response) {
                 // console.log('succes!!' );
+                console.log(response);
                 templatenameid = response.id;
                 globalResponseid = response.id
                 getListTemplates();
-                $('#statusID').html("Your Template has been created with id : " + globalResponseid);
+             //   $('#statusID').html("Your Template has been created with id : " + globalResponseid);
                 $("#configSubmit").show();
                 $("#mainDiv").show();
                 $("#statusID").show();
@@ -94,6 +112,59 @@ up.jQuery  = $;
           getListTemplates();  
         }
       });  // #templateSubmit.click
+      
+/*       $("#addNewField").click(function () {
+    	 $("#slectNewDiv").append(new Option($("#newExtraField").val(),$("#newExtraField").val()));
+      }); */
+      
+  
+      $("#moveField").click(function () {
+    	  localmappedItems = {};
+    	  var selectedLength = $("#slectNewDiv :selected").length;
+    	  console.log(selectedLength);
+    	  var concatinateVal= '';
+    	  if(selectedLength == 2){
+    		  var tempArray = [];
+    		  $("#slectNewDiv option:selected").each(function () {
+    			  var $this = $(this);
+    			  concatinateVal += $this.text() + ' ';
+    			  tempArray.push($this.text());
+    		  })
+    		  mappedItems[concatinateVal] = tempArray;
+    		  localmappedItems[concatinateVal] = tempArray;
+    	  }
+    	  if(selectedLength == 1){
+    		  var item = $("#slectNewDiv option:selected").text();
+    		  console.log(item);
+    		  mappedItems[item]=item;
+    		  localmappedItems[item] = item;
+    	  }
+    	  var keysLength = Object.keys(localmappedItems).length;
+    	  console.log(keysLength);
+    	  Object.keys(localmappedItems).forEach(function(item,index){
+    		  $("#requestNewDiv").append(new Option(item,item)); 
+    	  })
+    	//  for(int i=0;i<keysLength;i++){
+    	 // $("#requestNewDiv").append(Object.keys(mappedItems)[i],Object.keys(mappedItems)[i]);
+    	//  }
+    	  console.log(JSON.stringify(localmappedItems));
+
+ /*    	 $("#slectNewDiv option:selected").each(function () {
+    		  var $this = $(this);
+    		  if($this.length == 2){
+    			 console.log(); 
+    		  }
+    		  else if($this.length == 1) {
+    			  
+    		  }
+    		  console.log($this.text());
+    		  
+    		  
+    	  })  */
+    	  
+     	// $("#slectNewDiv").append(new Option($("#newExtraField").val(),$("#newExtraField").val()));
+       });
+      
 
       $("#configSubmit").click(function () {
         console.log(globalResponseid);
@@ -108,18 +179,19 @@ up.jQuery  = $;
           var file = details[i];
           formData.append(file,i);
         }
-
+console.log(JSON.stringify(mappedItems));
         $.ajax({
             type: 'POST',
-            url: 'http://cmstest.us-east-1.elasticbeanstalk.com/api/createHealthDataTemplateConfig',
+            url: 'http://localhost:8080/qamservices/api/createHealthDataTemplateConfig',
             //   enctype:'multipart/form-data',
-            data:formData,
+            data:mappedItems,
             contentType: false,
             processData: false,
             headers:{  "Authorization": "Basic " + btoa(username+":"+password)},
             success: function(response) {
+            	console.log(response.id);
               console.log('succes!!');
-              $('#fieldStatus').html("Template " +globalResponseid + " has been configured ");
+              $('#fieldStatus').html("Template " +response.id + " has been configured ");
               $("#fieldStatus").show();
               console.log("resposnse is ", JSON.stringify(response))
             },
@@ -161,10 +233,27 @@ up.jQuery  = $;
         <option value="Twitter">Twitter</option>
         <option value="youtube">youtube</option>
         <option value="website">website</option>
+        <option value="categoryName">categoryName</option>
         <option value="msaName">msaName</option>
         <option value="uniqueId">uniqueId</option>
         <option value="mapDisplay">mapDisplay</option>
-      </select> <br>
+      </select> 
+      		<br>
+      		
+      		<button id="moveField" class="btn btn-default">Concatenate</button>
+      		<br>
+      		
+      <select id="requestNewDiv" name="attributeNames" size="5"
+                                                     multiple="multiple">
+      </select> 
+      <br>
+      
+      		<!-- Add extra Field
+      		<br>
+         <input type ="text" id="newExtraField">
+         <button id="addNewField" class="btn btn-default">addnewfield</button> -->
+         
+		 <br>
       <div align="center" id="fieldStatus"></div>
       <br>
       <div>
