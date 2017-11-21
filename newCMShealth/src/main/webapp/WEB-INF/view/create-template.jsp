@@ -240,7 +240,7 @@ console.log(JSON.stringify(mappedItems));
       </select> 
       		<br>
       		
-      		<button id="moveField" class="btn btn-default">Move</button>
+      		<button id="moveField" class="btn btn-default">Concatenate</button>
       		<br>
       		
       <select id="requestNewDiv" name="attributeNames" size="5"
