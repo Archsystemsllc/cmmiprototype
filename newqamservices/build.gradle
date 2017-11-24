@@ -1,0 +1,47 @@
+plugins {		
+  id "org.sonarqube" version "2.5"		
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+
+repositories {
+ mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-webmvc:4.3.4.RELEASE'
+    compile 'org.springframework:spring-web:4.3.4.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.3.4.RELEASE'
+    compile 'org.springframework:spring-orm:4.3.4.RELEASE'
+    compile 'org.springframework.data:spring-data-jpa:1.9.4.RELEASE'
+    compile 'org.springframework.security:spring-security-core:4.0.1.RELEASE'
+    compile 'org.springframework.security:spring-security-taglibs:4.0.1.RELEASE'
+    compile 'org.springframework.security:spring-security-web:4.1.4.RELEASE'
+    compile 'org.springframework.security:spring-security-config:4.1.4.RELEASE'
+    compile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile 'javax.servlet:jstl:1.2'
+    compile 'javax.validation:validation-api:1.0.0.GA'
+    compile 'org.apache.poi:poi:3.16'
+    compile 'org.apache.poi:poi-ooxml:3.16'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.11.Final'
+    compile 'org.hibernate:hibernate-core:4.3.11.Final'
+    compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'
+    compile 'de.grundid.opendatalab:geojson-jackson:1.8'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.7.5'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.0.2'
+   // compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+    compile 'com.google.guava:guava:r05'
+    compile 'mysql:mysql-connector-java:6.0.3'
+    //compile 'javax.persistence:persistence-api:1.0.2'
+    compile 'log4j:log4j:1.2.17'
+    testCompile("org.seleniumhq.selenium:selenium-server:2.34.0")		
+    testCompile("com.github.detro.ghostdriver:phantomjsdriver:1.0.4")
+    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+    implementation 'com.google.guava:guava:21.0'
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+}
+
