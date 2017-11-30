@@ -1,0 +1,1 @@
+Dump20171124.sql is from the original epc prototype before any change for the IDOS prototype, it contains the full schema and data.
