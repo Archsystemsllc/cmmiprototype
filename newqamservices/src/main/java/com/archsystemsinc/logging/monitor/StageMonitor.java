@@ -24,17 +24,8 @@ public class StageMonitor extends Monitor{
 		public long stop=0;
 		public Date startDate;
 		public Date endDate;
-		public int filesize;
 		
 		//Message(){}
-
-		public int getFilesize() {
-			return filesize;
-		}
-
-		public void setFilesize(int filesize) {
-			this.filesize = filesize;
-		}
 
 		Message(String stage){
 			start();

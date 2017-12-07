@@ -34,6 +34,12 @@ public class HealthDataTemplateConfig {
 	private Long msaName;
 	private Long uniqueId;
 	private Long mapDisplay;
+	
+	private String mergedCol1;
+	private String mergedCol2;
+	private String mergedCol3;
+	private String mergedCol4;
+	private String mergedCol5;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long getId() {
@@ -184,5 +190,43 @@ public class HealthDataTemplateConfig {
 	}
 	
 	
-
+	@Column(name = "MERGED_COL1")
+	public String getMergedCol1() {
+		return mergedCol1;
+	}
+	public void setMergedCol1(String mergedCol1) {
+		this.mergedCol1 = mergedCol1;
+	}
+	
+	@Column(name = "MERGED_COL2")
+	public String getMergedCol2() {
+		return mergedCol2;
+	}
+	public void setMergedCol2(String mergedCol2) {
+		this.mergedCol2 = mergedCol2;
+	}
+	
+	@Column(name = "MERGED_COL3")
+	public String getMergedCol3() {
+		return mergedCol3;
+	}
+	public void setMergedCol3(String mergedCol3) {
+		this.mergedCol3 = mergedCol3;
+	}
+	
+	@Column(name = "MERGED_COL4")
+	public String getMergedCol4() {
+		return mergedCol4;
+	}
+	public void setMergedCol4(String mergedCol4) {
+		this.mergedCol4 = mergedCol4;
+	}
+	
+	@Column(name = "MERGED_COL5")
+	public String getMergedCol5() {
+		return mergedCol5;
+	}
+	public void setMergedCol5(String mergedCol5) {
+		this.mergedCol5 = mergedCol5;
+	}
 }

@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
+import com.archsystemsinc.qam.model.Reporting;
 import com.archsystemsinc.qam.service.HealthCommunityDataService;
-import com.archsystemsinc.qam.utils.HealthCommunityData;
 
 /**
  * @author Prakash T
@@ -60,7 +60,7 @@ public class FileUploadService {
 	 * @return
 	 */
 	@RequestMapping(value = "/uploadHealthData/{templateId}", method = RequestMethod.POST)
-	public HealthCommunityData uploadHealthData(@PathVariable Long templateId,
+	public List<HealthCommunity> uploadHealthData(@PathVariable Long templateId,
 			@RequestParam("file") MultipartFile uploadedFile) {
 		log.debug("--> uploadFileData:" + templateId);
 		return healthCommunityDataService.uploadHealthData(templateId, uploadedFile);
@@ -75,6 +75,14 @@ public class FileUploadService {
 		return healthCommunityDataService.listHealthData();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/reporting", method = RequestMethod.GET)
+	public List<Reporting> reporting() {
+		return healthCommunityDataService.reporting();
+	}
 	/**
 	 * 
 	 * @param emailId

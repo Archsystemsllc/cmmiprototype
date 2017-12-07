@@ -3,7 +3,9 @@
  */
 package com.archsystemsinc.qam.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,12 @@ import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
+import com.archsystemsinc.qam.model.Reporting;
 import com.archsystemsinc.qam.repository.EmailAddressRepository;
 import com.archsystemsinc.qam.repository.HealthCommunityRepository;
 import com.archsystemsinc.qam.repository.HealthDataTemplateConfigRepositoty;
-import com.archsystemsinc.qam.utils.HealthCommunityData;
+import com.archsystemsinc.qam.repository.ReportingRepository;
+import com.archsystemsinc.qam.utils.PoiUtils;
 
 /**
  * @author Prakash T
@@ -39,9 +43,9 @@ public class HealthCommunityDataService {
 	@Autowired
 	HealthDataTemplateConfigRepositoty healthDataTemplateConfigRepositoty;
 	
-	//@Autowired
+	@Autowired
+	private ReportingRepository reportingRepository;
 	
-	HealthCommunityData healthCommunityData;
 	
 	/**
 	 * 
@@ -67,23 +71,20 @@ public class HealthCommunityDataService {
 	 * @param templateId
 	 * @param uploadedFile
 	 */
-	public HealthCommunityData uploadHealthData(Long templateId, MultipartFile uploadedFile) {
+	public List<HealthCommunity> uploadHealthData(Long templateId, MultipartFile uploadedFile) {
 		//log.debug("fileUploadCOR::"+fileUploadCOR);
 		fileUploadCOR.initialize();
 		FileUploadTO fto = new FileUploadTO();
 		fto.setTemplateId(templateId);
+		fto.setFileName(uploadedFile.getOriginalFilename());
 		fto.setUploadedFile(uploadedFile);
 		try {
 			fto = (FileUploadTO) fileUploadCOR.executeChain(fto);
-			healthCommunityData = new HealthCommunityData();
-			healthCommunityData.setlistOfHealthCommunity(fto.getSavedData());
-			healthCommunityData.setInitialFileSize(fto.getFileRows());
-			
 		} catch (FileUploadException e) {
 			e.printStackTrace();
 		}
 		//log.debug("fto:"+fto);
-		return healthCommunityData;
+		return fto.getSavedData();
 	}
 
 	
@@ -92,7 +93,24 @@ public class HealthCommunityDataService {
 	 * @return
 	 */
 	public List<HealthCommunity> listHealthData() {
-		return healthCommunityRepository.findAll();
+		List<HealthCommunity> data = healthCommunityRepository.findAll();
+		if(!data.isEmpty()) {
+			Map<Long,HealthDataTemplateConfig> healthDataTemplateConfigMap = new HashMap<Long,HealthDataTemplateConfig>();
+			HealthDataTemplateConfig tempConf = null;
+			for(HealthCommunity hc:data) {
+				if(healthDataTemplateConfigMap.containsKey(hc.getTemplateId())) {
+					tempConf = healthDataTemplateConfigMap.get(hc.getTemplateId());
+				}else {
+					tempConf = healthDataTemplateConfigRepositoty.findByTemplateId(hc.getTemplateId());
+					healthDataTemplateConfigMap.put(hc.getTemplateId(), tempConf);
+				}
+				if(tempConf != null) {
+					PoiUtils.updateHealthDataWithMergedColData(hc, tempConf);
+				}				
+			}			
+			
+		}
+		return data;
 	}
 
 	/**
@@ -109,6 +127,15 @@ public class HealthCommunityDataService {
 		}
 		
 		return emailAddress;
+	}
+
+
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Reporting> reporting() {
+		return reportingRepository.findAll();
 	}
 	
 	

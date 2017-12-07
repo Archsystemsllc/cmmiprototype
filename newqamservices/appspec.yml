@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /build/libs/qamservices.war
+  - source: /build/libs/newqamservices.war
     destination: /tmp/codedeploy-deployment-staging-area/
   - source: /scripts/configure_http_port.xsl
     destination: /tmp/codedeploy-deployment-staging-area/
