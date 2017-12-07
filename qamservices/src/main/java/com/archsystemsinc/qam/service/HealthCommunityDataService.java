@@ -3,7 +3,9 @@
  */
 package com.archsystemsinc.qam.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.repository.EmailAddressRepository;
 import com.archsystemsinc.qam.repository.HealthCommunityRepository;
 import com.archsystemsinc.qam.repository.HealthDataTemplateConfigRepositoty;
+import com.archsystemsinc.qam.utils.PoiUtils;
 
 /**
  * @author Prakash T
@@ -84,7 +87,24 @@ public class HealthCommunityDataService {
 	 * @return
 	 */
 	public List<HealthCommunity> listHealthData() {
-		return healthCommunityRepository.findAll();
+		List<HealthCommunity> data = healthCommunityRepository.findAll();
+		if(!data.isEmpty()) {
+			Map<Long,HealthDataTemplateConfig> healthDataTemplateConfigMap = new HashMap<Long,HealthDataTemplateConfig>();
+			HealthDataTemplateConfig tempConf = null;
+			for(HealthCommunity hc:data) {
+				if(healthDataTemplateConfigMap.containsKey(hc.getTemplateId())) {
+					tempConf = healthDataTemplateConfigMap.get(hc.getTemplateId());
+				}else {
+					tempConf = healthDataTemplateConfigRepositoty.findByTemplateId(hc.getTemplateId());
+					healthDataTemplateConfigMap.put(hc.getTemplateId(), tempConf);
+				}
+				if(tempConf != null) {
+					PoiUtils.updateHealthDataWithMergedColData(hc, tempConf);
+				}				
+			}			
+			
+		}
+		return data;
 	}
 
 	/**

@@ -13,6 +13,7 @@ import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.logging.monitor.StageMonitor;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.repository.HealthCommunityRepository;
+import com.archsystemsinc.qam.utils.PoiUtils;
 
 @Component
 public class SaveStage implements Stage{
@@ -43,6 +44,7 @@ public class SaveStage implements Stage{
 		try {
 			this.payload = (FileUploadTO) payloadLocal;
 			List<HealthCommunity> savedData = healthCommunityRepository.save(payload.getParsedData());
+			PoiUtils.updateHealthDataWithMergedColData(savedData, this.payload.getConfigData());
 			payload.setSavedData(savedData);
 			monitor.appendMessage(this.getStageName(), "Saved data for file, count: "+
 					payload.getUploadedFile().getName()+"' "+payload.getParsedData().size());

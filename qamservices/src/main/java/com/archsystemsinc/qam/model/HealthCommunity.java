@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author Prakash T
@@ -50,6 +51,49 @@ public class HealthCommunity {
 	private Long uniqueId;
 	@Column(name = "Map_Display")
 	private String mapDisplay;
+	
+	@Transient
+	private String mergedCol1;
+	@Transient
+	private String mergedCol2;
+	@Transient
+	private String mergedCol3;
+	@Transient
+	private String mergedCol4;
+	@Transient
+	private String mergedCol5;
+	
+	public String getMergedCol1() {
+		return mergedCol1;
+	}
+	public void setMergedCol1(String mergedCol1) {
+		this.mergedCol1 = mergedCol1;
+	}
+	public String getMergedCol2() {
+		return mergedCol2;
+	}
+	public void setMergedCol2(String mergedCol2) {
+		this.mergedCol2 = mergedCol2;
+	}
+	public String getMergedCol3() {
+		return mergedCol3;
+	}
+	public void setMergedCol3(String mergedCol3) {
+		this.mergedCol3 = mergedCol3;
+	}
+	public String getMergedCol4() {
+		return mergedCol4;
+	}
+	public void setMergedCol4(String mergedCol4) {
+		this.mergedCol4 = mergedCol4;
+	}
+	public String getMergedCol5() {
+		return mergedCol5;
+	}
+	public void setMergedCol5(String mergedCol5) {
+		this.mergedCol5 = mergedCol5;
+	}
+
 	
 	@Column(name = "status")
 	private boolean status=true;
@@ -142,7 +186,6 @@ public class HealthCommunity {
 	public void setMapDisplay(String mapDisplay) {
 		this.mapDisplay = mapDisplay;
 	}
-	
 	
 	
 }

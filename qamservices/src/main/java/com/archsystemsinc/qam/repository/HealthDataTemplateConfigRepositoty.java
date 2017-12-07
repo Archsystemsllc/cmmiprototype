@@ -6,4 +6,5 @@ import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 
 public interface HealthDataTemplateConfigRepositoty extends JpaRepository< HealthDataTemplateConfig, Long>{
 
+	public HealthDataTemplateConfig findByTemplateId(Long templateId);
 }

@@ -136,6 +136,7 @@ public class PoiUtils {
 						dataList.add(data);
 					}
 				}catch(Exception e) {
+					log.error(e);
 					//So this will be reported with the file name, not randomly threaded through the console output.
 					//this is a key area for error reporting in an enterprise context. The file parsing 
 					// is a common area where a difficult to find issue will occur. 
@@ -221,5 +222,132 @@ public class PoiUtils {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param healthCommunity
+	 * @param config
+	 * @param mergedColString
+	 * @return
+	 */
+	private static String getMergedColData(HealthCommunity healthCommunity,HealthDataTemplateConfig configData,String mergedColString) {
+		log.debug("--> getMergedColData::"+mergedColString);
+		String temp[] = mergedColString.split(":");
+		log.debug("temp:"+temp);
+		String fieldName = temp[0];
+		String colPositions = temp[1];
+		String dCols[] = colPositions.split(",");
+		log.debug("dCols::"+dCols);
+		StringBuilder builder = new StringBuilder(fieldName+":");
+		Integer cellIndex = null;
+		for(int index =0; index < dCols.length; index++) {
+			cellIndex = new Integer(dCols[index]);
+			if(configData.getCategoryName() != null && configData.getCategoryName() == cellIndex.intValue()){
+				if(healthCommunity.getCategory() != null)
+				builder.append(" "+healthCommunity.getCategory().getCategoryName());
+			}else if(configData.getLocation() != null && configData.getLocation() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getLocation());
+			}else if(configData.getCity() !=null && configData.getCity() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getCity());
+			}else if(configData.getState() !=null && configData.getState() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getState());
+			}else if(configData.getStateBase() !=null && configData.getStateBase() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getStateBase());
+			}else if(configData.getPhase1() !=null && configData.getPhase1() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getPhase1());
+			}else if(configData.getPhase2() !=null && configData.getPhase2() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getPhase2());
+			}else if(configData.getFacebook() != null && configData.getFacebook() == cellIndex.intValue()){
+				if(healthCommunity.getSocialMedia() != null)
+				builder.append(" "+healthCommunity.getSocialMedia().getFacebook());
+			}else if(configData.getTwitter() != null && configData.getTwitter() == cellIndex.intValue()){
+				if(healthCommunity.getSocialMedia() != null)
+				builder.append(" "+healthCommunity.getSocialMedia().getTwitter());
+			}else if(configData.getYoutube() != null && configData.getYoutube() == cellIndex.intValue()){
+				if(healthCommunity.getSocialMedia() != null)
+				builder.append(" "+healthCommunity.getSocialMedia().getYoutube());
+			}else if(configData.getWebsite() != null && configData.getWebsite() == cellIndex.intValue()){
+				if(healthCommunity.getSocialMedia() != null)
+				builder.append(" "+healthCommunity.getSocialMedia().getWebsite());
+			}else if(configData.getMapDisplay() !=null && configData.getMapDisplay() == cellIndex.intValue()){
+				builder.append(" "+healthCommunity.getMapDisplay());
+			}else if(configData.getMsaName() !=null && configData.getMsaName() == cellIndex.intValue()){
+				builder.append(" "+healthCommunity.getMsaName());
+			}else if(configData.getNameOfInitiative() !=null && configData.getNameOfInitiative() == cellIndex.intValue()){
+				builder.append(" "+healthCommunity.getNameOfInitiative());
+			}else if(configData.getNotes() !=null && configData.getNotes() == cellIndex.intValue()){
+				builder.append(" "+healthCommunity.getNotes());
+			}else if(configData.getOrgName() !=null && configData.getOrgName() == cellIndex.intValue()){
+				builder.append(" "+healthCommunity.getOrgName());
+			}
+		}
+			
+		log.debug("<-- getMergedColData:"+builder);
+		return builder.toString().replaceAll("null", "");
+	}
 	
+	/**
+	 * 
+	 * @param data
+	 * @param config
+	 */
+	public static void updateHealthDataWithMergedColData(List<HealthCommunity> data, HealthDataTemplateConfig config){
+		for(HealthCommunity hc:data) {
+			if( config.getMergedCol1() != null && !"".equals(config.getMergedCol1().trim())){
+				hc.setMergedCol1(getMergedColData(hc, config, config.getMergedCol1()));
+			}
+			
+			if( config.getMergedCol2() != null && !"".equals(config.getMergedCol2().trim())){
+				hc.setMergedCol2(getMergedColData(hc, config, config.getMergedCol2()));
+			}
+			
+			if( config.getMergedCol3() != null && !"".equals(config.getMergedCol3().trim())){
+				hc.setMergedCol3(getMergedColData(hc, config, config.getMergedCol3()));
+			}
+			
+			if( config.getMergedCol4() != null && !"".equals(config.getMergedCol4().trim())){
+				hc.setMergedCol4(getMergedColData(hc, config, config.getMergedCol4()));
+			}
+			
+			if( config.getMergedCol5() != null && !"".equals(config.getMergedCol5().trim())){
+				hc.setMergedCol5(getMergedColData(hc, config, config.getMergedCol5()));
+			}
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @param data
+	 * @param config
+	 */
+	public static void updateHealthDataWithMergedColData(HealthCommunity hc, HealthDataTemplateConfig config){
+		
+		if( config.getMergedCol1() != null && !"".equals(config.getMergedCol1().trim())){
+			hc.setMergedCol1(getMergedColData(hc, config, config.getMergedCol1()));
+		}
+		
+		if( config.getMergedCol2() != null && !"".equals(config.getMergedCol2().trim())){
+			hc.setMergedCol2(getMergedColData(hc, config, config.getMergedCol2()));
+		}
+		
+		if( config.getMergedCol3() != null && !"".equals(config.getMergedCol3().trim())){
+			hc.setMergedCol3(getMergedColData(hc, config, config.getMergedCol3()));
+		}
+		
+		if( config.getMergedCol4() != null && !"".equals(config.getMergedCol4().trim())){
+			hc.setMergedCol4(getMergedColData(hc, config, config.getMergedCol4()));
+		}
+		
+		if( config.getMergedCol5() != null && !"".equals(config.getMergedCol5().trim())){
+			hc.setMergedCol5(getMergedColData(hc, config, config.getMergedCol5()));
+		}
+	
+		
+	}
 }
