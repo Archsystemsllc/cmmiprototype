@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
+import com.archsystemsinc.qam.model.Reporting;
 import com.archsystemsinc.qam.service.HealthCommunityDataService;
 
 /**
@@ -74,6 +75,14 @@ public class FileUploadService {
 		return healthCommunityDataService.listHealthData();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/reporting", method = RequestMethod.GET)
+	public List<Reporting> reporting() {
+		return healthCommunityDataService.reporting();
+	}
 	/**
 	 * 
 	 * @param emailId

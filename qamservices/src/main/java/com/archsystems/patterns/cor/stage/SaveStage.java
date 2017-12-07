@@ -43,14 +43,21 @@ public class SaveStage implements Stage{
 		log.debug("--> execute");
 		try {
 			this.payload = (FileUploadTO) payloadLocal;
-			List<HealthCommunity> savedData = healthCommunityRepository.save(payload.getParsedData());
-			PoiUtils.updateHealthDataWithMergedColData(savedData, this.payload.getConfigData());
-			payload.setSavedData(savedData);
-			monitor.appendMessage(this.getStageName(), "Saved data for file, count: "+
-					payload.getUploadedFile().getName()+"' "+payload.getParsedData().size());
-		}catch(Exception e) {
+				if(payload.getParsedData() != null &&  !payload.getParsedData().isEmpty()) {
+					List<HealthCommunity> savedData = healthCommunityRepository.save(payload.getParsedData());
+					PoiUtils.updateHealthDataWithMergedColData(savedData, this.payload.getConfigData());
+					payload.setSavedData(savedData);
+					monitor.appendMessage(this.getStageName(), "Saved data for file, count: "+
+							payload.getUploadedFile().getName()+"' "+payload.getParsedData().size());
+			
+				}else {
+					monitor.appendMessage(this.getStageName(), "No data to save!!");
+				}
+			}catch(Exception e) {
 			e.printStackTrace();
-			monitor.appendMessage(this.getStageName(), "Failed saving file data.");
+			monitor.appendMessage(this.getStageName(), ", Failed to save file data.");
+			this.payload.setMessage(this.getStageName()+", Failed to save file.");
+			this.payload.setStatus("ERROR");
 			throw new FileUploadException(e.getMessage());
 		}
 		log.debug("<-- execute");

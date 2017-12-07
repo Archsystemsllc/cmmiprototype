@@ -37,14 +37,22 @@ public class ParseStage implements Stage {
 		log.debug("--> execute");
 		try {
 			this.payload = (FileUploadTO) payloadLocal;
-			List<HealthCommunity> data = PoiUtils.parseHealthDataFile
-					(payload.getUploadedFile(), payload.getConfigData(),monitor);
-			payload.setParsedData(data);
-			monitor.appendMessage(this.getStageName(), "Parsed file data file name, count: "+
-					payload.getUploadedFile().getName()+", "+data.size());
+			if(payload.getConfigData() != null) {
+				List<HealthCommunity> data = PoiUtils.parseHealthDataFile
+						(payload.getUploadedFile(), payload.getConfigData(),monitor);
+				payload.setParsedData(data);	
+
+				monitor.appendMessage(this.getStageName(), "Parsed file data file name, count: "+
+						payload.getUploadedFile().getName()+", "+data.size());
+			}else {
+				monitor.appendMessage(this.getStageName(), "No Config found, not parsing file");
+			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
-			monitor.appendMessage(this.getStageName(), "Failed parsing a file.");
+			monitor.appendMessage(this.getStageName(), ", Failed to parse the file.");
+			this.payload.setMessage(this.getStageName()+", Failed to parse the file.");
+			this.payload.setStatus("ERROR");
 			throw new FileUploadException(e.getMessage());
 		}		
 		log.debug("<-- execute");

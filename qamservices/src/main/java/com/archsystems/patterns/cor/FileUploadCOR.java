@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.archsystems.patterns.cor.stage.ConfigStage;
 import com.archsystems.patterns.cor.stage.ParseStage;
+import com.archsystems.patterns.cor.stage.ReportingStage;
 import com.archsystems.patterns.cor.stage.SaveStage;
 import com.archsystemsinc.exception.ExceptionUtils;
 import com.archsystemsinc.exception.FileUploadException;
@@ -35,6 +36,8 @@ public class FileUploadCOR extends AbstractChain {
 	@Autowired
 	private SaveStage saveStage;
 	
+	@Autowired
+	private ReportingStage reportingStage;
 	
 	//	CollectorContext cctx;
 
@@ -47,9 +50,10 @@ public class FileUploadCOR extends AbstractChain {
 
 	@Override
 	public void initialize() {		
+		push(reportingStage);	
 		push(saveStage);
 		push(parseStage);
-		push(configStage);
+		push(configStage);			
 	}
 	
 
@@ -72,7 +76,7 @@ public class FileUploadCOR extends AbstractChain {
 		try{
 			stage.execute(payload, monitor);
 		}catch(Exception e){
-			//e.printStackTrace();
+			e.printStackTrace();
 			monitor.stopStage(stage.getStageName(), StageMonitor.FAILED, e.getMessage()  );
 			logger.error(monitor.reportStage(stage.getStageName()));
 			logger.error(ExceptionUtils.getStackTrace(e));

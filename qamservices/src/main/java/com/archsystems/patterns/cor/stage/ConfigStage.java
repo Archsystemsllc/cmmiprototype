@@ -42,15 +42,24 @@ public class ConfigStage implements Stage {
 				setPayload((FileUploadTO)payloadLocal);
 				HealthDataTemplateConfig configData =
 						healthDataTemplateConfigRepositoty.findOne(payload.getTemplateId());
-				payload.setConfigData(configData);
-			
-				stageMonitor.appendMessage(this.getStageName(),
-						"Found configData for template: "+payload.getTemplateId());
-				
+				if(configData == null) {
+					stageMonitor.appendMessage(this.getStageName(),
+							"configData not found for template: "+payload.getTemplateId());
+					this.payload.setMessage(this.getStageName()+", ConfigData not found for template: "+payload.getTemplateId());
+					this.payload.setStatus("ERROR");
+					throw new FileUploadException("configData not found for template: "+payload.getTemplateId());
+				}else {
+					payload.setConfigData(configData);
+					stageMonitor.appendMessage(this.getStageName(),
+							"Found configData for template: "+payload.getTemplateId());
+				}
+					
 		}catch(Exception e) {
 			e.printStackTrace();
 			stageMonitor.appendMessage(this.getStageName(),
 					"Failed loading configData for template: "+payload.getTemplateId());
+			this.payload.setMessage(this.getStageName()+", Error in getting ConfigData for template: "+payload.getTemplateId());
+			this.payload.setStatus("ERROR");
 			throw new FileUploadException(e.getMessage());
 		}
 		log.debug("<-- execute");

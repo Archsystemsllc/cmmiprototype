@@ -18,9 +18,11 @@ import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
+import com.archsystemsinc.qam.model.Reporting;
 import com.archsystemsinc.qam.repository.EmailAddressRepository;
 import com.archsystemsinc.qam.repository.HealthCommunityRepository;
 import com.archsystemsinc.qam.repository.HealthDataTemplateConfigRepositoty;
+import com.archsystemsinc.qam.repository.ReportingRepository;
 import com.archsystemsinc.qam.utils.PoiUtils;
 
 /**
@@ -40,6 +42,9 @@ public class HealthCommunityDataService {
 	
 	@Autowired
 	HealthDataTemplateConfigRepositoty healthDataTemplateConfigRepositoty;
+	
+	@Autowired
+	private ReportingRepository reportingRepository;
 	
 	
 	/**
@@ -71,6 +76,7 @@ public class HealthCommunityDataService {
 		fileUploadCOR.initialize();
 		FileUploadTO fto = new FileUploadTO();
 		fto.setTemplateId(templateId);
+		fto.setFileName(uploadedFile.getOriginalFilename());
 		fto.setUploadedFile(uploadedFile);
 		try {
 			fto = (FileUploadTO) fileUploadCOR.executeChain(fto);
@@ -121,6 +127,15 @@ public class HealthCommunityDataService {
 		}
 		
 		return emailAddress;
+	}
+
+
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Reporting> reporting() {
+		return reportingRepository.findAll();
 	}
 	
 	
