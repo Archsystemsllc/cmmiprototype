@@ -14,11 +14,11 @@ up.jQuery  = $;
 var mappedItems = {};
 </script>
 
-
+<!-- 
   <link rel="stylesheet" href="resources/css/uswds.css" />
   <link rel="stylesheet" href="resources/css/uswds.min.css" />
   <link rel="stylesheet" href="resources/css/uswds.min.css.map" />
-  
+ -->  
   
     <style>
 .jumbotron {
@@ -31,8 +31,11 @@ var mappedItems = {};
 	background-color: hsla(180, 2%, 87%, 0.5);
 }
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
+<jsp:include page="admin_header.jsp"></jsp:include>
 <script>
 (function($) {  // jQuery wrapper for uPortal
     $(document).ready(function () {
