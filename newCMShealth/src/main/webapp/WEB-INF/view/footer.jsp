@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
+	 rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/common.css"
 	rel="stylesheet">
 <link rel="shortcut icon"

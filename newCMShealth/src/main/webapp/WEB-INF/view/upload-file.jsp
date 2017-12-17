@@ -13,9 +13,7 @@ up.jQuery  = $;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>UPLOAD</title>
-  <link rel="stylesheet" href="resources/css/uswds.css" />
-  <link rel="stylesheet" href="resources/css/uswds.min.css" />
-  <link rel="stylesheet" href="resources/css/uswds.min.css.map" />
+
 
 <style>
 .jumbotron {
@@ -30,6 +28,8 @@ up.jQuery  = $;
 </style>
 </head>
 <body>
+<jsp:include page="admin_header.jsp"></jsp:include>
+
 	<script>
 (function($) {  // jQuery wrapper for uPortal
     	$(document).ready(function () {
@@ -42,7 +42,7 @@ up.jQuery  = $;
           var selectedOption = "";
           var selectedTemplate = "";
           
-            document.body.style.backgroundImage = "url('resources/images/image1.jpg')";
+            document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
         	document.body.style.backgroundRepeat="no-repeat";
         	document.body.style.backgroundSize="cover";
         	
@@ -62,7 +62,7 @@ up.jQuery  = $;
 
             $.ajax({
               type: 'POST',
-              url: 'http://localhost:8080/qamservices/api/uploadHealthData/'+ selectedOption,
+              url: 'http://localhost:8080/newqamservices/api/uploadHealthData/'+ selectedOption,
               enctype:'multipart/form-data',
               data:formData,
               contentType: false,
@@ -119,7 +119,7 @@ up.jQuery  = $;
 
             $.ajax({
               type:'GET',
-              url:'http://localhost:8080/qamservices/api/listTemplates',
+              url:'http://localhost:8080/newqamservices/api/listTemplates',
               enctype:'multipart/form-data',
               contentType: false,
               processData: false,
