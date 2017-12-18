@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,10 +20,12 @@ import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.Reporting;
+import com.archsystemsinc.qam.model.TemplateData;
 import com.archsystemsinc.qam.repository.EmailAddressRepository;
 import com.archsystemsinc.qam.repository.HealthCommunityRepository;
 import com.archsystemsinc.qam.repository.HealthDataTemplateConfigRepositoty;
 import com.archsystemsinc.qam.repository.ReportingRepository;
+import com.archsystemsinc.qam.repository.TemplateRepository;
 import com.archsystemsinc.qam.utils.PoiUtils;
 
 /**
@@ -46,15 +49,28 @@ public class HealthCommunityDataService {
 	@Autowired
 	private ReportingRepository reportingRepository;
 	
+	@Autowired
+	private TemplateRepository templateRepository;
+
+	
 	
 	/**
 	 * 
 	 * @param data
 	 */
 	public HealthDataTemplateConfig createHealthTemplateConfig(HealthDataTemplateConfig data){
+		//DO AN UPDATE IF THE CONFIG EXISTS OR CREATE IT IF NOT
 		return healthDataTemplateConfigRepositoty.save(data);
 	}
 	
+
+	/**
+	 * 
+	 * @return
+	 */
+	public List<TemplateData> listTemplates(){
+		return templateRepository.findAll();
+	}
 	
 	/**
 	 * 
@@ -87,7 +103,8 @@ public class HealthCommunityDataService {
 		return fto.getSavedData();
 	}
 
-	
+
+
 	/**
 	 * 
 	 * @return

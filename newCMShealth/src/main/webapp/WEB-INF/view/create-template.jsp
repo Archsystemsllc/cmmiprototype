@@ -404,7 +404,7 @@ console.log(JSON.stringify(mappedItems));
 </div>
 			</div>
 		</div>
-
+<jsp:include page="footer.jsp"></jsp:include>
 		
 </body>
 </html>

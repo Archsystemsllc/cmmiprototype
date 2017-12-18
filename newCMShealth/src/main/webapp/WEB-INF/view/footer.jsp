@@ -6,27 +6,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <link
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
+	href="resources/css/bootstrap.min.css"
 	 rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/common.css"
+<link href="resources/css/common.css"
 	rel="stylesheet">
 <link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/images/adda_ico.png">
-<link href="${pageContext.request.contextPath}/resources/css/main.css"
+	href="resources/images/adda_ico.png">
+<link href="resources/css/main.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/responsive.css"
+	href="resources/css/responsive.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css"
+	href="resources/css/prettyPhoto.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"
+	href="resources/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/animate.min.css"
+	href="resources/css/animate.min.css"
 	rel="stylesheet">
-<%-- <link href="${pageContext.request.contextPath}/resources/css/login.css"
+<%-- <link href="resources/css/login.css"
 	rel="stylesheet"> --%>
 <link href="https://fonts.googleapis.com/css?family=Architects+Daughter"
 	rel="stylesheet">
@@ -37,7 +37,7 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<img
-					src="${pageContext.request.contextPath}/resources/images/Arch_logo.png" style="width:20%;height:20%">
+					src="resources/images/Arch_logo.png" style="width:20%;height:20%">
 				&nbsp;&nbsp;Copyright &copy; - 2017 Arch Systems, LLC. All Rights Reserved.
 			</div>
 			<div class="col-sm-6">

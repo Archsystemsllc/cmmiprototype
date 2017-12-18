@@ -23,7 +23,7 @@ import com.archsystemsinc.logging.monitor.Monitor;
 import com.archsystemsinc.logging.monitor.StageMonitor;
 import com.archsystemsinc.qam.model.Address;
 import com.archsystemsinc.qam.model.Category;
-import com.archsystemsinc.qam.model.FileData;
+//import com.archsystemsinc.qam.model.FileData;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.SocialMedia;
@@ -37,7 +37,7 @@ public class PoiUtils {
 
 	private static final Logger log = Logger.getLogger(PoiUtils.class);
 	
-	public static List<FileData> parseFile(MultipartFile uploadedFile, TemplateConfigData configData){
+/*	public static List<FileData> parseFile(MultipartFile uploadedFile, TemplateConfigData configData){
 		log.debug("--> parseFile");
 		List<FileData> dataList = new ArrayList<FileData>();
 		Workbook providersFileWorkbook = null;
@@ -97,7 +97,7 @@ public class PoiUtils {
 		}
 	}
 	
-		
+*/		
 
 	public static List<HealthCommunity> parseHealthDataFile(MultipartFile uploadedFile,
 			HealthDataTemplateConfig configData,StageMonitor monitor) throws FileUploadException{

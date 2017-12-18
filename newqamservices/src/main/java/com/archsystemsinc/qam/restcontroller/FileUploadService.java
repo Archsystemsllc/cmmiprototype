@@ -18,6 +18,7 @@ import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.Reporting;
+import com.archsystemsinc.qam.model.TemplateData;
 import com.archsystemsinc.qam.service.HealthCommunityDataService;
 
 /**
@@ -48,6 +49,15 @@ public class FileUploadService {
 	 * 
 	 * @return
 	 */
+	@RequestMapping(value = "/listTemplates", method = RequestMethod.GET)
+	public List<TemplateData> listTemplates() {
+		return healthCommunityDataService.listTemplates();
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/listHealthDataTemplateConfigs", method = RequestMethod.GET)
 	public List<HealthDataTemplateConfig> listHealthDataTemplateConfigs() {
 		return healthCommunityDataService.listHealthTemplateConfigs();
@@ -65,6 +75,7 @@ public class FileUploadService {
 		log.debug("--> uploadFileData:" + templateId);
 		return healthCommunityDataService.uploadHealthData(templateId, uploadedFile);
 	}
+	
 
 	/**
 	 * 

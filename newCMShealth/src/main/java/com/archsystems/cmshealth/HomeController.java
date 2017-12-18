@@ -25,7 +25,20 @@ public class HomeController {
 		return modelAndView;
 	}
 
+	//demonstration info page
+	@RequestMapping("/demonstration")
+	public ModelAndView demonstration(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("demonstration");
+		return modelAndView;
+	}
 	
+	@RequestMapping("/reports")
+	public ModelAndView report(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("reports");
+		return modelAndView;
+	}
 
 
 }

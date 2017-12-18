@@ -40,8 +40,8 @@ public class ConfigStage implements Stage {
 		log.debug("--> execute:"+payloadLocal);
 		try {	
 				setPayload((FileUploadTO)payloadLocal);
-				HealthDataTemplateConfig configData =
-						healthDataTemplateConfigRepositoty.findOne(payload.getTemplateId());
+				HealthDataTemplateConfig configData = //healthDataTemplateConfigRepositoty.findOne(templateId)
+						healthDataTemplateConfigRepositoty.findByTemplateId(payload.getTemplateId());
 				if(configData == null) {
 					stageMonitor.appendMessage(this.getStageName(),
 							"configData not found for template: "+payload.getTemplateId());

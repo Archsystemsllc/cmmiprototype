@@ -88,7 +88,7 @@
 							<li><a href="createtemplate">Create a Template</a></li>
 							<li><a href="./">Upload a File</a></li>
 							<li><a href="./reports">Reports</a></li>
-							<li><a href="./demoreadme">Demontstration Description</a></li>
+							<li><a href="./demonstration">Demontstration Description</a></li>
 						</ul>
 					</div>
 				</td>
