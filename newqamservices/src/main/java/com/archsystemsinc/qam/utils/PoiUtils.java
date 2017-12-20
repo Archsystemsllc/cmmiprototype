@@ -302,7 +302,7 @@ public class PoiUtils {
 				hc.setMergedCol1(getMergedColData(hc, config, config.getMergedCol1()));
 			}
 			
-			if( config.getMergedCol2() != null && !"".equals(config.getMergedCol2().trim())){
+			/*if( config.getMergedCol2() != null && !"".equals(config.getMergedCol2().trim())){
 				hc.setMergedCol2(getMergedColData(hc, config, config.getMergedCol2()));
 			}
 			
@@ -316,7 +316,7 @@ public class PoiUtils {
 			
 			if( config.getMergedCol5() != null && !"".equals(config.getMergedCol5().trim())){
 				hc.setMergedCol5(getMergedColData(hc, config, config.getMergedCol5()));
-			}
+			}*/
 		}
 		
 	}
@@ -332,7 +332,7 @@ public class PoiUtils {
 			hc.setMergedCol1(getMergedColData(hc, config, config.getMergedCol1()));
 		}
 		
-		if( config.getMergedCol2() != null && !"".equals(config.getMergedCol2().trim())){
+/*		if( config.getMergedCol2() != null && !"".equals(config.getMergedCol2().trim())){
 			hc.setMergedCol2(getMergedColData(hc, config, config.getMergedCol2()));
 		}
 		
@@ -346,7 +346,7 @@ public class PoiUtils {
 		
 		if( config.getMergedCol5() != null && !"".equals(config.getMergedCol5().trim())){
 			hc.setMergedCol5(getMergedColData(hc, config, config.getMergedCol5()));
-		}
+		}*/
 	
 		
 	}
