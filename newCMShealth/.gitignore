@@ -1,1 +1,10 @@
 /target/
+.settings/
+.settings/**
+/.settings/
+/\.settings/
+/\.settings/**
+.classpath
+/\.classpath
+/.classpath
+

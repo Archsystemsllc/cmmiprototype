@@ -361,12 +361,19 @@ console.log(JSON.stringify(mappedItems));
 </script>
 
 
-	<div id="whole" style="width:100% height:100%">
+	<div id="whole" style="width:100% height:100%" >
+	
+	 
 		<div id="templateCreation" class="jumbotron jumbotron-fluid"
 			align="center" >
 			
+		
 			<div id="templateListDiv" align="center" class="ui-widget"
 				style="padding-top: 40px">
+				<div class="panel panel-default">
+				<div class="panel-heading">Panel Heading</div>
+				<div class="panel-body" style ="background:#2cd5ea87">
+				
 				<label id="template_ID" style ="display:inline-block"><h3>Select Template Name</h3> </label> 
 				<select id="template_name" style ="display:inline-block; width:50%" name="attributeNames" size="2">
 				<option> </option></select>
@@ -403,6 +410,8 @@ console.log(JSON.stringify(mappedItems));
 				<br>
 </div>
 			</div>
+		</div>
+		</div>
 		</div>
 <jsp:include page="footer.jsp"></jsp:include>
 		
