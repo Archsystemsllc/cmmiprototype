@@ -3,7 +3,10 @@
  */
 package com.archsystemsinc.qam.restcontroller;
 
+import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
@@ -74,6 +78,7 @@ public class FileUploadService {
 			@RequestParam("file") MultipartFile uploadedFile) {
 		log.debug("--> uploadFileData:" + templateId);
 		return healthCommunityDataService.uploadHealthData(templateId, uploadedFile);
+		
 	}
 	
 

@@ -102,6 +102,7 @@ public class PoiUtils {
 	public static List<HealthCommunity> parseHealthDataFile(MultipartFile uploadedFile,
 			HealthDataTemplateConfig configData,StageMonitor monitor) throws FileUploadException{
 		log.debug("--> parseHealthFile");
+		System.out.println("parseHealthFile" + uploadedFile.getName());
 		monitor.appendMessage(monitor.getCurrentStage(), "Parse file name: "+uploadedFile.getName());
 		List<HealthCommunity> dataList = new ArrayList<HealthCommunity>();
 		Workbook providersFileWorkbook = null;
@@ -113,6 +114,7 @@ public class PoiUtils {
             int providersFileRowCount = providersFileSheet.getPhysicalNumberOfRows();
 			int totalNumberOfRows = providersFileRowCount - 1;
 			log.debug("totalNumberOfRows::"+totalNumberOfRows);
+			System.out.println("totalNumberOfRows::"+totalNumberOfRows);
 			monitor.appendMessage(monitor.getCurrentStage(), "Parse file name,number of rows: "
 					+uploadedFile.getName()+"' "+totalNumberOfRows);
 			HealthCommunity data = null;
@@ -137,6 +139,7 @@ public class PoiUtils {
 					}
 				}catch(Exception e) {
 					log.error(e);
+					System.out.println("Failed for row: "+rowNum);
 					//So this will be reported with the file name, not randomly threaded through the console output.
 					//this is a key area for error reporting in an enterprise context. The file parsing 
 					// is a common area where a difficult to find issue will occur. 
@@ -146,7 +149,7 @@ public class PoiUtils {
 		} catch (EncryptedDocumentException | InvalidFormatException
 				| IOException e) {			
 			monitor.appendMessage(monitor.getCurrentStage(), "Failed parsing file: "+uploadedFile.getName());
-			
+			System.out.println("Failed parsing file: "+uploadedFile.getName());
 			log.error(e);
 			throw new FileUploadException(e.getMessage());
 			

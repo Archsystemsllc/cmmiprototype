@@ -31,7 +31,7 @@ public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServ
  
    // private static final String LOCATION = "/usr/share/tomcat8/work/Catalina/localhost/ROOT/"; //"C:/temp/"; // Temporary location where files will be stored
 
-    private static final String LOCATION = "/";
+    private static final String LOCATION = "./";
     private static final long MAX_FILE_SIZE = 5242880; // 5MB : Max file size.
                                                        // Beyond that size spring will throw exception.
     private static final long MAX_REQUEST_SIZE = 20971520; // 20MB : Total request size containing Multi part.
