@@ -4,6 +4,8 @@
 <head>
 
 <script src="resources/jquery-3.2.1.js"></script>
+<link href="esources/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <script>
 var up={}
@@ -34,27 +36,60 @@ up.jQuery  = $;
 (function($) {  // jQuery wrapper for uPortal
     	$(document).ready(function () {
 
-    	
-    		var templates = [];
-          // load templates
-          getListTemplates();
-          var itemName = "";
-          var selectedOption = "";
-          var selectedTemplate = "";
+    		getReports();
           
             document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
         	document.body.style.backgroundRepeat="no-repeat";
         	document.body.style.backgroundSize="cover";
-        	
-            $("#uploadStatus").show();
-             
+        	          
+            
+            function getReports() {
+                var username="qamadmin";
+                var password="123456";
+                $.ajax({
+                    type:'GET',
+                    url:'http://localhost:8080/newqamservices/api/reporting',       
+                           enctype:'multipart/form-data',
+                           contentType: false,
+                           processData: false,
+                    headers:{  "Authorization": "Basic " + btoa(username+":"+password)},
+                    success: function(response) {
+                           // console.log('succes!!' );
+                      var options =[]; //$('#divTemplates #selectTemplates');
+                    //  var data=[];
+                    var itemsLength = response.length;
+                      var data=JSON.stringify(response);
+                      console.log("Data : "+data);
+                      $.each(response,function(index,item) {
+                    	  console.log(JSON.stringify(item));
+
+                    	  $("#reports tbody").append("<tr>" + "<td>"+item.id+"</td>"+ "<td>"+item.filename+"</td>"+"<td>"+item.templateName+"</td>"+
+                    			  "<td>"+item.status+"</td>"+
+                    			  "<td>"+item.message+"</td>"+
+                    			  "<td>"+item.processedDate+"</td>"+
+                    			  "</tr>");
+
+                      })
+
+                  //    $("#template_name").html(options.join(''));
+
+                    },
+                    error: function (error) {
+                      console.log("errror");
+                    }
+                });  // ajax
+              } 
+            
+            function showAndHide(selecteditem){
+              console.log(selecteditem);
+            }
+
+            
           
         });  // document.ready()
 
-        function showAndHide(selecteditem){
-          console.log(selecteditem);
-        }
-
+        
+ 
       }(up.jQuery));
     </script>
 	<div id="whole">
@@ -68,7 +103,22 @@ up.jQuery  = $;
 				<div>
 				
 
-<table><tr><td>Reports are TBD</td></tr></table>
+
+
+<table id="reports">
+ <thead>
+ 
+  <tr>
+     <th>id</th>
+     <th>filename</th>
+     <th>templateName</th>
+     <th>status</th>
+     <th>message</th>
+     <th>processedDate</th>
+  </tr>
+ </thead>
+ <tbody></tbody>
+ </table>
 				
 				</div>
 				<br> 

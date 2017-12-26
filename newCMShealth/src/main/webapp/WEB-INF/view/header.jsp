@@ -7,31 +7,31 @@
 <title>Insert title heree</title>
 <link href="https://fonts.googleapis.com/css?family=Rubik"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/main.css"
+<link href="resources/css/main.css"
 	rel="stylesheet" />
 <link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/resources/images/adda_ico.png">
-<link href="${pageContext.request.contextPath}/resources/css/main.css"
+	href="resources/images/adda_ico.png">
+<link href="resources/css/main.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/responsive.css"
+	href="resources/css/responsive.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/prettyPhoto.css"
+	href="resources/css/prettyPhoto.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"
+	href="resources/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/font-awesome.css"
+	href="resources/css/font-awesome.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/animate.min.css"
+	href="resources/css/animate.min.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css"
+	href="resources/css/bootstrap.css"
 	rel="stylesheet">
-<%-- <link href="${pageContext.request.contextPath}/resources/css/login.css"
+<%-- <link href="resources/css/login.css"
 	rel="stylesheet"> --%>
 <link href="https://fonts.googleapis.com/css?family=Architects+Daughter"
 	rel="stylesheet">
@@ -104,18 +104,18 @@
 						<div class="navbar-brand" style="display: inline">
 							<!--<a class="navbar-brand" href="page0.html">-->
 								<a href="https://www.cms.gov/" target="_blank"><img
-								src="${pageContext.request.contextPath}/resources/images/logo.png"
+								src="resources/images/logo.png"
 								alt="logo" height="100px" style="float: left; width: 40%"></a>
 							<img
-								src="${pageContext.request.contextPath}/resources/images/ADDA.png"
+								src="resources/images/ADDA.png"
 								alt="logo" height="100px" style="float: right; width: 45%;">
 						</div>
 
 					</div>
 				</td>
 				<td style="border: 0px;"><div class="social">
-						Welcome ${pageContext.request.userPrincipal.name} | <a
-							href="${pageContext.request.contextPath}/logout">Logout</a>
+						Welcome  <a
+							href="/logout">Logout</a>
 					</div></td>
 			</tr>
 			<tr>
@@ -139,8 +139,8 @@
 							<%-- <li class="active" style="margin-left:0px"><a
 								href="${pageContext.request.contextPath}/login">Home</a></li> --%>
 							<li style="margin-left: 0px"><a
-								href="${pageContext.request.contextPath}/user/dashboard">Home</a></li>
-							<li><a href="#<%-- ${pageContext.request.contextPath}/user/contactus --%>">Contact Us</a></li>
+								href="/user/dashboard">Home</a></li>
+							<li><a href="/user/contactus --%>">Contact Us</a></li>
 							<li><a
 								href="#<%-- ${pageContext.request.contextPath}/user/download-helpdoc --%>">Help</a></li>
 						</ul>
