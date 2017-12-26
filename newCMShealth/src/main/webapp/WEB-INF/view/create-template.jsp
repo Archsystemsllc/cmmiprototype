@@ -47,7 +47,7 @@ var mappedItems = {};
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body >
+<body style="height:100%">
 <jsp:include page="admin_header.jsp"></jsp:include>
 	<script>
 
@@ -130,7 +130,11 @@ var mappedItems = {};
     	}
       });
       
-
+      $("#resetBtn").click(function () {
+   	   
+          alert("reset")
+      });
+      
       $("#templateSubmit").click(function () {
     	  
     	  $("#slectNewDiv").show(); 
@@ -319,6 +323,7 @@ var mappedItems = {};
   });
       
 
+    
       $("#configSubmit").click(function () {
       //  console.log(globalResponseid);
       //  var formData = new FormData();
@@ -361,15 +366,15 @@ console.log(JSON.stringify(mappedItems));
 </script>
 
 
-	<div id="whole" style="width:100% height:100%" >
+	<div id="whole" style="width:100%; height:100%; min-height: calc(75vh - 50px);" >
 	
 	 
 		<div id="templateCreation" class="jumbotron jumbotron-fluid"
-			align="center" >
-			
+			align="center" style="border-radius: 6px;padding:0 0 0 0;margin-top: 5%;">
+			 
 		
 			<div id="templateListDiv" align="center" class="ui-widget"
-				style="padding-top: 40px">
+				style="padding-top: 0px">
 				<div class="panel panel-default">
 				<div class="panel-heading">Panel Heading</div>
 				<div class="panel-body" style ="background:#2cd5ea87">
@@ -382,14 +387,14 @@ console.log(JSON.stringify(mappedItems));
 				<br>
 				<br>
 			</div>
-		<div id="mainDiv"  align="left" >
-	
+		<div id="mainDiv"  align="left" class="panel-body" style ="background:#2cd5ea47">
+	<div class="row">
 				<p id ="configuredColumns" style="margin-left:60px;font-weight:bold ">Configured Columns: <span title = "Select Columns to include for future uploads" style="background:white;display:inline; border-radius: 50%; width:23px; text-align:center; height:23px;position:absolute;font-weight:bold; font-size: 17px; margin: 4px 0 0 5px;float:right">?</span><p>
 				
 				<select id="slectNewDiv" name="attributeNames"   style= "height:30%; width:40%; margin:0 60px 0 90px ; display:inline-block;float:left" size="9"
 					multiple="multiple">
 				</select> <br>
-				<button id="movingField" style ="display:inline-block; margin-top:170px" class="btn btn-default">Configure</button>
+
 				
 				<p id = "configureEntry" style="margin-left:60px;font-weight:bold">Configure Entry Identification<span title = "Configure columns to be merged" style="background:white;display:inline; border-radius: 50%; width:23px; text-align:center; height:23px;position:absolute;font-weight:bold;font-size: 17px; margin: 3px 0 0 5px;float:right">?</span><p>
 				<div id = "NewMergedDiv" style = "display:inline;">
@@ -401,9 +406,15 @@ console.log(JSON.stringify(mappedItems));
 					style= "width:30%;height:30%; display:inline-block;margin:0 60px 0 90px" multiple="multiple">
 					</select>
 				</div>
-				<br><br>
-				<div align=center>
+				<br><br><!-- style ="display:inline-block; margin-top:170px" -->
+				</div>
+				<div class="row">
+				
+				<div align=center class="panel-body" style = "padding: 20px;padding-bottom: 50px; ">
+								<button id="movingField" style = "padding: 10px 30px 10px 30px; margin-right: 24px" class="btn btn-default">Configure</button>
 					<button id="configSubmit" style = "padding: 10px 30px 10px 30px; margin-right: 24px" class="btn btn-default">Submit</button>
+					<button id="resetBtn" style = "padding: 10px 30px 10px 30px; margin-right: 24px" class="btn btn-default">Reset</button>
+				</div>
 				</div>
 				<br> <br>
 				<div align="center" id="fieldStatus"></div>
@@ -413,8 +424,9 @@ console.log(JSON.stringify(mappedItems));
 		</div>
 		</div>
 		</div>
-<jsp:include page="footer.jsp"></jsp:include>
+
 		
 </body>
+<jsp:include page="footer.jsp"></jsp:include>
 </html>
 

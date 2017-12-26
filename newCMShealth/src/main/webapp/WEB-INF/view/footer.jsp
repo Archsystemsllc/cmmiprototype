@@ -32,7 +32,7 @@
 	rel="stylesheet">
 </head>
 <body>
-	<footer id="footer" class="midnight-blue">
+	<footer id="footer" class="midnight-blue" style="height: 75px;">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">

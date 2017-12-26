@@ -166,8 +166,8 @@ up.jQuery  = $;
 
       }(up.jQuery));
     </script>
-	<div id="whole">
-		<div id=jumbo class="jumbotron jumbotron-fluid">
+	<div id="whole" style="min-height: calc(75vh - 50px);">
+		<div id=jumbo class="jumbotron jumbotron-fluid" style="margin-top: 5%;">
 
 			<div id="upload">
 
