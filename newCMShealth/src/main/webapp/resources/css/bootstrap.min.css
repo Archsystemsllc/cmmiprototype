@@ -187,7 +187,14 @@ table {
 }
 
 td, th {
-    padding: 10px;
+    padding: 0;
+}
+
+table#reports, th, td {
+    border: 1px solid black;
+    padding: 8px;
+    margin-right: 70px;
+    background: #ccdeea;
 }
 
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
@@ -5344,7 +5351,8 @@ a.badge:focus, a.badge:hover {
     padding-bottom: 30px;
     margin-bottom: 30px;
     color: inherit;
-    background-color: #eee
+    background-color: hsla(180, 2%, 87%, 0.7);
+    
 }
 
 .jumbotron .h1, .jumbotron h1 {

@@ -7,7 +7,6 @@
 <title>Admin Header</title>
 <link href="https://fonts.googleapis.com/css?family=Rubik"
 	rel="stylesheet">
-	<!-- ${pageContext.request.contextPath} -->
 <link href="resources/css/main.css"
 	rel="stylesheet" />
 <link rel="shortcut icon"
@@ -32,6 +31,9 @@
 <link
 	href="resources/css/bootstrap.css"
 	rel="stylesheet">
+<link
+	href="resources/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css?family=Architects+Daughter"
 	rel="stylesheet">
@@ -44,11 +46,11 @@
 <body id="b">
 	<header id="header">  <nav class="navbar navbar-inverse"
 		role="banner">
-	<div class="container">
+	<div class="container" >
 		<table height="110px">
 			<tr>
 				<td rowspan="3"
-					style="padding-bottom: 0px; border: 0px; vertical-align: top">
+					style="padding-bottom: 0px; border: 0px; vertical-align: top;background:#2e2e2e">
 					<div class="navbar-header">
 						
 
@@ -63,13 +65,13 @@
 					</div>
 				</td>
 				<!-- ${pageContext.request.userPrincipal.name} -->
-				<td style="border: 0px;"><div class="social">
+				<td style="border: 0px;background:#2e2e2e"><div class="social">
 						Welcome  | <a
 							href="/logout">Logout</a>
 					</div></td>
 			</tr>
 			<tr>
-				<td style="float: right; border: 0px"><button title="increase font size"
+				<td style="float: right; border: 0px;background:#2e2e2e"><button title="increase font size"
 						class="btn btn-primary btn-xs" onclick="increaseFontSizeBy1px()">
 						<i class="fa fa-search-plus"></i>
 					</button>
@@ -81,7 +83,7 @@
 			</tr>
 			<tr>
 				<td width="70%"
-					style="vertical-align: bottom; border: 0px; padding: 0px">
+					style="vertical-align: bottom; border: 0px; background:#2e2e2e;padding: 0px">
 					<div class="collapse navbar-collapse navbar-right">
 						<ul class="nav navbar-nav" style="font-weight: bold">
 							<li style="margin-left: 0px"> <a href="./">Home</a></li>

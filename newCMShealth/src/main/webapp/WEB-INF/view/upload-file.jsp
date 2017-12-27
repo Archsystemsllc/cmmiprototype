@@ -171,8 +171,9 @@ up.jQuery  = $;
 
 			<div id="upload">
 
-				<h3>Upload file</h3>
-				<br /> <br />
+				<!-- <h3>Upload file</h3> -->
+			<strong><div class="panel-heading"> Upload File </div></strong>
+				<br />
 				<div id="divTemplates">
 					<font size="4">Select Template ID : </font><select
 						id="selectTemplates"></select>

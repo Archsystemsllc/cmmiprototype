@@ -376,10 +376,10 @@ console.log(JSON.stringify(mappedItems));
 			<div id="templateListDiv" align="center" class="ui-widget"
 				style="padding-top: 0px">
 				<div class="panel panel-default">
-				<div class="panel-heading">Panel Heading</div>
-				<div class="panel-body" style ="background:#2cd5ea87">
+				<div class="panel-heading">Create Template</div>
+				<div class="panel-body" style ="background:#d4bebe00">
 				
-				<label id="template_ID" style ="display:inline-block"><h3>Select Template Name</h3> </label> 
+				<label id="template_ID" style ="display:inline-block">Select Template Name </label> 
 				<select id="template_name" style ="display:inline-block; width:50%" name="attributeNames" size="2">
 				<option> </option></select>
 				
@@ -387,7 +387,7 @@ console.log(JSON.stringify(mappedItems));
 				<br>
 				<br>
 			</div>
-		<div id="mainDiv"  align="left" class="panel-body" style ="background:#2cd5ea47">
+		<div id="mainDiv"  align="left" class="panel-body" style ="background:#d4bebe00">
 	<div class="row">
 				<p id ="configuredColumns" style="margin-left:60px;font-weight:bold ">Configured Columns: <span title = "Select Columns to include for future uploads" style="background:white;display:inline; border-radius: 50%; width:23px; text-align:center; height:23px;position:absolute;font-weight:bold; font-size: 17px; margin: 4px 0 0 5px;float:right">?</span><p>
 				

@@ -4,7 +4,7 @@
 <head>
 
 <script src="resources/jquery-3.2.1.js"></script>
-<link href="esources/css/bootstrap.min.css"
+<link href="resources/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <script>
@@ -63,7 +63,7 @@ up.jQuery  = $;
                       $.each(response,function(index,item) {
                     	  console.log(JSON.stringify(item));
 
-                    	  $("#reports tbody").append("<tr>" + "<td>"+item.id+"</td>"+ "<td>"+item.filename+"</td>"+"<td>"+item.templateName+"</td>"+
+                    	  $("#reports tbody").append("<tr>" + "<td>"+item.id+"</td>"+ "<td>"+item.fileName+"</td>"+"<td>"+item.templateName+"</td>"+
                     			  "<td>"+item.status+"</td>"+
                     			  "<td>"+item.message+"</td>"+
                     			  "<td>"+item.processedDate+"</td>"+
@@ -110,7 +110,7 @@ up.jQuery  = $;
  
   <tr>
      <th>id</th>
-     <th>filename</th>
+     <th>fileName</th>
      <th>templateName</th>
      <th>status</th>
      <th>message</th>
