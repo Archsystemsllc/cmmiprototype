@@ -27,7 +27,6 @@ import com.archsystemsinc.qam.model.Category;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.SocialMedia;
-import com.archsystemsinc.qam.model.TemplateConfigData;
 
 /**
  * @author Prakash T

@@ -59,8 +59,35 @@ public class HealthCommunityDataService {
 	 * @param data
 	 */
 	public HealthDataTemplateConfig createHealthTemplateConfig(HealthDataTemplateConfig data){
-		//DO AN UPDATE IF THE CONFIG EXISTS OR CREATE IT IF NOT
-		return healthDataTemplateConfigRepositoty.save(data);
+		//DO AN UPDATE IF THE CONFIG EXISTS OR CREATE IT IF NOT data.getId();	
+		long tid = data.getTemplateId();
+		HealthDataTemplateConfig cfg = healthDataTemplateConfigRepositoty.findByTemplateId(tid);
+		if(cfg!=null) {
+			cfg.setCategoryName(data.getCategoryName());
+			cfg.setCity(data.getCity());
+			cfg.setFacebook(data.getFacebook());
+			cfg.setLocation(data.getLocation());
+			cfg.setMapDisplay(data.getMapDisplay());
+			cfg.setMergedCol1(data.getMergedCol1());
+			cfg.setMsaName(data.getMsaName());
+			cfg.setNameOfInitiative(data.getNameOfInitiative());
+			cfg.setNotes(data.getNotes());
+			cfg.setOrgName(data.getOrgName());
+			cfg.setPhase1(data.getPhase1());
+			cfg.setPhase2(data.getPhase2());
+			cfg.setState(data.getState());
+			cfg.setStateBase(data.getStateBase());
+			cfg.setStreetAddress(data.getStreetAddress());
+			cfg.setTemplateId(data.getTemplateId());
+			cfg.setTwitter(data.getTwitter());
+			cfg.setUniqueId(data.getUniqueId());
+			cfg.setWebsite(data.getWebsite());
+			cfg.setYoutube(data.getYoutube());
+			
+			return healthDataTemplateConfigRepositoty.save(cfg);
+		}else {	
+			return healthDataTemplateConfigRepositoty.save(data);
+		}
 	}
 	
 
