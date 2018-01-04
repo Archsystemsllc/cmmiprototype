@@ -25,12 +25,30 @@ up.jQuery  = $;
 	margin-left: 100px;
 	padding: 50px 0px 50px 90px;
 	color: #3d3d3d;
-	background-color: hsla(180, 2%, 87%, 0.5);
+	background-color: #ccdeea;
 }
+
+.cms-font-color  {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+    color:#112e51;
+    text-transform: capitalize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 18px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+td {
+  white-space: normal !important; 
+  word-wrap: break-word;  
+}
+
 </style>
 </head>
-<body>
-<jsp:include page="admin_header.jsp"></jsp:include>
+<body style="height:100%;background:#DCDCDC;">
+<%-- <jsp:include page="admin_header.jsp"></jsp:include> --%>
+<jsp:include page="layout.jsp"></jsp:include>
 
 	<script>
 (function($) {  // jQuery wrapper for uPortal
@@ -38,9 +56,9 @@ up.jQuery  = $;
 
     		getReports();
           
-            document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
-        	document.body.style.backgroundRepeat="no-repeat";
-        	document.body.style.backgroundSize="cover";
+         //   document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
+        //	document.body.style.backgroundRepeat="no-repeat";
+        //	document.body.style.backgroundSize="cover";
         	          
             
             function getReports() {
@@ -93,11 +111,11 @@ up.jQuery  = $;
       }(up.jQuery));
     </script>
 	<div id="whole">
-		<div id=jumbo class="jumbotron jumbotron-fluid">
+		<div id=jumbo class="jumbotron jumbotron-fluid" style="background: #fff;">
 
-			<div id="upload">
+			<div id="upload" style="width: 90%;">
 
-				<h2 style="text-align: center; border: 0px; padding: 0px">Uploads Report</h2>
+				<h2 style="text-align: center; border: 0px; padding: 0px;" class="cms-font-color">Uploads Report</h2>
 				<br /> <br />
 
 				<div>
@@ -105,7 +123,7 @@ up.jQuery  = $;
 
 
 
-<table id="reports">
+<table id="reports" class ="table cms-font-color table-striped">
  <thead>
  
   <tr>
@@ -125,8 +143,7 @@ up.jQuery  = $;
 			</div>
 		</div>
 	</div>
-<jsp:include page="footer.jsp"></jsp:include>
-</body>
+<jsp:include page="footer.jsp"></jsp:include></body>
 </html>
 
 

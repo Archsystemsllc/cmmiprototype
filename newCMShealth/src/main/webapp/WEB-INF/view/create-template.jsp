@@ -30,6 +30,17 @@ var mappedItems = {};
 	background-color: #eee(180,2%,87%,0.5);
 }
 
+.cms-font-color  {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+    color: #112e51;
+    text-transform: capitalize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 18px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
 
 /*       html, body {
         margin: 0;
@@ -47,8 +58,10 @@ var mappedItems = {};
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body style="height:100%">
-<jsp:include page="admin_header.jsp"></jsp:include>
+<body style="background:#DCDCDC;">
+<%-- <jsp:include page="admin_header.jsp"></jsp:include> --%>
+
+<jsp:include page="layout.jsp"></jsp:include>
 	<script>
 
 	
@@ -60,13 +73,14 @@ var mappedItems = {};
       $("#mainDiv").hide();
       $("#statusID").hide();
       $("#fieldStatus").hide();
+      $("#resetBtn").show();
       getListTemplates();
  
       
    //   $('#whole').css('min-height', '100%');
-      document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
-    	document.body.style.backgroundRepeat="no-repeat";
-    	document.body.style.backgroundSize="cover";
+    //  document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
+    //	document.body.style.backgroundRepeat="no-repeat";
+    //	document.body.style.backgroundSize="cover";
 
         
     
@@ -131,14 +145,17 @@ var mappedItems = {};
       });
       
       $("#resetBtn").click(function () {
+      
+      window.location.href = 'http://localhost:8080/newcmshealth/createtemplate';
+  
    	   
-          alert("reset")
       });
       
       $("#templateSubmit").click(function () {
     	  
     	  $("#slectNewDiv").show(); 
     	  $("#slectNewDiv #NewMergedDiv").hide();
+              $("#resetBtn").show();
         var username="qamadmin";
         var password="123456";
         var templatecreate ={};
@@ -370,17 +387,17 @@ console.log(JSON.stringify(mappedItems));
 	
 	 
 		<div id="templateCreation" class="jumbotron jumbotron-fluid"
-			align="center" style="border-radius: 6px;padding:0 0 0 0;margin-top: 5%;">
+			align="center" style="border-radius: 6px;padding:0 0 0 0;margin-top: 5%; ">
 			 
 		
 			<div id="templateListDiv" align="center" class="ui-widget"
 				style="padding-top: 0px">
 				<div class="panel panel-default">
-				<div class="panel-heading">Create Template</div>
+				<div class="panel-heading cms-font-color">Create Template</div>
 				<div class="panel-body" style ="background:#d4bebe00">
 				
-				<label id="template_ID" style ="display:inline-block">Select Template Name </label> 
-				<select id="template_name" style ="display:inline-block; width:50%" name="attributeNames" size="2">
+				<label id="template_ID" style ="display:inline-block" class ="cms-font-color">Select Template Name </label> 
+				<select id="template_name" style ="display:inline-block; width:50%" class="cms-font-color" name="attributeNames" size="2">
 				<option> </option></select>
 				
 				<span title = "Select a template to configure" style="background:white;display:inline-block; border-radius: 50%; width:23px; height:23px;position:absolute;font-weight:bold; margin: 13px 0 40px 10px; padding-top:2px">?</span>
@@ -389,9 +406,9 @@ console.log(JSON.stringify(mappedItems));
 			</div>
 		<div id="mainDiv"  align="left" class="panel-body" style ="background:#d4bebe00">
 	<div class="row">
-				<p id ="configuredColumns" style="margin-left:60px;font-weight:bold ">Configured Columns: <span title = "Select Columns to include for future uploads" style="background:white;display:inline; border-radius: 50%; width:23px; text-align:center; height:23px;position:absolute;font-weight:bold; font-size: 17px; margin: 4px 0 0 5px;float:right">?</span><p>
+				<p id ="configuredColumns" style="margin-left:60px;font-weight:bold " class ="cms-font-color">Configured Columns: <span title = "Select Columns to include for future uploads" style="background:white;display:inline; border-radius: 50%; width:23px; text-align:center; height:23px;position:absolute;font-weight:bold; font-size: 17px; margin: 4px 0 0 5px;float:right">?</span><p>
 				
-				<select id="slectNewDiv" name="attributeNames"   style= "height:30%; width:40%; margin:0 60px 0 90px ; display:inline-block;float:left" size="9"
+				<select id="slectNewDiv" class ="cms-font-color" name="attributeNames"   style= "height:30%; width:40%; margin:0 60px 0 90px ; display:inline-block;float:left" size="9"
 					multiple="multiple">
 				</select> <br>
 
@@ -407,14 +424,16 @@ console.log(JSON.stringify(mappedItems));
 					</select>
 				</div>
 				<br><br><!-- style ="display:inline-block; margin-top:170px" -->
-				</div>
+				</div><br>
 				<div class="row">
 				
-				<div align=center class="panel-body" style = "padding: 20px;padding-bottom: 50px; ">
-								<button id="movingField" style = "padding: 10px 30px 10px 30px; margin-right: 24px" class="btn btn-default">Configure</button>
-					<button id="configSubmit" style = "padding: 10px 30px 10px 30px; margin-right: 24px" class="btn btn-default">Submit</button>
-					<button id="resetBtn" style = "padding: 10px 30px 10px 30px; margin-right: 24px" class="btn btn-default">Reset</button>
+				<div align=center class="col-md-6">
+					<button id="movingField" class="btn btn-default pull-right">Configure</button>
+                    <button id="configSubmit" class="btn btn-default pull-right">Submit</button>
 				</div>
+                <div class="col-md-6 pull-left">
+                     <button id="resetBtn" class="btn btn-default">Reset</button>
+                </div>
 				</div>
 				<br> <br>
 				<div align="center" id="fieldStatus"></div>
@@ -427,6 +446,5 @@ console.log(JSON.stringify(mappedItems));
 
 		
 </body>
-<jsp:include page="footer.jsp"></jsp:include>
-</html>
+<jsp:include page="footer.jsp"></jsp:include></html>
 

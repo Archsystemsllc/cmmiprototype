@@ -191,10 +191,8 @@ td, th {
 }
 
 table#reports, th, td {
-    border: 1px solid black;
     padding: 8px;
     margin-right: 70px;
-    background: #ccdeea;
 }
 
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */

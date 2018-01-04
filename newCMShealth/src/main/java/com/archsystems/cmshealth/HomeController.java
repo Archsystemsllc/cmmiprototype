@@ -18,6 +18,13 @@ public class HomeController {
 		return modelAndView;
 	}
 	
+	@RequestMapping("/applications")
+	public ModelAndView viewApplications(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("applications");
+		return modelAndView;
+	}
+	
 	@RequestMapping("/createtemplate")
 	public ModelAndView listOfTemplate(){
 		ModelAndView modelAndView = new ModelAndView();

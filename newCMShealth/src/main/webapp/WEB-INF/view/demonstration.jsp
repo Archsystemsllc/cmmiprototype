@@ -24,11 +24,23 @@ up.jQuery  = $;
 	padding: 50px 0px 50px 90px;
 	color: #3d3d3d;
 	background-color: hsla(180, 2%, 87%, 0.5);
+
+    .cms-font-color  {
+    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+    color: #112e51;
+    text-transform: capitalize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 18px;
+    font-size: 17px;
+    font-weight: 500;
+}
 }
 </style>
 </head>
-<body>
-<jsp:include page="admin_header.jsp"></jsp:include>
+<body style="height:100%;background:#DCDCDC">
+<%-- <jsp:include page="admin_header.jsp"></jsp:include> --%>
+<jsp:include page="layout.jsp"></jsp:include>
 
 	<script>
 (function($) {  // jQuery wrapper for uPortal
@@ -42,9 +54,9 @@ up.jQuery  = $;
           var selectedOption = "";
           var selectedTemplate = "";
           
-            document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
-        	document.body.style.backgroundRepeat="no-repeat";
-        	document.body.style.backgroundSize="cover";
+     //       document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
+       // 	document.body.style.backgroundRepeat="no-repeat";
+        //	document.body.style.backgroundSize="cover";
         	
             $("#uploadStatus").show();
              
@@ -58,17 +70,17 @@ up.jQuery  = $;
       }(up.jQuery));
     </script>
 	<div id="whole">
-		<div id=jumbo class="jumbotron jumbotron-fluid">
+		<div id=jumbo class="jumbotron jumbotron-fluid" style="background:#fff">
 
-			<div id="upload">
+			<div id="upload" style="width: 90%;">
 
-				<h2 style="text-align: center; border: 0px; padding: 0px">Microservice and Software Component Demonstration</h2>
+				<h2 style="text-align: center; border: 0px; padding: 0px" class="cms-font-color">Microservice and Software Component Demonstration</h2>
 				<br /> <br />
 
 				<div>
 				
 
-<p>The Arch Team is providing an example demonstration to show some key aspects of our approach to rapid development and re-use while maintaining quality standards. 
+<p class="cms-font-color">The Arch Team is providing an example demonstration to show some key aspects of our approach to rapid development and re-use while maintaining quality standards. 
 The requirements are limited to a partial application for the demonstration. 
 There is a File Upload service that is deployed in a microservice pattern so that it is accessible as
  an API and can be located on any platform providing a Java runtime and a remote service call. 
@@ -126,8 +138,7 @@ definition process.</p>
 			</div>
 		</div>
 	</div>
-<jsp:include page="footer.jsp"></jsp:include>
-</body>
+<jsp:include page="footer.jsp"></jsp:include></body>
 </html>
 
 
