@@ -136,16 +136,7 @@ td {
      <th>processedDate</th>
   </tr>
  </thead>
-     <tfoot>
-          <tr>
-     <th>id</th>
-     <th>fileName</th>
-     <th>templateName</th>
-     <th>status</th>
-     <th>message</th>
-     <th>processedDate</th>
-          </tr>
-     </tfoot>
+
  
  <tbody></tbody>
  </table>
