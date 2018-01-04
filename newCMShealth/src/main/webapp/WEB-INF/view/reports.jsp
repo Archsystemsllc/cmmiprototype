@@ -4,6 +4,9 @@
 <head>
 
 <script src="resources/jquery-3.2.1.js"></script>
+<script src="resources/jquery-ui/jquery-1.12.4.js"></script>
+<script src="resources/jquery-ui/dataTables.bootstrap.min.js"></script>
+<script src="resources/jquery-ui/jquery.dataTables.min.js"></script>
 <link href="resources/css/bootstrap.min.css"
 	rel="stylesheet">
 
@@ -55,12 +58,6 @@ td {
     	$(document).ready(function () {
 
     		getReports();
-          
-         //   document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
-        //	document.body.style.backgroundRepeat="no-repeat";
-        //	document.body.style.backgroundSize="cover";
-        	          
-            
             function getReports() {
                 var username="qamadmin";
                 var password="123456";
@@ -88,6 +85,9 @@ td {
                     			  "</tr>");
 
                       })
+                      $('#reports').DataTable({
+                        "processing": true
+                      });
 
                   //    $("#template_name").html(options.join(''));
 
@@ -97,6 +97,8 @@ td {
                     }
                 });  // ajax
               } 
+
+         
             
             function showAndHide(selecteditem){
               console.log(selecteditem);
@@ -106,7 +108,6 @@ td {
           
         });  // document.ready()
 
-        
  
       }(up.jQuery));
     </script>
@@ -123,7 +124,7 @@ td {
 
 
 
-<table id="reports" class ="table cms-font-color table-striped">
+<table id="reports" class="table table-striped table-bordered cms-font-color" cellspacing="0" width="100%">
  <thead>
  
   <tr>
@@ -135,6 +136,17 @@ td {
      <th>processedDate</th>
   </tr>
  </thead>
+     <tfoot>
+          <tr>
+     <th>id</th>
+     <th>fileName</th>
+     <th>templateName</th>
+     <th>status</th>
+     <th>message</th>
+     <th>processedDate</th>
+          </tr>
+     </tfoot>
+ 
  <tbody></tbody>
  </table>
 				

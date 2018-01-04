@@ -13,7 +13,7 @@
 		<div class="thumbnail">
 			<div class="caption">
 				<h3 id="thumbnail-label">
-					<a href="./">Upload File</a>
+					<a href="upload">Upload File</a>
 				</h3>
 				<p>For Uploading File</p>
 			</div>

@@ -12,11 +12,19 @@ public class HomeController {
 	
 
 	@RequestMapping("/")
-	public ModelAndView viewMyPage(){
+	public ModelAndView viewHome(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("home");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/upload")
+	public ModelAndView viewUpload(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("upload-file");
 		return modelAndView;
 	}
+	
 	
 	@RequestMapping("/applications")
 	public ModelAndView viewApplications(){

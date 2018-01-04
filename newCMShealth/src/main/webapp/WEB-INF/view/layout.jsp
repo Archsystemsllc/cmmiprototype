@@ -79,7 +79,7 @@
                        
                         CreateTemplate
                     </a></li>
-					<li><a href="./">
+					<li><a href="./upload">
                         Upload
                         </a>
                     </li>
