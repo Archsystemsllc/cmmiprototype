@@ -81,7 +81,7 @@
 				<div class="col-sm-4">
 					<ul class="pull-right cms-font-color">
 						<li><a
-							href="#<%-- ${pageContext.request.contextPath}/admin/dashboard --%>">Home</a></li>
+							href="./">Home</a></li>
 						<li><a
 							href="#<%-- ${pageContext.request.contextPath}/admin/aboutus --%>">About
 								Us</a></li>
