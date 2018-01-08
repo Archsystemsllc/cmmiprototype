@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "HEALTH_DATA_TEMPLATE_CONFIG")
-public class HealthDataTemplateConfig {
+public class HealthDataTemplateConfig extends ConfigModel{
 	private Long id;
 	private Long templateId;
 

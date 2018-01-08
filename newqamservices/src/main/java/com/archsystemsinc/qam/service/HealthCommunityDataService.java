@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Entity;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.archsystems.patterns.cor.FileUploadCOR;
 import com.archsystems.patterns.cor.FileUploadTO;
 import com.archsystemsinc.exception.FileUploadException;
+import com.archsystemsinc.qam.model.ConfigModel;
 import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
@@ -26,6 +29,8 @@ import com.archsystemsinc.qam.repository.HealthCommunityRepository;
 import com.archsystemsinc.qam.repository.HealthDataTemplateConfigRepositoty;
 import com.archsystemsinc.qam.repository.ReportingRepository;
 import com.archsystemsinc.qam.repository.TemplateRepository;
+import com.archsystemsinc.qam.service.domain.ServiceComposition;
+import com.archsystemsinc.qam.service.domain.TplConfigFactory;
 import com.archsystemsinc.qam.utils.PoiUtils;
 
 /**
@@ -52,16 +57,40 @@ public class HealthCommunityDataService {
 	@Autowired
 	private TemplateRepository templateRepository;
 
+	/**
+	 * 
+	 * @param data
+	 */
+	public ServiceComposition buildComposition(ConfigModel entity){
+		ServiceComposition sc  = null;	
+		new TplConfigFactory();
+		sc = TplConfigFactory.buildComposition(entity);
+		return sc;
+	}
 	
+	@SuppressWarnings("unchecked")
+	public ServiceComposition saveComposition(ServiceComposition data){
+		@SuppressWarnings("rawtypes")
+		JpaRepository repo =TplConfigFactory.getRepo(data);
+		 //TODO: must parameterize
+		repo.save(data.getModelObject());
+		return data;		
+	}	
 	
 	/**
 	 * 
 	 * @param data
 	 */
-	public HealthDataTemplateConfig createHealthTemplateConfig(HealthDataTemplateConfig data){
+	public ConfigModel createHealthTemplateConfig(ConfigModel data){
 		//DO AN UPDATE IF THE CONFIG EXISTS OR CREATE IT IF NOT data.getId();	
-		long tid = data.getTemplateId();
-		HealthDataTemplateConfig cfg = healthDataTemplateConfigRepositoty.findByTemplateId(tid);
+		//HealthDataTemplateConfig data
+		ServiceComposition sc = buildComposition(data);
+		//long tid = data.getTemplateId();
+		//ServiceComposition sc = buildComposition(tid);
+		saveComposition(sc);
+		return sc.getModelObject();
+		//repo.
+	/*	HealthDataTemplateConfig cfg = healthDataTemplateConfigRepositoty.findByTemplateId(tid);
 		if(cfg!=null) {
 			cfg.setCategoryName(data.getCategoryName());
 			cfg.setCity(data.getCity());
@@ -87,7 +116,7 @@ public class HealthCommunityDataService {
 			return healthDataTemplateConfigRepositoty.save(cfg);
 		}else {	
 			return healthDataTemplateConfigRepositoty.save(data);
-		}
+		}*/
 	}
 	
 

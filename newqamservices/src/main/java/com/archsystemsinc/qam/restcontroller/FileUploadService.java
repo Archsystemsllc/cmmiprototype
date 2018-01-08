@@ -6,6 +6,7 @@ package com.archsystemsinc.qam.restcontroller;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -18,12 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.archsystemsinc.qam.model.BpciTemplateConfig;
+import com.archsystemsinc.qam.model.ConfigModel;
 import com.archsystemsinc.qam.model.EmailAddress;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.Reporting;
 import com.archsystemsinc.qam.model.TemplateData;
 import com.archsystemsinc.qam.service.HealthCommunityDataService;
+import com.archsystemsinc.qam.service.domain.ServiceComposition;
 
 /**
  * @author Prakash T
@@ -44,9 +48,30 @@ public class FileUploadService {
 	 * @return
 	 */
 	@RequestMapping(value = "/createHealthDataTemplateConfig", method = RequestMethod.POST)
-	public HealthDataTemplateConfig createHealthDataTemplateConfig(HealthDataTemplateConfig data) {
+	public ConfigModel createHealthDataTemplateConfig(HealthDataTemplateConfig data) {
 		log.debug("--> createTemplate" + data);
-		return healthCommunityDataService.createHealthTemplateConfig(data);
+		//ServiceComposition sc = healthCommunityDataService.buildComposition(data.getTemplateId());
+		//HealthDataTemplateConfig change to entity if it works
+		ConfigModel ent=null;
+		try {
+			ent = healthCommunityDataService.createHealthTemplateConfig((ConfigModel) data);
+		}catch(Exception e) {
+			log.error(e);
+		}
+		return ent;
+	}
+	
+	/**
+	 * Because BPCI is a perfect subset we can use the one method. The TODO is to change the client data
+	 * to pure JSON so this can be generalized to one method.
+	 * @param data
+	 * @return
+	 */
+	@RequestMapping(value = "/createBpciTemplateConfig", method = RequestMethod.POST)
+	public HealthDataTemplateConfig createBpciTemplateConfig(BpciTemplateConfig data) {
+		log.debug("--> createTemplate" + data);
+		//return healthCommunityDataService.createHealthTemplateConfig(data);
+		return  null;//NOT USED
 	}
 
 	/**

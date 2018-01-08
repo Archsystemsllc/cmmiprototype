@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.archsystemsinc.qam","com.archsystems"})
+@ComponentScan({"com.archsystemsinc.qam","com.archsystemsinc.qam.service.domain","com.archsystems"})
 public class SpringConfiguration extends WebMvcConfigurerAdapter{
 	
 }

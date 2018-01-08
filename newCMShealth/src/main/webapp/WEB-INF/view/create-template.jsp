@@ -84,14 +84,15 @@ var mappedItems = {};
 
         
     
-    
+//   http://localhost:8080
+//   http://cmstest-1.us-east-1.elasticbeanstalk.com
 
       function getListTemplates() {
         var username="qamadmin";
         var password="123456";
         $.ajax({
             type:'GET',
-            url:'http://localhost:8080/newqamservices/api/listTemplates',       
+            url:'http://cmstest-1.us-east-1.elasticbeanstalk.com/newqamservices/api/listTemplates',       
                    enctype:'multipart/form-data',
                    contentType: false,
                    processData: false,
@@ -146,7 +147,7 @@ var mappedItems = {};
       
       $("#resetBtn").click(function () {
       
-      window.location.href = 'http://localhost:8080/newcmshealth/createtemplate';
+      window.location.href = 'http://cmstest-1.us-east-1.elasticbeanstalk.com/newcmshealth/createtemplate';
   
    	   
       });
@@ -166,7 +167,7 @@ var mappedItems = {};
         if (templatecreate.name!=null && templatecreate.name!='') {
           $.ajax({
               type: 'POST',
-              url: 'http://localhost:8080/newqamservices/api/listHealthDataTemplateConfigs',
+              url: 'http://cmstest-1.us-east-1.elasticbeanstalk.com/newqamservices/api/listHealthDataTemplateConfigs',
               enctype:'multipart/form-data',
               data:formData,
               contentType: false,
@@ -357,7 +358,7 @@ var mappedItems = {};
 console.log(JSON.stringify(mappedItems));
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:8080/newqamservices/api/createHealthDataTemplateConfig',
+            url: 'http://cmstest-1.us-east-1.elasticbeanstalk.com/newqamservices/api/createHealthDataTemplateConfig',
             
             //   enctype:'multipart/form-data',
             
