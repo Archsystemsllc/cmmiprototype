@@ -52,7 +52,7 @@ public class TplConfigFactory {
 		HealthDataTemplateConfig ahcModel=null;
 		BpciTemplateConfig bpciModel=null;
 		long templateId=0;
-		
+		//right now it is always HealthDataTemplateConfig, it doesn't matter for the demo
 		if(data instanceof HealthDataTemplateConfig) {
 			ahcModel=(HealthDataTemplateConfig) data;
 			templateId=ahcModel.getTemplateId();
@@ -78,8 +78,10 @@ public class TplConfigFactory {
 	        case BpciComposition.bpciName:  
 	        	serviceComp = bpciComp_s;//new BpciComposition();
 	        	serviceComp.setName(BpciComposition.bpciName);
-	        	serviceComp.setModelObject((ConfigModel) bpciModel);
-	        	serviceComp.compose();
+	        	//if(bpciModel==null)bpciModel=(HealthDataTemplateConfig) data;
+	        	//again this is not right but there is some redesign needed to get away from model objects used in the controller 
+	        	//serviceComp.setModelObject((ConfigModel) data);//bpciModel
+	        	((BpciComposition)serviceComp).compose((HealthDataTemplateConfig)data);
 	            break;
 	        default: 
 	        	//throw error

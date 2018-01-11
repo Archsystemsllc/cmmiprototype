@@ -24,6 +24,9 @@
 	up.jQuery = $;
 
 	var mappedItems = {};
+	var svcUrlBase = 'http://localhost:8080';
+	//http://cmstest-1.us-east-1.elasticbeanstalk.com
+	//http://localhost:8080
 </script>
 
 
@@ -155,7 +158,7 @@
 					$.ajax({
 						type : 'GET',
 	
-						url : 'http://cmstest-1.us-east-1.elasticbeanstalk.com/newqamservices/api/listTemplates',
+						url : svcUrlBase+'/newqamservices/api/listTemplates',
 	
 						enctype : 'multipart/form-data',
 	
@@ -318,7 +321,7 @@
 	
 	
 	
-					window.location.href = 'http://cmstest-1.us-east-1.elasticbeanstalk.com/newcmshealth/createtemplate';
+					window.location.href = svcUrlBase+'/newcmshealth/createtemplate';
 	
 	
 	
@@ -357,7 +360,7 @@
 						$.ajax({
 							type : 'POST',
 	
-							url : 'http://cmstest-1.us-east-1.elasticbeanstalk.com/newqamservices/api/listHealthDataTemplateConfigs',
+							url : svcUrlBase+'/newqamservices/api/listHealthDataTemplateConfigs',
 	
 							enctype : 'multipart/form-data',
 	
@@ -737,7 +740,7 @@
 					$.ajax({
 						type : 'POST',
 	
-						url : 'http://cmstest-1.us-east-1.elasticbeanstalk.com/newqamservices/api/createHealthDataTemplateConfig',
+						url : svcUrlBase+'/newqamservices/api/createHealthDataTemplateConfig',
 	
 	
 	

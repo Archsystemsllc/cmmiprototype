@@ -13,6 +13,9 @@
 <script>
 var up={}
 up.jQuery  = $;
+var svcUrlBase = 'http://localhost:8080';
+//http://cmstest-1.us-east-1.elasticbeanstalk.com
+//http://localhost:8080
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -53,6 +56,9 @@ td {
 <%-- <jsp:include page="admin_header.jsp"></jsp:include> --%>
 <jsp:include page="layout.jsp"></jsp:include>
 
+<!--   http://localhost:8080
+   http://cmstest-1.us-east-1.elasticbeanstalk.com
+ -->
 	<script>
 (function($) {  // jQuery wrapper for uPortal
     	$(document).ready(function () {
@@ -63,7 +69,7 @@ td {
                 var password="123456";
                 $.ajax({
                     type:'GET',
-                    url:'http://localhost:8080/newqamservices/api/reporting',       
+                    url:svcUrlBase+'/newqamservices/api/reporting',       
                            enctype:'multipart/form-data',
                            contentType: false,
                            processData: false,

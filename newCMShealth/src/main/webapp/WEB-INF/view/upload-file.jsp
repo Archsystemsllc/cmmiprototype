@@ -6,12 +6,17 @@
 <script>
 	var up = {}
 	up.jQuery = $;
+	var svcUrlBase = 'http://localhost:8080';
+	//http://cmstest-1.us-east-1.elasticbeanstalk.com
+	//http://localhost:8080
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>UPLOAD</title>
-
+<!--   http://localhost:8080
+   http://cmstest-1.us-east-1.elasticbeanstalk.com
+ -->
 
 <style>
 .jumbotron-ext {
@@ -82,7 +87,7 @@
 													$
 															.ajax({
 																type : 'POST',
-																url : 'http://localhost:8080/newqamservices/api/uploadHealthData/'
+																url : svcUrlBase+'/newqamservices/api/uploadHealthData/'
 																		+ selectedOption,
 																enctype : 'multipart/form-data',
 																data : formData,
@@ -159,7 +164,7 @@
 									$
 											.ajax({
 												type : 'GET',
-												url : 'http://localhost:8080/newqamservices/api/listTemplates',
+												url : svcUrlBase+'/newqamservices/api/listTemplates',
 												enctype : 'multipart/form-data',
 												contentType : false,
 												processData : false,

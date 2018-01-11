@@ -54,7 +54,7 @@ public class FileUploadService {
 		//HealthDataTemplateConfig change to entity if it works
 		ConfigModel ent=null;
 		try {
-			ent = healthCommunityDataService.createHealthTemplateConfig((ConfigModel) data);
+			ent =healthCommunityDataService.createHealthTemplateConfig((ConfigModel) data);
 		}catch(Exception e) {
 			log.error(e);
 		}
