@@ -58,6 +58,11 @@
 								var itemName = "";
 								var selectedOption = "";
 								var selectedTemplate = "";
+								var tempid ="";
+								var selectedTemplate1 = "";
+								var tempid1 ="";
+
+
 
 							//	document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
 							//	document.body.style.backgroundRepeat = "no-repeat";
@@ -81,14 +86,27 @@
 													selectedOption = $(
 															'#divTemplates #selectTemplates option:selected')
 															.text();
+															//console.log(selectedOption);
+
+															if(selectedOption=="AHC Template"){
+																tempid = 190;
+																//console.log("190: "+tempid);
+															}
+															if(selectedOption=="BPCI Template"){
+																tempid = 191;
+																//console.log("191 :"+ tempid);
+															}
 
 													//alert(selectedOption)
+
+
 
 													$
 															.ajax({
 																type : 'POST',
 																url : svcUrlBase+'/newqamservices/api/uploadHealthData/'
-																		+ selectedOption,
+																		+ tempid,
+
 																enctype : 'multipart/form-data',
 																data : formData,
 																contentType : false,
@@ -177,7 +195,9 @@
 												success : function(response) {
 													// console.log('succes!!' );
 													console.log(response);
-													//var selectedOption = $('#divTemplates #selectTemplates option:selected').text();
+													//var selectedOption1 = $('#divTemplates #selectTemplates option:selected').text();
+												
+									
 
 													var options = [];
 													//$('#divTemplates #selectTemplates');
@@ -192,7 +212,7 @@
 																options
 																		.push(
 																				'<option value="',item.id, '">',
-																				item.id,
+																				item.name,
 																				'</option>');
 																templates
 																		.push(item.name);
