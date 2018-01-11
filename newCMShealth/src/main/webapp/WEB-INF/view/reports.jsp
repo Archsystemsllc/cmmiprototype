@@ -5,8 +5,8 @@
 
 <script src="resources/jquery-3.2.1.js"></script>
 <script src="resources/jquery-ui/jquery-1.12.4.js"></script>
-<script src="resources/jquery-ui/dataTables.bootstrap.min.js"></script>
 <script src="resources/jquery-ui/jquery.dataTables.min.js"></script>
+<script src="resources/jquery-ui/dataTables.bootstrap.min.js"></script>
 <link href="resources/css/bootstrap.min.css"
 	rel="stylesheet">
 
@@ -146,7 +146,9 @@ td {
 			</div>
 		</div>
 	</div>
-<jsp:include page="footer.jsp"></jsp:include></body>
+<jsp:include page="footer.jsp"></jsp:include>
+</body>
+
 </html>
 
 
