@@ -81,13 +81,13 @@
 													selectedOption = $(
 															'#divTemplates #selectTemplates option:selected')
 															.text();
-															console.log(selectedOption);
+															//console.log(selectedOption);
 
-															if(selectedOption=="190AHC Template"){
+															if(selectedOption=="AHC Template"){
 																tempid = 190;
 																//console.log("190: "+tempid);
 															}
-															if(selectedOption=="191BPCI Template"){
+															if(selectedOption=="BPCI Template"){
 																tempid = 191;
 																//console.log("191 :"+ tempid);
 															}
@@ -189,9 +189,9 @@
 												success : function(response) {
 													// console.log('succes!!' );
 													console.log(response);
-													//var selectedOption = $('#divTemplates #selectTemplates option:selected').text();
+													//var selectedOption1 = $('#divTemplates #selectTemplates option:selected').text();
 												
-												
+									
 
 													var options = [];
 													//$('#divTemplates #selectTemplates');
@@ -206,7 +206,7 @@
 																options
 																		.push(
 																				'<option value="',item.id, '">',
-																				item.id,item.name,
+																				item.name,
 																				'</option>');
 																templates
 																		.push(item.name);
