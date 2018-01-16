@@ -87,6 +87,10 @@
                         Reports
                         </a>
                     </li>
+                    <li><a href="./demonstration">
+                        Demonstration
+                        </a>
+                    </li>
 					<!-- <li><a href="./demonstration">Demonstration Description</a></li> -->
 				</ul>
 			</div>

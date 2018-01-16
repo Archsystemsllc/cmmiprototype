@@ -15,49 +15,50 @@
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 card grid-item text-center">
 		<div class="thumbnail">
-			<div class="caption cms-box-height" style="padding-top: 100px;">
+			<div class="caption cms-box-height" style="padding-top: 20px;">
 				<h4 id="thumbnail-label">
-					<a href="upload">Upload File</a>
+					<a  alt="Upload a file to save information based on a template." href="upload">Upload File</a>
 				</h4>
-				<p>
-					<b>For Uploading File</b>
+				<p style="padding-top: 20px;">
+					<img style="height:50%" alt="" src="resources/images/upload.png">
 				</p>
 			</div>
 		</div>
 	</div>
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 card grid-item text-center">
 		<div class="thumbnail">
-			<div class="caption cms-box-height" style="padding-top: 100px;">
+			<div class="caption cms-box-height" style="padding-top: 20px;">
 				<h4 id="thumbnail-label">
-					<a href="createtemplate">Create Template</a>
+					<a alt="Configure one of two templates used for uploads." href="createtemplate">Configure Template</a>
 				</h4>
-				<p>
-					<b>For Creating Template</b>
+				<p style="padding-top: 20px;">
+					<img style="height:50%" alt="" src="resources/images/template2.jpg">
 				</p>
+				
 			</div>
 		</div>
 	</div>
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 card grid-item text-center">
 		<div class="thumbnail">
-			<div class="caption cms-box-height" style="padding-top: 100px;">
+			<div class="caption cms-box-height" style="padding-top: 20px;">
 				<h4 id="thumbnail-label">
-					<a href="reports">Reports</a>
+					<a alt="See the history report for uploads." href="reports">Reports</a>
 				</h4>
-				<p>
-					<b>To get the Reports</b>
+				<p style="padding-top: 20px;">
+					<img style="height:50%" alt="" src="resources/images/report.png">
 				</p>
 			</div>
 		</div>
 	</div>
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 card grid-item text-center">
 			<div class="thumbnail">
-					<div class="caption cms-box-height" style="padding-top: 100px;">
+					<div class="caption cms-box-height" style="padding-top: 20px;">
 						<h4 id="thumbnail-label">
-							<a href="demonstration">Demonstration</a>
+							<a alt="See a description of this demonstration." href="demonstration">Demonstration</a>
 						</h4>
-						<p>
-							<b>Demonstration Details</b>
-						</p>
+					<p style="padding-top: 20px;">
+						<img style="height:50%" alt="" src="resources/images/demo.png">
+					</p>
 					</div>
 				</div>
 	</div>

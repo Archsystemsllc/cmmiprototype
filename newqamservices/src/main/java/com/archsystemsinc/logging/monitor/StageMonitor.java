@@ -133,7 +133,8 @@ public class StageMonitor extends Monitor{
 	
 	public String reportStage(String stage){
 		try{
-		return messages.get(stage).toString();
+			Message m = messages.get(stage);
+			return m.toString();
 		}catch(Exception e){
 			return "Warning - stage: "+ stage+"not found.";
 		}

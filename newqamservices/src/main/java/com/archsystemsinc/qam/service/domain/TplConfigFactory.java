@@ -44,7 +44,27 @@ public class TplConfigFactory {
 	//private static final String  ahcName ="AHC Template";
 	//private static final String  bpciName ="BPCI Template";
  
-
+	  public static ConfigModel getConfigModel(long templateId) {
+			TemplateData td = templateRepository_s.findOne(templateId);
+			ConfigModel configModel = null;
+			//TODO: check null
+			String name = td.getName();
+									
+		    switch (name) {
+		        case AhcComposition.ahcName:  
+		        	configModel = 
+		        			healthDataTemplateConfigRepositoty_s.findByTemplateId(templateId);
+		            break;
+		        case BpciComposition.bpciName:  
+		        	configModel = 
+		        			bpciConfigRepository_s.findByTemplateId(templateId);
+		            break;
+		        default: 
+		        	//throw error
+		        	break; 
+	        }       	
+			return configModel;
+	  }
 	
 	
 	
@@ -71,17 +91,20 @@ public class TplConfigFactory {
         switch (name) {
 	        case AhcComposition.ahcName:  
 	        	serviceComp = ahcComp_s;//new AhcComposition();
-	        	serviceComp.setName(AhcComposition.ahcName);
+	        	serviceComp.setName(AhcComposition.ahcName);//TODO: use DB to populate
+	        	ahcModel.setTemplateName(td.getName());
 	        	serviceComp.setModelObject((ConfigModel) ahcModel);
 	        	serviceComp.compose();
 	            break;
 	        case BpciComposition.bpciName:  
 	        	serviceComp = bpciComp_s;//new BpciComposition();
 	        	serviceComp.setName(BpciComposition.bpciName);
+	        	
 	        	//if(bpciModel==null)bpciModel=(HealthDataTemplateConfig) data;
 	        	//again this is not right but there is some redesign needed to get away from model objects used in the controller 
 	        	//serviceComp.setModelObject((ConfigModel) data);//bpciModel
 	        	((BpciComposition)serviceComp).compose((HealthDataTemplateConfig)data);
+	        	serviceComp.getModelObject().setTemplateName(td.getName());
 	            break;
 	        default: 
 	        	//throw error

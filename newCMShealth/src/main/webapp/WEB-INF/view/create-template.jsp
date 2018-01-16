@@ -768,7 +768,7 @@
 	
 							console.log('succes!!');
 	
-							$('#fieldStatus').html("Template " + response.id + " has been configured ");
+							$('#fieldStatus').html("Template " + response.templateName + " has been configured ");
 	
 							$("#fieldStatus").show();
 	

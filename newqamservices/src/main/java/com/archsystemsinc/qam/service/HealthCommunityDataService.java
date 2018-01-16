@@ -73,7 +73,9 @@ public class HealthCommunityDataService {
 		@SuppressWarnings("rawtypes")
 		JpaRepository repo =TplConfigFactory.getRepo(data);
 		 //TODO: must parameterize
-		repo.save(data.getModelObject());
+		ConfigModel model = (ConfigModel) repo.save(data.getModelObject());
+		model.setTemplateName(data.getName());
+		data.setModelObject(model);
 		return data;		
 	}	
 	

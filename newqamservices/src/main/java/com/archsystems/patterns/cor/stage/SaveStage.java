@@ -11,8 +11,12 @@ import com.archsystems.patterns.cor.Stage;
 import com.archsystems.patterns.cor.TransferObject;
 import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.logging.monitor.StageMonitor;
+import com.archsystemsinc.qam.model.BpciTemplateConfig;
 import com.archsystemsinc.qam.model.HealthCommunity;
+import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.repository.HealthCommunityRepository;
+import com.archsystemsinc.qam.service.domain.AhcComposition;
+import com.archsystemsinc.qam.service.domain.BpciComposition;
 import com.archsystemsinc.qam.utils.PoiUtils;
 
 @Component
@@ -45,7 +49,12 @@ public class SaveStage implements Stage{
 			this.payload = (FileUploadTO) payloadLocal;
 				if(payload.getParsedData() != null &&  !payload.getParsedData().isEmpty()) {
 					List<HealthCommunity> savedData = healthCommunityRepository.save(payload.getParsedData());
-					PoiUtils.updateHealthDataWithMergedColData(savedData, this.payload.getConfigData());
+					if(AhcComposition.ahcName.equalsIgnoreCase(payload.getConfigData().getTemplateName())) {
+						PoiUtils.updateHealthDataWithMergedColData(savedData,(HealthDataTemplateConfig) this.payload.getConfigData());
+					}else if(BpciComposition.bpciName.equalsIgnoreCase(payload.getConfigData().getTemplateName())) {
+						PoiUtils.updateHealthDataWithMergedColData(savedData, (BpciTemplateConfig)this.payload.getConfigData());
+					}	
+					
 					payload.setSavedData(savedData);
 					monitor.appendMessage(this.getStageName(), "Saved data for file, count: "+
 							payload.getUploadedFile().getName()+"' "+payload.getParsedData().size());

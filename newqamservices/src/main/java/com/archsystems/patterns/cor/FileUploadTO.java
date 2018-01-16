@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.archsystemsinc.qam.model.ConfigModel;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.Reporting;
@@ -13,7 +14,7 @@ public class FileUploadTO extends TransferObject {
 	String fileName;
 	String status;
 	String message;
-	HealthDataTemplateConfig configData;
+	ConfigModel configData;
 	MultipartFile uploadedFile;
 	List<HealthCommunity> parsedData;
 	List<HealthCommunity> savedData;
@@ -25,10 +26,10 @@ public class FileUploadTO extends TransferObject {
 	public void setTemplateId(long templateId) {
 		this.templateId = templateId;
 	}
-	public HealthDataTemplateConfig getConfigData() {
+	public ConfigModel getConfigData() {
 		return configData;
 	}
-	public void setConfigData(HealthDataTemplateConfig configData) {
+	public void setConfigData(ConfigModel configData) {
 		this.configData = configData;
 	}
 	public MultipartFile getUploadedFile() {

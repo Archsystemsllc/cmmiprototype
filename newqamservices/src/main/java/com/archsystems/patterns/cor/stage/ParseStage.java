@@ -10,7 +10,11 @@ import com.archsystems.patterns.cor.Stage;
 import com.archsystems.patterns.cor.TransferObject;
 import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.logging.monitor.StageMonitor;
+import com.archsystemsinc.qam.model.BpciTemplateConfig;
 import com.archsystemsinc.qam.model.HealthCommunity;
+import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
+import com.archsystemsinc.qam.service.domain.AhcComposition;
+import com.archsystemsinc.qam.service.domain.BpciComposition;
 import com.archsystemsinc.qam.utils.PoiUtils;
 @Component
 public class ParseStage implements Stage {
@@ -37,11 +41,18 @@ public class ParseStage implements Stage {
 		log.debug("--> execute");
 		try {
 			this.payload = (FileUploadTO) payloadLocal;
+			List<HealthCommunity> data=null;
 			if(payload.getConfigData() != null) {
-				List<HealthCommunity> data = PoiUtils.parseHealthDataFile
-						(payload.getUploadedFile(), payload.getConfigData(),monitor);
-				payload.setParsedData(data);	
-
+				if(AhcComposition.ahcName.equalsIgnoreCase(payload.getConfigData().getTemplateName())) {
+					data = PoiUtils.parseHealthDataFile
+							(payload.getUploadedFile(), payload.getConfigData(),monitor);
+					payload.setParsedData(data);	
+				}else if(BpciComposition.bpciName.equalsIgnoreCase(payload.getConfigData().getTemplateName())) {
+					data = PoiUtils.parseHealthDataFile
+							(payload.getUploadedFile(),payload.getConfigData(),monitor);
+					payload.setParsedData(data);	
+				}
+				
 				monitor.appendMessage(this.getStageName(), "Parsed file data file name, count: "+
 						payload.getUploadedFile().getName()+", "+data.size());
 			}else {

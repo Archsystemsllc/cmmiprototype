@@ -22,11 +22,15 @@ import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.logging.monitor.Monitor;
 import com.archsystemsinc.logging.monitor.StageMonitor;
 import com.archsystemsinc.qam.model.Address;
+import com.archsystemsinc.qam.model.BpciTemplateConfig;
 import com.archsystemsinc.qam.model.Category;
+import com.archsystemsinc.qam.model.ConfigModel;
 //import com.archsystemsinc.qam.model.FileData;
 import com.archsystemsinc.qam.model.HealthCommunity;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.SocialMedia;
+import com.archsystemsinc.qam.service.domain.AhcComposition;
+import com.archsystemsinc.qam.service.domain.BpciComposition;
 
 /**
  * @author Prakash T
@@ -99,7 +103,7 @@ public class PoiUtils {
 */		
 
 	public static List<HealthCommunity> parseHealthDataFile(MultipartFile uploadedFile,
-			HealthDataTemplateConfig configData,StageMonitor monitor) throws FileUploadException{
+			ConfigModel configModel,StageMonitor monitor) throws FileUploadException{
 		log.debug("--> parseHealthFile");
 		System.out.println("parseHealthFile" + uploadedFile.getName());
 		monitor.appendMessage(monitor.getCurrentStage(), "Parse file name: "+uploadedFile.getName());
@@ -124,14 +128,18 @@ public class PoiUtils {
 					
 					if (providersFileRow.getRowNum() > 0 && providersFileRow.getRowNum() <= providersFileRowCount){
 						data = new HealthCommunity();
-						data.setTemplateId(configData.getTemplateId());
+						data.setTemplateId(configModel.getTemplateId());
 						log.debug("ROW - " + providersFileRow.getRowNum());
 						rowNum = providersFileRow.getRowNum();
 						Iterator<Cell> iterator = providersFileRow.cellIterator();
 						while (iterator.hasNext()) {
 							Cell hssfCell = (Cell) iterator.next();
 							int cellIndex = hssfCell.getColumnIndex();
-							 updateHealthFileData(cellIndex, hssfCell, data, configData);
+							if(AhcComposition.ahcName.equalsIgnoreCase(configModel.getTemplateName())) {
+							 updateHealthFileData(cellIndex, hssfCell, data, (HealthDataTemplateConfig) configModel);
+							}else if(BpciComposition.bpciName.equalsIgnoreCase(configModel.getTemplateName())) {
+								 updateHealthFileData(cellIndex, hssfCell, data, (BpciTemplateConfig) configModel);
+							}
 							 //log.debug(data);
 						}
 						dataList.add(data);
@@ -224,6 +232,37 @@ public class PoiUtils {
 		}
 	}
 	
+	private static void updateHealthFileData(int cellIndex, Cell cellData, HealthCommunity data,
+			BpciTemplateConfig configData) {
+		if(configData.getLocation() != null && configData.getLocation() == cellIndex){
+			Address address = getAddress(data);
+			address.setLocation(cellData.getStringCellValue());
+			data.setAddress(address);
+		}else if(configData.getCity() !=null && configData.getCity() == cellIndex){
+			Address address = getAddress(data);
+			address.setCity(cellData.getStringCellValue());
+			data.setAddress(address);			
+		}else if(configData.getState() !=null && configData.getState() == cellIndex){
+			Address address = getAddress(data);
+			address.setState(cellData.getStringCellValue());
+			data.setAddress(address);			
+		}else if(configData.getStateBase() !=null && configData.getStateBase() == cellIndex){
+			Address address = getAddress(data);
+			address.setStateBase(cellData.getStringCellValue());
+			data.setAddress(address);			
+		}else if(configData.getPhase1() !=null && configData.getPhase1() == cellIndex){
+			Address address = getAddress(data);
+			address.setPhase1(cellData.getStringCellValue());
+			data.setAddress(address);			
+		}else if(configData.getNameOfInitiative() !=null && configData.getNameOfInitiative() == cellIndex){
+			data.setNameOfInitiative(cellData.getStringCellValue());
+		}else if(configData.getNotes() !=null && configData.getNotes() == cellIndex){
+			data.setNotes(cellData.getStringCellValue());
+		}else if(configData.getOrgName() !=null && configData.getOrgName() == cellIndex){
+			data.setOrgName(cellData.getStringCellValue());
+		}
+	}
+	
 	/**
 	 * 
 	 * @param healthCommunity
@@ -293,6 +332,46 @@ public class PoiUtils {
 		return builder.toString().replaceAll("null", "");
 	}
 	
+	private static String getMergedColData(HealthCommunity healthCommunity,BpciTemplateConfig configData,String mergedColString) {
+		log.debug("--> getMergedColData::"+mergedColString);
+		String temp[] = mergedColString.split(":");
+		log.debug("temp:"+temp);
+		String fieldName = temp[0];
+		String colPositions = temp[1];
+		String dCols[] = colPositions.split(",");
+		log.debug("dCols::"+dCols);
+		StringBuilder builder = new StringBuilder(fieldName+":");
+		Integer cellIndex = null;
+		for(int index =0; index < dCols.length; index++) {
+			cellIndex = new Integer(dCols[index]);
+			if(configData.getLocation() != null && configData.getLocation() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getLocation());
+			}else if(configData.getCity() !=null && configData.getCity() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getCity());
+			}else if(configData.getState() !=null && configData.getState() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getState());
+			}else if(configData.getStateBase() !=null && configData.getStateBase() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getStateBase());
+			}else if(configData.getPhase1() !=null && configData.getPhase1() == cellIndex.intValue()){
+				if(healthCommunity.getAddress() != null)
+				builder.append(" "+healthCommunity.getAddress().getPhase1());
+			}else if(configData.getNameOfInitiative() !=null && configData.getNameOfInitiative() == cellIndex.intValue()){
+				builder.append(" "+healthCommunity.getNameOfInitiative());
+			}else if(configData.getNotes() !=null && configData.getNotes() == cellIndex.intValue()){
+				builder.append(" "+healthCommunity.getNotes());
+			}else if(configData.getOrgName() !=null && configData.getOrgName() == cellIndex.intValue()){
+				builder.append(" "+healthCommunity.getOrgName());
+			}
+		}
+			
+		log.debug("<-- getMergedColData:"+builder);
+		return builder.toString().replaceAll("null", "");
+	}
+	
 	/**
 	 * 
 	 * @param data
@@ -303,22 +382,15 @@ public class PoiUtils {
 			if( config.getMergedCol1() != null && !"".equals(config.getMergedCol1().trim())){
 				hc.setMergedCol1(getMergedColData(hc, config, config.getMergedCol1()));
 			}
-			
-			/*if( config.getMergedCol2() != null && !"".equals(config.getMergedCol2().trim())){
-				hc.setMergedCol2(getMergedColData(hc, config, config.getMergedCol2()));
+		}
+		
+	}
+	
+	public static void updateHealthDataWithMergedColData(List<HealthCommunity> data,BpciTemplateConfig config){
+		for(HealthCommunity hc:data) {
+			if( config.getMergedCol1() != null && !"".equals(config.getMergedCol1().trim())){
+				hc.setMergedCol1(getMergedColData(hc, config, config.getMergedCol1()));
 			}
-			
-			if( config.getMergedCol3() != null && !"".equals(config.getMergedCol3().trim())){
-				hc.setMergedCol3(getMergedColData(hc, config, config.getMergedCol3()));
-			}
-			
-			if( config.getMergedCol4() != null && !"".equals(config.getMergedCol4().trim())){
-				hc.setMergedCol4(getMergedColData(hc, config, config.getMergedCol4()));
-			}
-			
-			if( config.getMergedCol5() != null && !"".equals(config.getMergedCol5().trim())){
-				hc.setMergedCol5(getMergedColData(hc, config, config.getMergedCol5()));
-			}*/
 		}
 		
 	}
@@ -328,10 +400,16 @@ public class PoiUtils {
 	 * @param data
 	 * @param config
 	 */
-	public static void updateHealthDataWithMergedColData(HealthCommunity hc, HealthDataTemplateConfig config){
+	public static void updateHealthDataWithMergedColData(HealthCommunity hc, ConfigModel config){
 		
 		if( config.getMergedCol1() != null && !"".equals(config.getMergedCol1().trim())){
-			hc.setMergedCol1(getMergedColData(hc, config, config.getMergedCol1()));
+			
+			if(AhcComposition.ahcName.equalsIgnoreCase(config.getTemplateName())) {
+				hc.setMergedCol1(getMergedColData(hc, (HealthDataTemplateConfig) config, config.getMergedCol1()));
+			}else if(BpciComposition.bpciName.equalsIgnoreCase(config.getTemplateName())) {
+				hc.setMergedCol1(getMergedColData(hc, (BpciTemplateConfig) config, config.getMergedCol1()));
+			}			
+			
 		}
 		
 /*		if( config.getMergedCol2() != null && !"".equals(config.getMergedCol2().trim())){

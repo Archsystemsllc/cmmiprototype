@@ -9,8 +9,10 @@ import com.archsystems.patterns.cor.Stage;
 import com.archsystems.patterns.cor.TransferObject;
 import com.archsystemsinc.exception.FileUploadException;
 import com.archsystemsinc.logging.monitor.StageMonitor;
+import com.archsystemsinc.qam.model.ConfigModel;
 import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.repository.HealthDataTemplateConfigRepositoty;
+import com.archsystemsinc.qam.service.domain.TplConfigFactory;
 
 @Component
 public class ConfigStage implements Stage {
@@ -40,8 +42,11 @@ public class ConfigStage implements Stage {
 		log.debug("--> execute:"+payloadLocal);
 		try {	
 				setPayload((FileUploadTO)payloadLocal);
-				HealthDataTemplateConfig configData = //healthDataTemplateConfigRepositoty.findOne(templateId)
-						healthDataTemplateConfigRepositoty.findByTemplateId(payload.getTemplateId());
+				//HealthDataTemplateConfig configData = //healthDataTemplateConfigRepositoty.findOne(templateId)
+						//healthDataTemplateConfigRepositoty.findByTemplateId(payload.getTemplateId());
+				
+				ConfigModel configData =TplConfigFactory.getConfigModel(payload.getTemplateId());
+				
 				if(configData == null) {
 					stageMonitor.appendMessage(this.getStageName(),
 							"configData not found for template: "+payload.getTemplateId());
