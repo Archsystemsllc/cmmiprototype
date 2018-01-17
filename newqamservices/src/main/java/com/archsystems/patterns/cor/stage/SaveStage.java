@@ -63,11 +63,11 @@ public class SaveStage implements Stage{
 					monitor.appendMessage(this.getStageName(), "No data to save!!");
 				}
 			}catch(Exception e) {
-			e.printStackTrace();
-			monitor.appendMessage(this.getStageName(), ", Failed to save file data.");
-			this.payload.setMessage(this.getStageName()+", Failed to save file.");
-			this.payload.setStatus("ERROR");
-			throw new FileUploadException(e.getMessage());
+				e.printStackTrace();
+				monitor.appendMessage(this.getStageName(), ", Failed to save file data.");
+				this.payload.setMessage(this.getStageName()+", Failed to save file.");
+				this.payload.setStatus("ERROR");
+				throw new FileUploadException(e.getMessage());
 		}
 		log.debug("<-- execute");
 		return this;

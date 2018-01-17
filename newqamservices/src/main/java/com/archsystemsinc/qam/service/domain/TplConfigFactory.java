@@ -54,10 +54,12 @@ public class TplConfigFactory {
 		        case AhcComposition.ahcName:  
 		        	configModel = 
 		        			healthDataTemplateConfigRepositoty_s.findByTemplateId(templateId);
+		        	configModel.setTemplateName(name);
 		            break;
 		        case BpciComposition.bpciName:  
 		        	configModel = 
 		        			bpciConfigRepository_s.findByTemplateId(templateId);
+		        	configModel.setTemplateName(name);
 		            break;
 		        default: 
 		        	//throw error
