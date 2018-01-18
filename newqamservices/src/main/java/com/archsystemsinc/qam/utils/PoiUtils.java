@@ -5,8 +5,14 @@ package com.archsystemsinc.qam.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
@@ -31,6 +37,7 @@ import com.archsystemsinc.qam.model.HealthDataTemplateConfig;
 import com.archsystemsinc.qam.model.SocialMedia;
 import com.archsystemsinc.qam.service.domain.AhcComposition;
 import com.archsystemsinc.qam.service.domain.BpciComposition;
+
 
 /**
  * @author Prakash T
@@ -121,6 +128,7 @@ public class PoiUtils {
 			monitor.appendMessage(monitor.getCurrentStage(), "Parse file name,number of rows: "
 					+uploadedFile.getName()+"' "+totalNumberOfRows);
 			HealthCommunity data = null;
+			TreeMap<Long,String> mergeSet = new TreeMap<Long, String>();
 			long rowNum=0;
 			while (providersFileRowIterator.hasNext()){
 				try {
@@ -132,17 +140,23 @@ public class PoiUtils {
 						log.debug("ROW - " + providersFileRow.getRowNum());
 						rowNum = providersFileRow.getRowNum();
 						Iterator<Cell> iterator = providersFileRow.cellIterator();
+						
 						while (iterator.hasNext()) {
 							Cell hssfCell = (Cell) iterator.next();
 							int cellIndex = hssfCell.getColumnIndex();
 							if(AhcComposition.ahcName.equalsIgnoreCase(configModel.getTemplateName())) {
-							 updateHealthFileData(cellIndex, hssfCell, data, (HealthDataTemplateConfig) configModel);
+								
+								mergeSet= updateHealthFileData(cellIndex, hssfCell, data, (HealthDataTemplateConfig) configModel,mergeSet);
 							}else if(BpciComposition.bpciName.equalsIgnoreCase(configModel.getTemplateName())) {
-								 updateHealthFileData(cellIndex, hssfCell, data, (BpciTemplateConfig) configModel);
+								mergeSet= updateHealthFileData(cellIndex, hssfCell, data, (BpciTemplateConfig) configModel,mergeSet);
 							}
 							 //log.debug(data);
 						}
 						dataList.add(data);
+						//if(AhcComposition.ahcName.equalsIgnoreCase(configModel.getTemplateName())) {
+							
+							updateUniqueId(data,mergeSet);//(HealthDataTemplateConfig) configModel,
+						
 					}
 				}catch(Exception e) {
 					log.error(e);
@@ -153,6 +167,8 @@ public class PoiUtils {
 					monitor.appendMessage(monitor.getCurrentStage(),"Failed for row: "+rowNum);
 				}
 			}
+
+			 
 		} catch (EncryptedDocumentException | InvalidFormatException
 				| IOException e) {			
 			monitor.appendMessage(monitor.getCurrentStage(), "Failed parsing file: "+uploadedFile.getName());
@@ -173,8 +189,16 @@ public class PoiUtils {
 	private static Address getAddress(HealthCommunity data) {
 		if(data.getAddress() == null) return new Address(data);else return data.getAddress();
 	}
-	private static void updateHealthFileData(int cellIndex, Cell cellData, HealthCommunity data,
-			HealthDataTemplateConfig configData) {
+	
+	private static TreeMap<Long, String> updateHealthFileData(int cellIndex, Cell cellData, HealthCommunity data,
+			HealthDataTemplateConfig configData, TreeMap<Long,String> mergeSet) {
+		
+		String mc1 = configData.getMergedCol1();
+		//nameOfInitiativestreetAddresscitystate:0,4,5,6
+		String colIndeces = mc1.substring(mc1.indexOf(':')+1);
+		TreeSet<String> indexSet = new TreeSet<String>(Arrays.asList(colIndeces.split(",")));
+		
+		
 		if(configData.getCategoryName() != null && configData.getCategoryName() == cellIndex){
 			Category category = new Category(data);
 			category.setCategoryName(cellData.getStringCellValue());
@@ -183,18 +207,34 @@ public class PoiUtils {
 			Address address = getAddress(data);
 			address.setLocation(cellData.getStringCellValue());
 			data.setAddress(address);
+			if(indexSet.contains(configData.getLocation().toString()))
+			{
+				mergeSet.put(configData.getLocation(), address.getLocation());
+			}
 		}else if(configData.getCity() !=null && configData.getCity() == cellIndex){
 			Address address = getAddress(data);
 			address.setCity(cellData.getStringCellValue());
-			data.setAddress(address);			
+			data.setAddress(address);	
+			if(indexSet.contains(configData.getCity().toString()))
+			{
+				mergeSet.put(configData.getCity(), address.getCity());
+			}
 		}else if(configData.getState() !=null && configData.getState() == cellIndex){
 			Address address = getAddress(data);
 			address.setState(cellData.getStringCellValue());
-			data.setAddress(address);			
+			data.setAddress(address);	
+			if(indexSet.contains(configData.getState().toString()))
+			{
+				mergeSet.put(configData.getState(), address.getState());
+			}
 		}else if(configData.getStateBase() !=null && configData.getStateBase() == cellIndex){
 			Address address = getAddress(data);
 			address.setStateBase(cellData.getStringCellValue());
-			data.setAddress(address);			
+			data.setAddress(address);	
+			if(indexSet.contains(configData.getStateBase().toString()))
+			{
+				mergeSet.put(configData.getStateBase(), address.getStateBase());
+			}
 		}else if(configData.getPhase1() !=null && configData.getPhase1() == cellIndex){
 			Address address = getAddress(data);
 			address.setPhase1(cellData.getStringCellValue());
@@ -225,42 +265,144 @@ public class PoiUtils {
 			data.setMsaName(cellData.getNumericCellValue()+"");
 		}else if(configData.getNameOfInitiative() !=null && configData.getNameOfInitiative() == cellIndex){
 			data.setNameOfInitiative(cellData.getStringCellValue());
+			if(indexSet.contains(configData.getNameOfInitiative().toString()))//change orGname to string
+			{
+				mergeSet.put(configData.getNameOfInitiative(), data.getNameOfInitiative());
+			}
 		}else if(configData.getNotes() !=null && configData.getNotes() == cellIndex){
 			data.setNotes(cellData.getStringCellValue());
-		}else if(configData.getOrgName() !=null && configData.getOrgName() == cellIndex){
+			if(indexSet.contains(configData.getNotes().toString()))//change orGname to string
+			{
+				mergeSet.put(configData.getNotes(), data.getNotes());
+			}
+		}else if(configData.getOrgName() !=null && configData.getOrgName() == cellIndex){//
 			data.setOrgName(cellData.getStringCellValue());
+			
+			if(indexSet.contains(configData.getOrgName().toString()))//change orGname to string
+			{
+				mergeSet.put(configData.getOrgName(), data.getOrgName());
+			}
 		}
+		return mergeSet;
+		
 	}
 	
-	private static void updateHealthFileData(int cellIndex, Cell cellData, HealthCommunity data,
-			BpciTemplateConfig configData) {
+	private static void updateUniqueId(HealthCommunity data,
+			 TreeMap<Long, String> mergeMap ) {//HashMap<String, String> colNameContents
+		
+		/*String mc1 = configData.getMergedCol1();
+		//nameOfInitiativestreetAddresscitystate:0,4,5,6
+		String colIndeces = mc1.substring(mc1.indexOf(':'));
+		//List<String> indexList = new ArrayList<String>(Arrays.asList(colIndeces.split(",")));
+		TreeSet<String> indexSet = new TreeSet<String>(Arrays.asList(colIndeces.split(",")));
+		TreeSet<String> mergeSet = new TreeSet<String>();
+		
+		indexSet.forEach(mem->{
+			try {
+				 int memi=Integer.parseInt(mem);
+				 for(Map.Entry<String, String> entry : colNameContents.entrySet()) {
+					    String key = entry.getKey();
+					    String value = entry.getValue();
+
+					    int datai = Integer.parseInt(value);
+					    
+					    mergeSet.add(value);
+					}
+				 
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		});*/
+		
+	/*	mergeMap.forEach(mem->{
+			try {
+									    
+					    data.setMergedCol1(""+data.getMergedCol1()+mem);
+				 
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		});*/
+		
+		for(Entry<Long, String> entry : mergeMap.entrySet()) {
+			  Long key = entry.getKey();
+			  String value = entry.getValue();
+			  if(data.getMergedCol1()!=null) {
+				  data.setMergedCol1(""+data.getMergedCol1()+value);
+			  }else {
+				  data.setMergedCol1(""+value);
+			  }
+			}
+		
+	}
+	
+	private static TreeMap<Long,String> updateHealthFileData(int cellIndex, Cell cellData, HealthCommunity data,
+			BpciTemplateConfig configData, TreeMap<Long,String> mergeSet) {
+		
+		String mc1 = configData.getMergedCol1();
+		String colIndeces = mc1.substring(mc1.indexOf(':')+1);
+		TreeSet<String> indexSet = new TreeSet<String>(Arrays.asList(colIndeces.split(",")));
+		
 		if(configData.getLocation() != null && configData.getLocation() == cellIndex){
 			Address address = getAddress(data);
 			address.setLocation(cellData.getStringCellValue());
 			data.setAddress(address);
+			if(indexSet.contains(configData.getLocation().toString()))
+			{
+				mergeSet.put(configData.getLocation(), address.getLocation());
+			}
 		}else if(configData.getCity() !=null && configData.getCity() == cellIndex){
 			Address address = getAddress(data);
 			address.setCity(cellData.getStringCellValue());
-			data.setAddress(address);			
+			data.setAddress(address);	
+			if(indexSet.contains(configData.getCity().toString()))
+			{
+				mergeSet.put(configData.getCity(), address.getCity());
+			}
 		}else if(configData.getState() !=null && configData.getState() == cellIndex){
 			Address address = getAddress(data);
 			address.setState(cellData.getStringCellValue());
-			data.setAddress(address);			
+			data.setAddress(address);	
+			if(indexSet.contains(configData.getState().toString()))
+			{
+				mergeSet.put(configData.getState(), address.getState());
+			}
 		}else if(configData.getStateBase() !=null && configData.getStateBase() == cellIndex){
 			Address address = getAddress(data);
 			address.setStateBase(cellData.getStringCellValue());
-			data.setAddress(address);			
+			data.setAddress(address);	
+			if(indexSet.contains(configData.getStateBase().toString()))
+			{
+				mergeSet.put(configData.getStateBase(), address.getStateBase());
+			}
 		}else if(configData.getPhase1() !=null && configData.getPhase1() == cellIndex){
 			Address address = getAddress(data);
 			address.setPhase1(cellData.getStringCellValue());
-			data.setAddress(address);			
+			data.setAddress(address);	
+			if(indexSet.contains(configData.getPhase1().toString()))
+			{
+				mergeSet.put(configData.getPhase1(), address.getPhase1());
+			}
 		}else if(configData.getNameOfInitiative() !=null && configData.getNameOfInitiative() == cellIndex){
 			data.setNameOfInitiative(cellData.getStringCellValue());
+			if(indexSet.contains(configData.getNameOfInitiative().toString()))
+			{
+				mergeSet.put(configData.getNameOfInitiative(), data.getNameOfInitiative());
+			}
 		}else if(configData.getNotes() !=null && configData.getNotes() == cellIndex){
 			data.setNotes(cellData.getStringCellValue());
+			if(indexSet.contains(configData.getNotes().toString()))
+			{
+				mergeSet.put(configData.getNotes(), data.getNotes());
+			}
 		}else if(configData.getOrgName() !=null && configData.getOrgName() == cellIndex){
 			data.setOrgName(cellData.getStringCellValue());
+			if(indexSet.contains(configData.getOrgName().toString()))
+			{
+				mergeSet.put(configData.getOrgName(), data.getOrgName());
+			}
 		}
+		return mergeSet;
 	}
 	
 	/**

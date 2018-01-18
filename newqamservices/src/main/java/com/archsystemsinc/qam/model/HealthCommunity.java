@@ -47,13 +47,11 @@ public class HealthCommunity {
 	
 	@Column(name = "Msa_Name")
 	private String msaName;
-	@Column(name = "Unique_Id")
-	private Long uniqueId;
+	@Column(name = "MergedCol1")
+	private String mergedCol1;
 	@Column(name = "Map_Display")
 	private String mapDisplay;
 	
-	@Transient
-	private String mergedCol1;
 
 	
 	public String getMergedCol1() {
@@ -139,14 +137,6 @@ public class HealthCommunity {
 	}
 	public void setMsaName(String msaName) {
 		this.msaName = msaName;
-	}
-	
-	
-	public Long getUniqueId() {
-		return uniqueId;
-	}
-	public void setUniqueId(Long uniqueId) {
-		this.uniqueId = uniqueId;
 	}
 	
 	
