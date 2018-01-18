@@ -80,14 +80,17 @@ td {
                     //  var data=[];
                     var itemsLength = response.length;
                       var data=JSON.stringify(response);
-                      console.log("Data : "+data);
+                    //  console.log("Data : "+data);
                       $.each(response,function(index,item) {
-                    	  console.log(JSON.stringify(item));
+                    //	  console.log(JSON.stringify(item));
 
-                    	  $("#reports tbody").append("<tr>" + "<td>"+item.id+"</td>"+ "<td>"+item.fileName+"</td>"+"<td>"+item.templateName+"</td>"+
+                    	  $("#reports tbody").append("<tr>" + 
+                    			  "<td>"+item.id+"</td>"+ 
+                    			  "<td>"+item.fileName+"</td>"+
+                    			  "<td>"+item.templateName+"</td>"+
                     			  "<td>"+item.status+"</td>"+
                     			  "<td>"+item.message+"</td>"+
-                    			  "<td>"+item.processedDate+"</td>"+
+                    			  "<td><a  alt='Upload a file to save information based on a template.' href='savedData'>"+item.processedDate+"</a></td>"+
                     			  "</tr>");
 
                       })
@@ -116,6 +119,9 @@ td {
 
  
       }(up.jQuery));
+      
+     // $("#reports_filter")
+      
     </script>
 	<div id="whole">
 		<div id=jumbo class="jumbotron jumbotron-fluid" style="background: #fff;">

@@ -297,7 +297,6 @@
 	
 					} else {
 	
-						//console.log("191");
 	
 						$("#mainDiv").show();
 	

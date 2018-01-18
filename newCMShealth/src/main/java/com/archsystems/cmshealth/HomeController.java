@@ -54,6 +54,13 @@ public class HomeController {
 		modelAndView.setViewName("reports");
 		return modelAndView;
 	}
+	
+	@RequestMapping("/savedData")
+	public ModelAndView savedData(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("savedData");
+		return modelAndView;
+	}
 
 
 }
