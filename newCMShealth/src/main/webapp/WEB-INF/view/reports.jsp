@@ -60,6 +60,46 @@ td {
    http://cmstest-1.us-east-1.elasticbeanstalk.com
  -->
 	<script>
+	
+    function getContents() {
+        var username="qamadmin";
+        var password="123456";
+        $.ajax({
+            type:'POST',
+            url:svcUrlBase+'/newqamservices/api/listHealthContent/191/01-14-2018',       
+                   enctype:'multipart/form-data',
+                   contentType: false,
+                   processData: false,
+            headers:{  "Authorization": "Basic " + btoa(username+":"+password)},
+            success: function(response) {
+                   // console.log('succes!!' );
+              var options =[]; //$('#divTemplates #selectTemplates');
+            //  var data=[];
+            var itemsLength = response.length;
+              var data=JSON.stringify(response);
+            //  console.log("Data : "+data);
+              $.each(response,function(index,item) {
+            //	  console.log(JSON.stringify(item));
+
+            	  $("#reports tbody").append("<tr>" + 
+            			  "<td>"+item.id+"</td>"+ 
+            			  "<td>"+item.templateId+"</td>"+
+            			  "<td>"+item.processedDate+"</td>"+
+            			  "</tr>");
+
+              })
+
+
+          //    $("#template_name").html(options.join(''));
+
+            },
+            error: function (error) {
+              console.log("errror");
+            }
+        });  // ajax
+      } 
+	
+	
 (function($) {  // jQuery wrapper for uPortal
     	$(document).ready(function () {
 
@@ -90,7 +130,7 @@ td {
                     			  "<td>"+item.templateName+"</td>"+
                     			  "<td>"+item.status+"</td>"+
                     			  "<td>"+item.message+"</td>"+
-                    			  "<td><a  alt='Upload a file to save information based on a template.' href='savedData'>"+item.processedDate+"</a></td>"+
+                    			  "<td><a  alt='Upload a file to save information based on a template.' href='javascript:getContents();'>"+item.processedDate+"</a></td>"+
                     			  "</tr>");
 
                       })
@@ -102,12 +142,14 @@ td {
 
                     },
                     error: function (error) {
-                      console.log("errror");
+                      console.log("error");
                     }
                 });  // ajax
               } 
 
-         
+ 
+
+            
             
             function showAndHide(selecteditem){
               console.log(selecteditem);

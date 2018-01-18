@@ -3,6 +3,8 @@
  */
 package com.archsystemsinc.qam.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.archsystemsinc.qam.utils.DateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * @author Prakash T
@@ -51,8 +56,37 @@ public class HealthCommunity {
 	private String mergedCol1;
 	@Column(name = "Map_Display")
 	private String mapDisplay;
-	
+	@JsonSerialize(using=DateSerializer.class)
+	private Date processedDate;
 
+//NameofInitiative		Notes	Location 1	Street Address	City	State	State Based	Phase 1	Phase 2	Facebook	Twitter	Youtube	Website	Category	MSA_Name	Unique ID	Map Display
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("HealthCommunity [id=");
+		builder.append(id);
+		builder.append(", NameofInitiative=");
+		builder.append(getNameOfInitiative());
+		builder.append(", OrganizationName=");
+		builder.append(orgName);
+		builder.append(", Location=");
+		builder.append(address.getLocation());
+		builder.append(", StreetAddress=");
+		builder.append(address.getStreetAddress());
+		builder.append(", City=");
+		builder.append(address.getCity());
+		builder.append(", State=");
+		builder.append(address.getState());				
+		builder.append(", StateBase=");
+		builder.append(address.getStateBase());	
+		builder.append(", UniqueId=");
+		builder.append(mergedCol1);			
+		builder.append(", processedDate=");
+		builder.append(processedDate);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 	public String getMergedCol1() {
 		return mergedCol1;
@@ -145,6 +179,15 @@ public class HealthCommunity {
 	}
 	public void setMapDisplay(String mapDisplay) {
 		this.mapDisplay = mapDisplay;
+	}
+	
+	@Column(name = "ProcessedDate")
+	public Date getProcessed_Date() {
+		return processedDate;
+	}
+
+	public void setProcessedDate(Date processedDate) {
+		this.processedDate = processedDate;
 	}
 	
 	

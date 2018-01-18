@@ -3,6 +3,9 @@
  */
 package com.archsystemsinc.qam.restcontroller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,6 +106,32 @@ public class FileUploadService {
 			@RequestParam("file") MultipartFile uploadedFile) {
 		log.debug("--> uploadFileData:" + templateId);
 		return healthCommunityDataService.uploadHealthData(templateId, uploadedFile);
+		
+	}
+
+	/**
+	 * 
+	 * @param templateId
+	 * @param uploadedFile
+	 * @return
+	 */
+	@RequestMapping(value = "/listHealthContent/{templateId}/{processedDate}", method = RequestMethod.POST)
+	public List<HealthCommunity> uploadHealthData(@PathVariable Long templateId,@PathVariable String processedDate
+			) {
+		log.debug("--> uploadFileData:" + templateId);
+		log.debug("--> processedDate:" + processedDate);
+		//12-07-2017
+		String expectedPattern = "MM-dd-yyyy";
+		SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
+		Date dateIn=null;
+		try {
+			dateIn = formatter.parse(processedDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return healthCommunityDataService.listHealthDataForUpload(dateIn);
 		
 	}
 	
