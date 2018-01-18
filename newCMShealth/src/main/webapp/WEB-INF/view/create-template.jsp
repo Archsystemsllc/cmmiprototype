@@ -180,7 +180,7 @@
 	
 							var data = JSON.stringify(response);
 	
-							console.log("Data : " + data);
+						//	console.log("Data : " + data);
 	
 							response.forEach(function(item) {
 	
@@ -198,7 +198,7 @@
 	
 						error : function(error) {
 	
-							console.log("errror");
+						//	console.log("errror");
 	
 						}
 					}); // ajax
@@ -269,7 +269,7 @@
 						"phase1" : 8
 					};
 	
-					console.log("inside selct loop");
+				//	console.log("inside selct loop");
 	
 					$("#slectNewDiv").children('option').remove();
 	
@@ -286,6 +286,7 @@
 						$("#NewMergedDiv").hide();
 	
 						$("#configureEntry").hide();
+						$("#template_name").attr('disabled','disabled');
 	
 						$.each(AHCOPTIONS, function(key, value) {
 	
@@ -304,7 +305,8 @@
 						$("#NewMergedDiv").hide();
 	
 						$("#configureEntry").hide();
-	
+						$("#template_name").attr('disabled','disabled');
+
 						$.each(beach, function(key, value) {
 	
 							$("#slectNewDiv").append(new Option(key, value));
@@ -378,7 +380,7 @@
 	
 								// console.log('succes!!' );
 	
-								console.log(response);
+							//	console.log(response);
 	
 								templatenameid = response.id;
 	
@@ -398,7 +400,7 @@
 	
 							error : function(error) {
 	
-								console.log("errror");
+							//	console.log("errror");
 	
 							}
 						});
@@ -451,7 +453,7 @@
 	
 							$("#movingNewDiv").append(new Option($this.text(), value));
 	
-							console.log("New Value: " + value);
+						//	console.log("New Value: " + value);
 	
 						})
 	
@@ -474,18 +476,19 @@
 				$("#ConcatinateField").click(function() {
 	
 					var localmappedItems = {};
+					mappedItems={};//for revereseclock purpose
 	
 					var value = $("#movingNewDiv :selected").val();
 	
-					console.log("Value : " + value);
+			//		console.log("Value : " + value);
 	
 					var selectedLength = $("#movingNewDiv :selected").length;
 	
-					console.log(selectedLength);
+			//		console.log(selectedLength);
 	
 					var concatinateVal = '';
 	
-	
+					var displayItems =[];
 	
 					mappedItems["templateId"] = parseInt($("#template_name option:selected").val(), 10);
 	
@@ -495,7 +498,7 @@
 	
 						mappedItems[$this.text()] = parseInt($(this).val(), 10);
 	
-						console.log("$this" + $(this).val());
+				//		console.log("$this" + $(this).val());
 	
 					});
 	
@@ -514,16 +517,19 @@
 	
 	
 							concatinateVal += $this.text() ;
+							var tempDisplay = {};
+							tempDisplay[$this.text()] = $(this).val();
+							displayItems.push(tempDisplay);
+							
 	
 	
+					//		console.log("this.text : " + $this.text());
 	
-							console.log("this.text : " + $this.text());
-	
-							console.log("this.value : " + $(this).val());
+					//		console.log("this.value : " + $(this).val());
 	
 							//  console.log("object value : " + JSON.stringify(obj));
 	
-							console.log("Value :" + JSON.stringify($this));
+					//		console.log("Value :" + JSON.stringify($this));
 	
 	
 	
@@ -537,13 +543,13 @@
 	
 						mappedItems["mergedCol1"] = concatinateVal + ":" + tempArray.join(",");
 	
-						console.log("localMappedItems :" + JSON.stringify(mappedItems));
+					//	console.log("localMappedItems :" + JSON.stringify(mappedItems));
 	
 	
 	
 						localmappedItems[concatinateVal] = tempArray.join(",");
 	
-						console.log("localMappedItems :" + JSON.stringify(localmappedItems));
+					//	console.log("localMappedItems :" + JSON.stringify(localmappedItems));
 	
 					}
 	
@@ -551,11 +557,11 @@
 	
 	
 	
-					console.log("The selected item" + $("#template_name option:selected").val());
+			//		console.log("The selected item" + $("#template_name option:selected").val());
 	
 	
 	
-					console.log("All mapped items " + JSON.stringify(mappedItems));
+			//		console.log("All mapped items " + JSON.stringify(mappedItems));
 	
 	
 	
@@ -593,17 +599,32 @@
 	
 	
 	
-					$("#movingNewDiv").find("option:selected").remove().end();
+				//	$("#movingNewDiv").find("option:selected").remove().end();
 	
 					var keysLength = Object.keys(localmappedItems).length;
 	
-					console.log(keysLength);
+				//	console.log(keysLength);
+					
 	
-					Object.keys(localmappedItems).forEach(function(item, index) {
+/* 					Object.keys(displayItems).forEach(function(index, item) {
 	
-						$("#requestNewDiv").append(new Option(item, item));
+						console.log("index_item" +index, item);
+						$("#requestNewDiv").append(new Option(index, item));
 	
-					})
+					}) */
+					
+				//	console.log("Display_ITEMS:"+ JSON.stringify(displayItems));
+					
+					$.each(displayItems, function(key, value) {
+						
+					//	console.log("KEY_VALUE" +key, value);
+					//	console.log(JSON.stringify(key));
+					//	console.log("object_key" + Object.keys(value)[0], value[Object.keys(value)[0]]);
+							$("#requestNewDiv").append(new Option(Object.keys(value)[0], value[Object.keys(value)[0]]));
+							
+						
+	
+						});
 	
 					//  for(int i=0;i<keysLength;i++){
 	
@@ -611,7 +632,7 @@
 	
 					//  }
 	
-					console.log(JSON.stringify(localmappedItems));
+			//		console.log(JSON.stringify(localmappedItems));
 	
 	
 	
@@ -657,7 +678,7 @@
 	
 					var sL = $("#movingNewDiv :selected").length;
 	
-					console.log(sL);
+				//	console.log(sL);
 	
 	
 	
@@ -693,7 +714,7 @@
 	
 					var keysLength = Object.keys(localmappedItems).length;
 	
-					console.log(keysLength);
+				//	console.log(keysLength);
 	
 					Object.keys(localmappedItems).forEach(function(item, index) {
 	
@@ -704,7 +725,11 @@
 				});
 	
 	
-	
+				$("#ReverseField").click(function() {
+					
+				//	$("#requestNewDiv").find("option:selected").remove().end();
+					$("#requestNewDiv").empty();
+				});
 	
 	
 	
@@ -717,7 +742,7 @@
 	
 					var details = $('#slectNewDiv').val();
 	
-					console.log(details);
+				//	console.log(details);
 	
 					//  var totalDetails = document.getElementById("FileUpload").files.length;
 	
@@ -735,7 +760,7 @@
 	
 					        } */
 	
-					console.log(JSON.stringify(mappedItems));
+				//	console.log(JSON.stringify(mappedItems));
 	
 					$.ajax({
 						type : 'POST',
@@ -764,21 +789,21 @@
 	
 						success : function(response) {
 	
-							console.log(response.id);
+					//		console.log(response.id);
 	
-							console.log('succes!!');
+					//		console.log('succes!!');
 	
 							$('#fieldStatus').html("Template " + response.templateName + " has been configured ");
 	
 							$("#fieldStatus").show();
 	
-							console.log("resposnse is ", JSON.stringify(response))
+						//	console.log("resposnse is ", JSON.stringify(response))
 	
 						},
 	
 						error : function(error) {
 	
-							console.log("errror");
+						//	console.log("errror");
 	
 						}
 					}); // ajax
@@ -874,11 +899,14 @@
 
 								</div>
 
-								<div class="col-md-2 text-center" style="padding-top: 60px;">
+								<div class="col-md-2 text-center" style="padding-top: 10px;">
 
 									<button id="ConcatinateField" class="btn btn-default">>></button>
+									<br><br><br><br>
+									<button id="ReverseField" class="btn btn-default"><<</button>
 
 								</div>
+
 
 								<div class="col-md-5">
 
