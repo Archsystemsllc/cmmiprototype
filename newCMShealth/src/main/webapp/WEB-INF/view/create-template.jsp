@@ -269,7 +269,6 @@
 						"phase1" : 8
 					};
 	
-				//	console.log("inside selct loop");
 	
 					$("#slectNewDiv").children('option').remove();
 	
