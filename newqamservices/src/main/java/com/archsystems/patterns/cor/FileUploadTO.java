@@ -89,8 +89,8 @@ public class FileUploadTO extends TransferObject {
 		builder.append(configData);
 		builder.append(", uploadedFile=");
 		builder.append(uploadedFile);
-		builder.append(", parsedData=");
-		builder.append(parsedData);
+		//builder.append(", parsedData=");
+		//builder.append(parsedData);
 		builder.append(", savedData=");
 		builder.append(savedData);
 		builder.append(", reporting=");
