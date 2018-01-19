@@ -6,6 +6,7 @@ package com.archsystemsinc.qam.utils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -137,6 +138,7 @@ public class PoiUtils {
 					if (providersFileRow.getRowNum() > 0 && providersFileRow.getRowNum() <= providersFileRowCount){
 						data = new HealthCommunity();
 						data.setTemplateId(configModel.getTemplateId());
+						data.setProcessedDate(new Date());
 						log.debug("ROW - " + providersFileRow.getRowNum());
 						rowNum = providersFileRow.getRowNum();
 						Iterator<Cell> iterator = providersFileRow.cellIterator();

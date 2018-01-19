@@ -252,11 +252,11 @@
 					var beach = {
 						"nameOfInitiative" : 0,
 	
-						"organization Name" : 1,
+						"orgName" : 1,
 	
 						"notes" : 2,
 	
-						"location1" : 3,
+						"location" : 3,
 	
 						"streetAddress" : 4,
 	
@@ -264,7 +264,7 @@
 	
 						"state" : 6,
 	
-						"state Based" : 7,
+						"stateBase" : 7,
 	
 						"phase1" : 8
 					};
@@ -490,7 +490,7 @@
 	
 					mappedItems["templateId"] = parseInt($("#template_name option:selected").val(), 10);
 	
-					$.each($("#movingNewDiv option:not(:selected)"), function() {
+					$.each($("#movingNewDiv option"), function() {//:not(:selected)
 	
 						var $this = $(this);
 	
