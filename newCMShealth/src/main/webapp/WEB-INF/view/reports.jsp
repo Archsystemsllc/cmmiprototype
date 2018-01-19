@@ -13,7 +13,7 @@
 <script>
 var up={}
 up.jQuery  = $;
-var svcUrlBase = 'http://cmstest-1.us-east-1.elasticbeanstalk.com';
+var svcUrlBase = 'http://localhost:8080';
 //http://cmstest-1.us-east-1.elasticbeanstalk.com
 //http://localhost:8080
 </script>
@@ -57,16 +57,26 @@ td {
 <jsp:include page="layout.jsp"></jsp:include>
 
 <!--   http://localhost:8080
-   http://cmstest-1.us-east-1.elasticbeanstalk.com
+   http://cmstest-1.us-east-1.elasticbeanstalk.com 191/01-20-2018
  -->
 	<script>
 	
-    function getContents() {
+    function getContents(inDate) {
         var username="qamadmin";
         var password="123456";
+      // alert(inDate.templateName);//TODO: Time permitting get the actual IDs from the DB
+       var tpid=0;
+      if(inDate.templateName == "AHC Template"){
+    	  tpid=190;
+      }else if(inDate.templateName ==  "BPCI Template"){
+    	  tpid=191;
+      }
+    	  
+    	  
+     
         $.ajax({
             type:'POST',
-            url:svcUrlBase+'/newqamservices/api/listHealthContent/191/01-14-2018',       
+            url:svcUrlBase+'/newqamservices/api/listHealthContent/'+tpid+'/'+inDate.processedDate,       
                    enctype:'multipart/form-data',
                    contentType: false,
                    processData: false,
@@ -118,19 +128,20 @@ td {
                            // console.log('succes!!' );
                       var options =[]; //$('#divTemplates #selectTemplates');
                     //  var data=[];
+                    
                     var itemsLength = response.length;
                       var data=JSON.stringify(response);
                     //  console.log("Data : "+data);
                       $.each(response,function(index,item) {
                     //	  console.log(JSON.stringify(item));
-
+						var pdate = JSON.stringify(item);
                     	  $("#reports tbody").append("<tr>" + 
                     			  "<td>"+item.id+"</td>"+ 
                     			  "<td>"+item.fileName+"</td>"+
                     			  "<td>"+item.templateName+"</td>"+
                     			  "<td>"+item.status+"</td>"+
                     			  "<td>"+item.message+"</td>"+
-                    			  "<td><a  alt='Upload a file to save information based on a template.' href='javascript:getContents();'>"+item.processedDate+"</a></td>"+
+                    			  "<td><a  alt='Upload a file to save information based on a template.' href='javascript:getContents("+pdate+");'>"+item.processedDate+"</a></td>"+
                     			  "</tr>");
 
                       })
