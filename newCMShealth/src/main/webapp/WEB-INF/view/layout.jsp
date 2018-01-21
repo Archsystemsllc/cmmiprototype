@@ -42,7 +42,7 @@
 .navbar-cms {
 	background-color: #112e51;
 	border-color: #E7E7E7;
-	height: 80px;
+	height: 50px;
 }
 
 .cms-font-color>li>a {
@@ -69,7 +69,7 @@
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="https://www.cms.gov/"> <img
-					src="resources/images/logo.png" style="width: 40%">
+					src="resources/images/newCMSLogo.png" style="width: 40%">
 				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
