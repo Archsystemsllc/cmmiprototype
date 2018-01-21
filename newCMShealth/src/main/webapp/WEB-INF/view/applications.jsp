@@ -12,7 +12,7 @@
 
 
 <div class="row mt">
-	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+	<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 card grid-item text-center">
 		<div class="thumbnail">
 			<div class="caption cms-box-height" style="padding-top: 20px;">
@@ -62,6 +62,18 @@
 					</div>
 				</div>
 	</div>
-	<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2"></div>
+		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 card grid-item text-center">
+			<div class="thumbnail">
+					<div class="caption cms-box-height" style="padding-top: 20px;">
+						<h4 id="thumbnail-label">
+							<a alt="See a description of this demonstration." href="downloads">Download</a>
+						</h4>
+					<p style="padding-top: 20px;">
+						<img style="height:50%" alt="" src="resources/images/download1.png">
+					</p>
+					</div>
+				</div>
+	</div>
+	<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>

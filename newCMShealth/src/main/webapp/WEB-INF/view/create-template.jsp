@@ -18,7 +18,6 @@
 
 
 <script>
-
 	var up = {}
 
 	up.jQuery = $;
@@ -101,715 +100,761 @@
 	<jsp:include page="layout.jsp"></jsp:include>
 
 	<script>
-	
-	
-	
-	
-	
 		(function($) { // jQuery wrapper for uPortal
-	
-	
-	
-			$(document).ready(function() {
-	
-				$("#templateListDiv").show();
-	
-				$("#configSubmit").hide();
-	
-				$("#mainDiv").hide();
-	
-				$("#statusID").hide();
-	
-				$("#fieldStatus").hide();
-	
-				$("#resetBtn").show();
-	
-				getListTemplates();
-	
-	
-	
-	
-	
-				//   $('#whole').css('min-height', '100%');
-	
-				//  document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
-	
-				//	document.body.style.backgroundRepeat="no-repeat";
-	
-				//	document.body.style.backgroundSize="cover";
-	
-	
-	
-	
-	
-	
-	
-				//   http://localhost:8080
-	
-				//   http://cmstest-1.us-east-1.elasticbeanstalk.com
-	
-	
-	
-				function getListTemplates() {
-					var username = "qamadmin";
-	
-					var password = "123456";
-	
-					$.ajax({
-						type : 'GET',
-	
-						url : svcUrlBase+'/newqamservices/api/listTemplates',
-	
-						enctype : 'multipart/form-data',
-	
-						contentType : false,
-	
-						processData : false,
-	
-						headers : {
-							"Authorization" : "Basic " + btoa(username + ":" + password)
-						},
-	
-						success : function(response) {
-	
-							// console.log('succes!!' );
-	
-							var options = []; //$('#divTemplates #selectTemplates');
-	
-							//  var data=[];
-	
-							var data = JSON.stringify(response);
-	
-						//	console.log("Data : " + data);
-	
-							response.forEach(function(item) {
-	
-								options.push('<option value="', item.id, '">', item.name, '</option>');
-	
-							})
-	
-	
-	
-							$("#template_name").html(options.join(''));
-	
-	
-	
-						},
-	
-						error : function(error) {
-	
-						//	console.log("errror");
-	
-						}
-					}); // ajax
-	
-				} // getListTemplates()
-	
-	
-	
-	
-	
-				$("#template_name").change(function(event) {
-	
-					var AHCOPTIONS = {
-						"nameOfInitiative" : 0,
-	
-						"orgName" : 1,
-	
-						"notes" : 2,
-	
-						"location" : 3,
-	
-						"streetAddress" : 4,
-	
-						"city" : 5,
-	
-						"state" : 6,
-	
-						"stateBase" : 7,
-	
-						"phase1" : 8,
-	
-						"phase2" : 9,
-	
-						"facebook" : 10,
-	
-						"Twitter" : 11,
-	
-						"youtube" : 12,
-	
-						"website" : 13,
-	
-						"categoryName" : 14,
-	
-						"msaName" : 15,
-	
-						"uniqueId" : 16,
-	
-						"mapDisplay" : 17
-					};
-	
-					var beach = {
-						"nameOfInitiative" : 0,
-	
-						"orgName" : 1,
-	
-						"notes" : 2,
-	
-						"location" : 3,
-	
-						"streetAddress" : 4,
-	
-						"city" : 5,
-	
-						"state" : 6,
-	
-						"stateBase" : 7,
-	
-						"phase1" : 8
-					};
-	
-	
-					$("#slectNewDiv").children('option').remove();
-	
-					//	$("#template_name option:selected").val();
-	
-	
-	
-					if ($("#template_name option:selected").val() == 190) {
-	
-						//console.log("190");
-	
-						$("#mainDiv").show();
-	
-						$("#NewMergedDiv").hide();
-	
-						$("#configureEntry").hide();
-						$("#template_name").attr('disabled','disabled');
-	
-						$.each(AHCOPTIONS, function(key, value) {
-	
-							$("#slectNewDiv").append(new Option(key, value));
-	
-						});
-	
-	
-	
-					} else {
-	
-	
-						$("#mainDiv").show();
-	
-						$("#NewMergedDiv").hide();
-	
-						$("#configureEntry").hide();
-						$("#template_name").attr('disabled','disabled');
 
-						$.each(beach, function(key, value) {
-	
-							$("#slectNewDiv").append(new Option(key, value));
-	
-						});
-	
-					}
-	
-				});
-	
-	
-	
-				$("#resetBtn").click(function() {
-	
-	
-	
-					window.location.href = svcUrlBase+'/newcmshealth/createtemplate';
-	
-	
-	
-	
-	
-				});
-	
-	
-	
-				$("#templateSubmit").click(function() {
-	
-	
-	
-					$("#slectNewDiv").show();
-	
-					$("#slectNewDiv #NewMergedDiv").hide();
-	
-					$("#resetBtn").show();
-	
-					var username = "qamadmin";
-	
-					var password = "123456";
-	
-					var templatecreate = {};
-	
-					templatecreate.name = $("#template_name").val();
-	
-					//console.log(templatecreate.name);
-	
-					var formData = new FormData();
-	
-					formData.append("name", $("#template_name").val())
-	
-					if (templatecreate.name != null && templatecreate.name != '') {
-	
-						$.ajax({
-							type : 'POST',
-	
-							url : svcUrlBase+'/newqamservices/api/listHealthDataTemplateConfigs',
-	
-							enctype : 'multipart/form-data',
-	
-							data : formData,
-	
-							contentType : false,
-	
-							processData : false,
-	
-							headers : {
-								"Authorization" : "Basic " + btoa(username + ":" + password)
-							},
-	
-							success : function(response) {
-	
-								// console.log('succes!!' );
-	
-							//	console.log(response);
-	
-								templatenameid = response.id;
-	
-								//      globalResponseid = response.id
-	
+			$(document)
+					.ready(
+							function() {
+
+								$("#templateListDiv").show();
+
+								$("#configSubmit").hide();
+
+								$("#mainDiv").hide();
+
+								$("#statusID").hide();
+
+								$("#fieldStatus").hide();
+
+								$("#resetBtn").show();
+
 								getListTemplates();
-	
-								//   $('#statusID').html("Your Template has been created with id : " + globalResponseid);
-	
-								$("#configSubmit").show();
-	
-								$("#mainDiv").show();
-	
-								$("#statusID").show();
-	
-							},
-	
-							error : function(error) {
-	
-							//	console.log("errror");
-	
-							}
-						});
-	
-					} else {
-	
-						getListTemplates();
-	
-					}
-	
-				}); // #templateSubmit.click
-	
-	
-	
-				/*       $("#addNewField").click(function () {
-	
-				    	 $("#slectNewDiv").append(new Option($("#newExtraField").val(),$("#newExtraField").val()));
-	
-				      }); */
-	
-	
-	
-				$("#movingField").click(function() {
-	
-					$("#NewMergedDiv").show();
-	
-					$("#configureEntry").show();
-	
-					$("#configSubmit").show();
-	
-					$("#configuredColumns").hide();
-	
-					$("#slectNewDiv").hide();
-	
-					$("#movingField").hide();
-	
-					var movingItems = {};
-	
-					var selectedLength = $("#slectNewDiv :selected").length;
-	
-					if (selectedLength > 0) {
-	
-						$.each($("#slectNewDiv option:selected"), function() {
-	
-							var $this = $(this);
-	
-							var value = $(this).val();
-	
-	
-	
-							$("#movingNewDiv").append(new Option($this.text(), value));
-	
-						//	console.log("New Value: " + value);
-	
-						})
-	
-					}
-	
-	
-	
-				});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-				$("#ConcatinateField").click(function() {
-	
-					var localmappedItems = {};
-					mappedItems={};//for revereseclock purpose
-	
-					var value = $("#movingNewDiv :selected").val();
-	
-			//		console.log("Value : " + value);
-	
-					var selectedLength = $("#movingNewDiv :selected").length;
-	
-			//		console.log(selectedLength);
-	
-					var concatinateVal = '';
-	
-					var displayItems =[];
-	
-					mappedItems["templateId"] = parseInt($("#template_name option:selected").val(), 10);
-	
-					$.each($("#movingNewDiv option"), function() {//:not(:selected)
-	
-						var $this = $(this);
-	
-						mappedItems[$this.text()] = parseInt($(this).val(), 10);
-	
-				//		console.log("$this" + $(this).val());
-	
-					});
-	
-					if (selectedLength >= 2) {
-	
-						var tempArray = [];
-	
-	
-	
-						$.each($("#movingNewDiv option:selected"), function() {
-	
-	
-	
-							var $this = $(this);
-	
-	
-	
-							concatinateVal += $this.text() ;
-							var tempDisplay = {};
-							tempDisplay[$this.text()] = $(this).val();
-							displayItems.push(tempDisplay);
-							
-	
-	
-					//		console.log("this.text : " + $this.text());
-	
-					//		console.log("this.value : " + $(this).val());
-	
-							//  console.log("object value : " + JSON.stringify(obj));
-	
-					//		console.log("Value :" + JSON.stringify($this));
-	
-	
-	
-							var intergerVal = parseInt($this.val(), 10);
-	
-							tempArray.push(intergerVal);
-	
-	
-	
-						})
-	
-						mappedItems["mergedCol1"] = concatinateVal + ":" + tempArray.join(",");
-	
-					//	console.log("localMappedItems :" + JSON.stringify(mappedItems));
-	
-	
-	
-						localmappedItems[concatinateVal] = tempArray.join(",");
-	
-					//	console.log("localMappedItems :" + JSON.stringify(localmappedItems));
-	
-					}
-	
-	
-	
-	
-	
-			//		console.log("The selected item" + $("#template_name option:selected").val());
-	
-	
-	
-			//		console.log("All mapped items " + JSON.stringify(mappedItems));
-	
-	
-	
-					/*   if($("#movingNewDiv :not(:selected)").length>0){
-	
-						  console.log("It's working")
-	
-					  } */
-	
-					if (selectedLength == 1) {
-	
-	
-	
-						alert("Merge supports more than 1 item");
-	
-						/*  $("#movingNewDiv option:selected").each(function (){
-	
-		    			//  var item = $("#movingNewDiv option:selected").text();
-	
-		    			  var $this =$(this);
-	
-		        		//  console.log(item);
-	
-		        		//  mappedItems[item]=item;
-	
-		        		  localmappedItems[$this.text()] = $this.text(); 
-	
-		    			  
-	
-						 }) */
-	
-	
-	
-					}
-	
-	
-	
-				//	$("#movingNewDiv").find("option:selected").remove().end();
-	
-					var keysLength = Object.keys(localmappedItems).length;
-	
-				//	console.log(keysLength);
-					
-	
-/* 					Object.keys(displayItems).forEach(function(index, item) {
-	
-						console.log("index_item" +index, item);
-						$("#requestNewDiv").append(new Option(index, item));
-	
-					}) */
-					
-				//	console.log("Display_ITEMS:"+ JSON.stringify(displayItems));
-					
-					$.each(displayItems, function(key, value) {
-						
-					//	console.log("KEY_VALUE" +key, value);
-					//	console.log(JSON.stringify(key));
-					//	console.log("object_key" + Object.keys(value)[0], value[Object.keys(value)[0]]);
-							$("#requestNewDiv").append(new Option(Object.keys(value)[0], value[Object.keys(value)[0]]));
-							
-						
-	
-						});
-	
-					//  for(int i=0;i<keysLength;i++){
-	
-					// $("#requestNewDiv").append(Object.keys(mappedItems)[i],Object.keys(mappedItems)[i]);
-	
-					//  }
-	
-			//		console.log(JSON.stringify(localmappedItems));
-	
-	
-	
-					/*    	 $("#slectNewDiv option:selected").each(function () {
-	
-					   		  var $this = $(this);
-	
-					   		  if($this.length == 2){
-	
-					   			 console.log(); 
-	
-					   		  }
-	
-					   		  else if($this.length == 1) {
-	
-					   			  
-	
-					   		  }
-	
-					   		  console.log($this.text());
-	
-					   		  
-	
-					   		  
-	
-					   	  })  */
-	
-	
-	
-					// $("#slectNewDiv").append(new Option($("#newExtraField").val(),$("#newExtraField").val()));
-	
-				});
-	
-	
-	
-	
-	
-	
-	
-				$("#AddColumns").click(function() {
-	
-					var localmappedItems = {};
-	
-					var sL = $("#movingNewDiv :selected").length;
-	
-				//	console.log(sL);
-	
-	
-	
-					if (sL == 1) {
-	
-	
-	
-						$("#movingNewDiv option:selected").each(function() {
-	
-							//  var item = $("#movingNewDiv option:selected").text();
-	
-							var $this = $(this);
-	
-							//  console.log(item);
-	
-							//  mappedItems[item]=item;
-	
-							localmappedItems[$this.text()] = $this.text();
-	
-	
-	
-						})
-	
-	
-	
-						$("#movingNewDiv").find("option:selected").remove().end();
-	
-	
-	
-					}
-	
-	
-	
-					var keysLength = Object.keys(localmappedItems).length;
-	
-				//	console.log(keysLength);
-	
-					Object.keys(localmappedItems).forEach(function(item, index) {
-	
-						$("#requestNewDiv").append(new Option(item, item));
-	
-					})
-	
-				});
-	
-	
-				$("#ReverseField").click(function() {
-					
-				//	$("#requestNewDiv").find("option:selected").remove().end();
-					$("#requestNewDiv").empty();
-				});
-	
-	
-	
-	
-				$("#configSubmit").click(function() {
-	
-					//  console.log(globalResponseid);
-	
-					//  var formData = new FormData();
-	
-					var details = $('#slectNewDiv').val();
-	
-				//	console.log(details);
-	
-					//  var totalDetails = document.getElementById("FileUpload").files.length;
-	
-					var username = "qamadmin";
-	
-					var password = "123456";
-	
-					// formData.append("templateId", globalResponseid)
-	
-					/*         for (var i = 0; i < details.length; i++) {
-	
-					          var file = details[i];
-	
-					          formData.append(file,i);
-	
-					        } */
-	
-				//	console.log(JSON.stringify(mappedItems));
-	
-					$.ajax({
-						type : 'POST',
-	
-						url : svcUrlBase+'/newqamservices/api/createHealthDataTemplateConfig',
-	
-	
-	
-						//   enctype:'multipart/form-data',
-	
-	
-	
-						data : $.param(mappedItems),
-	
-	
-	
-						//contentType: x-www-form-urlencoded,
-	
-						processData : false,
-	
-						headers : {
-							"Authorization" : "Basic " + btoa(username + ":" + password),
-	
-							'Content-Type' : 'application/x-www-form-urlencoded'
-						},
-	
-						success : function(response) {
-	
-					//		console.log(response.id);
-	
-					//		console.log('succes!!');
-	
-							$('#fieldStatus').html("Template " + response.templateName + " has been configured ");
-	
-							$("#fieldStatus").show();
-	
-						//	console.log("resposnse is ", JSON.stringify(response))
-	
-						},
-	
-						error : function(error) {
-	
-						//	console.log("errror");
-	
-						}
-					}); // ajax
-	
-				}); // #configSubmit.click
-	
-			}); // document.ready()
-	
+
+								//   $('#whole').css('min-height', '100%');
+
+								//  document.body.style.backgroundImage = "url('resources/images/image1CMS.jpg')";
+
+								//	document.body.style.backgroundRepeat="no-repeat";
+
+								//	document.body.style.backgroundSize="cover";
+
+								//   http://localhost:8080
+
+								//   http://cmstest-1.us-east-1.elasticbeanstalk.com
+
+								function getListTemplates() {
+									var username = "qamadmin";
+
+									var password = "123456";
+
+									$
+											.ajax({
+												type : 'GET',
+
+												url : svcUrlBase
+														+ '/newqamservices/api/listTemplates',
+
+												enctype : 'multipart/form-data',
+
+												contentType : false,
+
+												processData : false,
+
+												headers : {
+													"Authorization" : "Basic "
+															+ btoa(username
+																	+ ":"
+																	+ password)
+												},
+
+												success : function(response) {
+
+													// console.log('succes!!' );
+
+													var options = []; //$('#divTemplates #selectTemplates');
+
+													//  var data=[];
+
+													var data = JSON
+															.stringify(response);
+
+													//	console.log("Data : " + data);
+
+													response
+															.forEach(function(
+																	item) {
+
+																options
+																		.push(
+																				'<option value="', item.id, '">',
+																				item.name,
+																				'</option>');
+
+															})
+
+													$("#template_name").html(
+															options.join(''));
+
+												},
+
+												error : function(error) {
+
+													//	console.log("errror");
+
+												}
+											}); // ajax
+
+								} // getListTemplates()
+
+								$("#template_name")
+										.change(
+												function(event) {
+
+													var AHCOPTIONS = {
+														"nameOfInitiative" : 0,
+
+														"orgName" : 1,
+
+														"notes" : 2,
+
+														"location" : 3,
+
+														"streetAddress" : 4,
+
+														"city" : 5,
+
+														"state" : 6,
+
+														"stateBase" : 7,
+
+														"phase1" : 8,
+
+														"phase2" : 9,
+
+														"facebook" : 10,
+
+														"Twitter" : 11,
+
+														"youtube" : 12,
+
+														"website" : 13,
+
+														"categoryName" : 14,
+
+														"msaName" : 15,
+
+														"uniqueId" : 16,
+
+														"mapDisplay" : 17
+													};
+
+													var beach = {
+														"nameOfInitiative" : 0,
+
+														"orgName" : 1,
+
+														"notes" : 2,
+
+														"location" : 3,
+
+														"streetAddress" : 4,
+
+														"city" : 5,
+
+														"state" : 6,
+
+														"stateBase" : 7,
+
+														"phase1" : 8
+													};
+
+													/* 													$("#slectNewDiv").children(
+													 'option').remove(); */
+
+													if ($(
+															"#template_name option:selected")
+															.val() == 190) {
+
+													//	console.log("190");
+
+														$("#mainDiv").show();
+														$("#slectNewDiv")
+																.show();
+														$("#NewMergedDiv")
+																.hide();
+
+														$("#configureEntry")
+																.hide();
+														$("#template_name")
+																.attr(
+																		'disabled',
+																		'disabled');
+
+														$
+																.each(
+																		AHCOPTIONS,
+																		function(
+																				key,
+																				value) {
+																			$(
+																					"#slectNewDiv")
+																					.append(
+																							new Option(
+																									key,
+																									value));
+																		});
+
+													}
+
+													else {
+													//	console.log("191");
+														$("#mainDiv").show();
+
+														$("#NewMergedDiv")
+																.hide();
+														$("#slectNewDiv")
+																.show();
+
+														$("#configureEntry")
+																.hide();
+														$("#template_name")
+																.attr(
+																		'disabled',
+																		'disabled');
+
+														$
+																.each(
+																		beach,
+																		function(
+																				key,
+																				value) {
+
+																			$(
+																					"#slectNewDiv")
+																					.append(
+																							new Option(
+																									key,
+																									value));
+
+																		});
+
+													}
+
+												});
+
+								$("#resetBtn")
+										.click(
+												function() {
+
+													window.location.href = svcUrlBase
+															+ '/newcmshealth/createtemplate';
+
+												});
+
+								$("#templateSubmit")
+										.click(
+												function() {
+
+													$("#slectNewDiv").show();
+
+													$(
+															"#slectNewDiv #NewMergedDiv")
+															.hide();
+
+													$("#resetBtn").show();
+
+													var username = "qamadmin";
+
+													var password = "123456";
+
+													var templatecreate = {};
+
+													templatecreate.name = $(
+															"#template_name")
+															.val();
+
+													//console.log(templatecreate.name);
+
+													var formData = new FormData();
+
+													formData.append("name", $(
+															"#template_name")
+															.val())
+
+													if (templatecreate.name != null
+															&& templatecreate.name != '') {
+
+														$
+																.ajax({
+																	type : 'POST',
+
+																	url : svcUrlBase
+																			+ '/newqamservices/api/listHealthDataTemplateConfigs',
+
+																	enctype : 'multipart/form-data',
+
+																	data : formData,
+
+																	contentType : false,
+
+																	processData : false,
+
+																	headers : {
+																		"Authorization" : "Basic "
+																				+ btoa(username
+																						+ ":"
+																						+ password)
+																	},
+
+																	success : function(
+																			response) {
+
+																		// console.log('succes!!' );
+
+																		//	console.log(response);
+
+																		templatenameid = response.id;
+
+																		//      globalResponseid = response.id
+
+																		getListTemplates();
+
+																		//   $('#statusID').html("Your Template has been created with id : " + globalResponseid);
+
+																		$(
+																				"#configSubmit")
+																				.show();
+
+																		$(
+																				"#mainDiv")
+																				.show();
+
+																		$(
+																				"#statusID")
+																				.show();
+
+																	},
+
+																	error : function(
+																			error) {
+
+																		//	console.log("errror");
+
+																	}
+																});
+
+													} else {
+
+														getListTemplates();
+
+													}
+
+												}); // #templateSubmit.click
+
+								/*       $("#addNewField").click(function () {
+								
+								    	 $("#slectNewDiv").append(new Option($("#newExtraField").val(),$("#newExtraField").val()));
+								
+								      }); */
+
+								$("#movingField")
+										.click(
+												function() {
+
+													$("#NewMergedDiv").show();
+
+													$("#configureEntry").show();
+
+													$("#configSubmit").show();
+
+													$("#configuredColumns")
+															.hide();
+
+													$("#slectNewDiv").hide();
+
+													$("#movingField").hide();
+
+													var movingItems = {};
+
+													var selectedLength = $("#slectNewDiv :selected").length;
+
+													if (selectedLength > 0) {
+
+														$
+																.each(
+																		$("#slectNewDiv option:selected"),
+																		function() {
+
+																			var $this = $(this);
+
+																			var value = $(
+																					this)
+																					.val();
+
+																			$(
+																					"#movingNewDiv")
+																					.append(
+																							new Option(
+																									$this
+																											.text(),
+																									value));
+
+																			//	console.log("New Value: " + value);
+
+																		})
+
+													}
+
+												});
+
+								$("#ConcatinateField")
+										.click(
+												function() {
+
+													var localmappedItems = {};
+													mappedItems = {};//for revereseclock purpose
+
+													var value = $(
+															"#movingNewDiv :selected")
+															.val();
+
+													//		console.log("Value : " + value);
+
+													var selectedLength = $("#movingNewDiv :selected").length;
+
+													//		console.log(selectedLength);
+
+													var concatinateVal = '';
+
+													var displayItems = [];
+
+													mappedItems["templateId"] = parseInt(
+															$(
+																	"#template_name option:selected")
+																	.val(), 10);
+
+													$
+															.each(
+																	$("#movingNewDiv option"),
+																	function() {//:not(:selected)
+
+																		var $this = $(this);
+
+																		mappedItems[$this
+																				.text()] = parseInt(
+																				$(
+																						this)
+																						.val(),
+																				10);
+
+																		//		console.log("$this" + $(this).val());
+
+																	});
+
+													if (selectedLength >= 2) {
+
+														var tempArray = [];
+
+														$
+																.each(
+																		$("#movingNewDiv option:selected"),
+																		function() {
+
+																			var $this = $(this);
+
+																			concatinateVal += $this
+																					.text();
+																			var tempDisplay = {};
+																			tempDisplay[$this
+																					.text()] = $(
+																					this)
+																					.val();
+																			displayItems
+																					.push(tempDisplay);
+
+																			//		console.log("this.text : " + $this.text());
+
+																			//		console.log("this.value : " + $(this).val());
+
+																			//  console.log("object value : " + JSON.stringify(obj));
+
+																			//		console.log("Value :" + JSON.stringify($this));
+
+																			var intergerVal = parseInt(
+																					$this
+																							.val(),
+																					10);
+
+																			tempArray
+																					.push(intergerVal);
+
+																		})
+
+														mappedItems["mergedCol1"] = concatinateVal
+																+ ":"
+																+ tempArray
+																		.join(",");
+
+														//	console.log("localMappedItems :" + JSON.stringify(mappedItems));
+
+														localmappedItems[concatinateVal] = tempArray
+																.join(",");
+
+														//	console.log("localMappedItems :" + JSON.stringify(localmappedItems));
+
+													}
+
+													//		console.log("The selected item" + $("#template_name option:selected").val());
+
+													//		console.log("All mapped items " + JSON.stringify(mappedItems));
+
+													/*   if($("#movingNewDiv :not(:selected)").length>0){
+													
+														  console.log("It's working")
+													
+													  } */
+
+													if (selectedLength == 1) {
+
+														alert("Merge supports more than 1 item");
+
+														/*  $("#movingNewDiv option:selected").each(function (){
+														
+														//  var item = $("#movingNewDiv option:selected").text();
+														
+														  var $this =$(this);
+														
+														//  console.log(item);
+														
+														//  mappedItems[item]=item;
+														
+														  localmappedItems[$this.text()] = $this.text(); 
+														
+														  
+														
+														 }) */
+
+													}
+
+													//	$("#movingNewDiv").find("option:selected").remove().end();
+
+													var keysLength = Object
+															.keys(localmappedItems).length;
+
+													//	console.log(keysLength);
+
+													/* 					Object.keys(displayItems).forEach(function(index, item) {
+													
+													 console.log("index_item" +index, item);
+													 $("#requestNewDiv").append(new Option(index, item));
+													
+													 }) */
+
+													//	console.log("Display_ITEMS:"+ JSON.stringify(displayItems));
+													$
+															.each(
+																	displayItems,
+																	function(
+																			key,
+																			value) {
+
+																		//	console.log("KEY_VALUE" +key, value);
+																		//	console.log(JSON.stringify(key));
+																		//	console.log("object_key" + Object.keys(value)[0], value[Object.keys(value)[0]]);
+																		$(
+																				"#requestNewDiv")
+																				.append(
+																						new Option(
+																								Object
+																										.keys(value)[0],
+																								value[Object
+																										.keys(value)[0]]));
+
+																	});
+
+													//  for(int i=0;i<keysLength;i++){
+
+													// $("#requestNewDiv").append(Object.keys(mappedItems)[i],Object.keys(mappedItems)[i]);
+
+													//  }
+
+													//		console.log(JSON.stringify(localmappedItems));
+
+													/*    	 $("#slectNewDiv option:selected").each(function () {
+													
+													   		  var $this = $(this);
+													
+													   		  if($this.length == 2){
+													
+													   			 console.log(); 
+													
+													   		  }
+													
+													   		  else if($this.length == 1) {
+													
+													   			  
+													
+													   		  }
+													
+													   		  console.log($this.text());
+													
+													   		  
+													
+													   		  
+													
+													   	  })  */
+
+													// $("#slectNewDiv").append(new Option($("#newExtraField").val(),$("#newExtraField").val()));
+												});
+
+								$("#AddColumns")
+										.click(
+												function() {
+
+													var localmappedItems = {};
+
+													var sL = $("#movingNewDiv :selected").length;
+
+													//	console.log(sL);
+
+													if (sL == 1) {
+
+														$(
+																"#movingNewDiv option:selected")
+																.each(
+																		function() {
+
+																			//  var item = $("#movingNewDiv option:selected").text();
+
+																			var $this = $(this);
+
+																			//  console.log(item);
+
+																			//  mappedItems[item]=item;
+
+																			localmappedItems[$this
+																					.text()] = $this
+																					.text();
+
+																		})
+
+														$("#movingNewDiv")
+																.find(
+																		"option:selected")
+																.remove().end();
+
+													}
+
+													var keysLength = Object
+															.keys(localmappedItems).length;
+
+													//	console.log(keysLength);
+
+													Object
+															.keys(
+																	localmappedItems)
+															.forEach(
+																	function(
+																			item,
+																			index) {
+
+																		$(
+																				"#requestNewDiv")
+																				.append(
+																						new Option(
+																								item,
+																								item));
+
+																	})
+
+												});
+
+								$("#ReverseField").click(function() {
+
+									//	$("#requestNewDiv").find("option:selected").remove().end();
+									$("#requestNewDiv").empty();
+								});
+
+								$("#configSubmit")
+										.click(
+												function() {
+
+													//  console.log(globalResponseid);
+
+													//  var formData = new FormData();
+
+													var details = $(
+															'#slectNewDiv')
+															.val();
+
+													//	console.log(details);
+
+													//  var totalDetails = document.getElementById("FileUpload").files.length;
+
+													var username = "qamadmin";
+
+													var password = "123456";
+
+													// formData.append("templateId", globalResponseid)
+
+													/*         for (var i = 0; i < details.length; i++) {
+													
+													          var file = details[i];
+													
+													          formData.append(file,i);
+													
+													        } */
+
+													//	console.log(JSON.stringify(mappedItems));
+													$
+															.ajax({
+																type : 'POST',
+
+																url : svcUrlBase
+																		+ '/newqamservices/api/createHealthDataTemplateConfig',
+
+																//   enctype:'multipart/form-data',
+
+																data : $
+																		.param(mappedItems),
+
+																//contentType: x-www-form-urlencoded,
+
+																processData : false,
+
+																headers : {
+																	"Authorization" : "Basic "
+																			+ btoa(username
+																					+ ":"
+																					+ password),
+
+																	'Content-Type' : 'application/x-www-form-urlencoded'
+																},
+
+																success : function(
+																		response) {
+
+																	//		console.log(response.id);
+
+																	//		console.log('succes!!');
+
+																	$(
+																			'#fieldStatus')
+																			.html(
+																					"Template "
+																							+ response.templateName
+																							+ " has been configured ");
+
+																	$(
+																			"#fieldStatus")
+																			.show();
+
+																	//	console.log("resposnse is ", JSON.stringify(response))
+
+																},
+
+																error : function(
+																		error) {
+
+																	//	console.log("errror");
+
+																}
+															}); // ajax
+
+												}); // #configSubmit.click
+
+							}); // document.ready()
+
 		}(up.jQuery));
 	</script>
 
@@ -837,7 +882,7 @@
 
 				<div class="panel panel-default">
 
-					<div class="panel-heading cms-font-color">Create Template</div>
+					<div class="panel-heading cms-font-color">Create to Configure</div>
 
 					<div class="panel-body" style="background: #d4bebe00">
 
@@ -875,15 +920,15 @@
 
 								<select id="slectNewDiv" class="cms-font-color"
 									name="attributeNames"
-									style="height: 30%; width: 40%; margin: 0 60px 0 90px; display: inline-block; float: left"
+									style="height: 30%; width: 40%; margin: 0 60px 0 90px; display: inline-block; float: left; overflow-x: auto; overflow-y: auto"
 									size="9" multiple="multiple">
 
-								</select> <br>
-							<p id="configureEntry"
-								style="margin-left: 60px; font-weight: bold">
+								</select>
+							<p id="configureEntry" style="margin-left: 5%; font-weight: bold"
+								class="cms-font-color">
 
-								Configure Entry Identification<span
-									title="Configure columns to be merged"
+								Create unique ID<span
+									title="Select columns to Merge to create a unique ID"
 									style="background: white; display: inline; border-radius: 50%; width: 23px; text-align: center; height: 23px; position: absolute; font-weight: bold; font-size: 17px; margin: 3px 0 0 5px; float: right">?</span>
 							<p>
 							<div id="NewMergedDiv" class="rows form-group center">
@@ -900,7 +945,7 @@
 								<div class="col-md-2 text-center" style="padding-top: 10px;">
 
 									<button id="ConcatinateField" class="btn btn-default">>></button>
-									<br><br><br><br>
+									<br> <br> <br> <br>
 									<button id="ReverseField" class="btn btn-default"><<</button>
 
 								</div>
@@ -946,8 +991,7 @@
 							</div>
 
 						</div>
-
-						<br> <br>
+						<br>
 
 						<div align="center" id="fieldStatus"></div>
 

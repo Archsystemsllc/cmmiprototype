@@ -14,6 +14,7 @@
 var up={}
 up.jQuery  = $;
 var svcUrlBase = 'http://localhost:8080';
+
 //http://cmstest-1.us-east-1.elasticbeanstalk.com
 //http://localhost:8080
 </script>
@@ -61,7 +62,9 @@ td {
  -->
 	<script>
 	
-    function getContents(inDate) {
+	$.noConflict();
+	var table = $('#report1').DataTable();
+ function getContents(inDate) {
         var username="qamadmin";
         var password="123456";
       // alert(inDate.templateName);//TODO: Time permitting get the actual IDs from the DB
@@ -87,24 +90,31 @@ td {
             //  var data=[];
             var itemsLength = response.length;
               var data=JSON.stringify(response);
+
+
             //  console.log("Data : "+data);
               $.each(response,function(index,item) {
             //	  console.log(JSON.stringify(item));
 
-            	  $("#reports tbody").append("<tr>" + 
+            	  $("#reports1 tbody").append("<tr>" + 
             			  "<td>"+item.id+"</td>"+ 
             			  "<td>"+item.templateId+"</td>"+
             			  "<td>"+item.processedDate+"</td>"+
             			  "</tr>");
 
               })
-
-
+                      $('#reports1').DataTable({
+                      //  "processing": true
+                      });
+                      $("#newreport").show();
+                    	  $("#report").hide();
+                    	  
+                    	  
           //    $("#template_name").html(options.join(''));
 
             },
             error: function (error) {
-              console.log("errror");
+              //console.log("errror");
             }
         });  // ajax
       } 
@@ -112,8 +122,12 @@ td {
 	
 (function($) {  // jQuery wrapper for uPortal
     	$(document).ready(function () {
+    		
+    		$("#newreport").hide();
 
     		getReports();
+    		
+    		
             function getReports() {
                 var username="qamadmin";
                 var password="123456";
@@ -135,25 +149,30 @@ td {
                       $.each(response,function(index,item) {
                     //	  console.log(JSON.stringify(item));
 						var pdate = JSON.stringify(item);
-                    	  $("#reports tbody").append("<tr>" + 
-                    			  "<td>"+item.id+"</td>"+ 
+						
+                    	  $("#reports tbody").append("<tr>" +
+                    			  "<td>"+item.id+"</td>"+
                     			  "<td>"+item.fileName+"</td>"+
                     			  "<td>"+item.templateName+"</td>"+
                     			  "<td>"+item.status+"</td>"+
                     			  "<td>"+item.message+"</td>"+
-                    			  "<td><a  alt='Upload a file to save information based on a template.' href='javascript:getContents("+pdate+");'>"+item.processedDate+"</a></td>"+
+                    			  "<td><a alt='Upload a file to save information based on a template.' href='javascript:getContents("+pdate+");' >"+item.processedDate+"</a></td>"+
                     			  "</tr>");
 
+
                       })
+                       
                       $('#reports').DataTable({
                         "processing": true
                       });
+
+                      
 
                   //    $("#template_name").html(options.join(''));
 
                     },
                     error: function (error) {
-                      console.log("error");
+                    //  console.log("error");
                     }
                 });  // ajax
               } 
@@ -163,7 +182,7 @@ td {
             
             
             function showAndHide(selecteditem){
-              console.log(selecteditem);
+            //  console.log(selecteditem);
             }
 
             
@@ -184,10 +203,10 @@ td {
 				<h2 style="text-align: center; border: 0px; padding: 0px;" class="cms-font-color">Uploads Report</h2>
 				<br /> <br />
 
-				<div>
+				
 				
 
-
+<div id =report>
 
 <table id="reports" class="table table-striped table-bordered cms-font-color" cellspacing="0" width="100%">
  <thead>
@@ -198,6 +217,27 @@ td {
      <th>templateName</th>
      <th>status</th>
      <th>message</th>
+     <th>processedDate</th>
+  </tr>
+ </thead>
+
+ 
+ <tbody></tbody>
+ </table>
+				
+				</div>
+				
+								
+				
+
+
+<div id = newreport>
+<table id="reports1" class="table table-striped table-bordered cms-font-color" cellspacing="0" width="100%">
+ <thead>
+ 
+  <tr>
+     <th>id</th>
+     <th>templateId</th>
      <th>processedDate</th>
   </tr>
  </thead>

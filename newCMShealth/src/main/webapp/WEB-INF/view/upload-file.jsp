@@ -2,6 +2,8 @@
 <head>
 
 <script src="resources/jquery-3.2.1.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
 
 <script>
 	var up = {}
@@ -29,20 +31,20 @@
 	background: #ccdeea;
 }
 
-.cms-font-color  {
-    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
-    color: #112e51;
-    text-transform: capitalize;
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-    padding-right: 18px;
-    font-size: 17px;
-    font-weight: 500;
+.cms-font-color {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto',
+		'Arial', sans-serif;
+	color: #112e51;
+	text-transform: capitalize;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 18px;
+	font-size: 17px;
+	font-weight: 500;
 }
 </style>
 </head>
-<body style="height:100%;background:#DCDCDC;">
+<body style="height: 100%; background: #DCDCDC;">
 	<%-- <jsp:include page="admin_header.jsp"></jsp:include> --%>
 	<jsp:include page="layout.jsp"></jsp:include>
 
@@ -119,20 +121,30 @@
 																},
 																success : function(
 																		response) {
-																	//console.log(response);
-																	//console.log("Total Input:" +JSON.stringify(response.initialFileSize));
-																	//console.log("Total Input:" +response.initialFileSize);
-																	//console.log("OutPut Response"+ response.listOfHealthCommunity);
-																	//console.log("OutPut Response"+ JSON.stringify(response.listOfHealthCommunity));
-																	//console.log("JSON RESPONSE" + JSON.stringify(response));
+																//	console.log("reponse" +response);
+																//	console.log("Total Input:" +JSON.stringify(response.initialFileSize));
+																//	console.log("Total Input:" +response.initialFileSize);
+																//	console.log("OutPut Response"+ response.listOfHealthCommunity);
+																//	console.log("OutPut Response"+ JSON.stringify(response.listOfHealthCommunity));
+																//	console.log("JSON RESPONSE" + JSON.stringify(response));
 																	var responseSize = response.initialFileSize;
+																//	console.log(" response size" + response.length);
 																	var responseString = "";
 																	var responseFalse = "";
 																	var selectedTemplate = templates[selectedOption - 1];
-																	console
-																			.log(selectedTemplate);
-																	//console.log("resposnse is ", JSON.stringify(response));
-																	$
+																//	console.log(selectedTemplate);
+																//	console.log("resposnse is ", JSON.stringify(response));
+																	
+																	var trueRecords = _.filter(response,function(rec){
+																		return rec.status==true;
+																	});
+																//	console.log("truerecords:" + trueRecords.length);
+																	
+																	var falseRecords = _.filter(response,function(rec){
+																		return rec.status==false;
+																	});
+																//	console.log("falseRecods:" + falseRecords.length);
+/* 																	$
 																			.each(
 																					response.listOfHealthCommunity,
 																					function(
@@ -140,15 +152,15 @@
 																							item) {
 																						//   console.log(item.id,item.status);
 
-																						//    console.log(htmlTable.size);
-																						//var html = htmlTable.outerHTML;
+																						    console.log(htmlTable.size);
+																						var html = htmlTable.outerHTML;
 																						if (item.status == true) {
-																							//	console.log("True Statements"+item.status);
+																								console.log("True Statements"+item.status);
 																							responseString = responseString
 																									+ item.status;
 																						} else if (item.status == false) {
 
-																							//	console.log("False Statements"+item.status);
+																								console.log("False Statements"+item.status);
 																							responseFalse = responseFalse
 																									+ item.status;
 																						} else {
@@ -158,15 +170,18 @@
 
 																						}
 
-																					})
+																					}) */
+																					
+																					
+																					
 																	//console.log(htmlTable.length);
 																	$(
 																			"#uploadStatus")
 																			.show();
-																	$(
-																			"#uploadStatus")
-																			.html("File has been uploaded")
-
+																			$("#uploadStatus").html("File uploaded " + trueRecords.length
+																							+ " rows successfully and "
+																							+ falseRecords.length + " rows have been failed.");
+				
 																},
 																error : function(
 																		error) {
@@ -194,7 +209,7 @@
 												},
 												success : function(response) {
 													// console.log('succes!!' );
-													console.log(response);
+													//console.log(response);
 													//var selectedOption1 = $('#divTemplates #selectTemplates option:selected').text();
 												
 									
@@ -230,7 +245,7 @@
 																			.join(''));
 												},
 												error : function(error) {
-													console.log("errror");
+												//	console.log("errror");
 												}
 											}); // ajax call
 
@@ -249,15 +264,16 @@
 			<div class="col-sm-12 text-left">
 				<div id="whole" style="min-height: calc(75vh - 50px);">
 					<div id=jumbo class="jumbotron jumbotron-fluid jumbotron-ext"
-						style="margin-top: 5%;background:#fff">
+						style="margin-top: 5%; background: #fff">
 
 						<div id="upload">
 
 							<!-- <h3>Upload file</h3> -->
-							<strong><div class="panel-heading cms-font-color">Upload File</div></strong> <br />
+							<strong><div class="panel-heading cms-font-color">Upload
+									File</div></strong> <br />
 							<div id="divTemplates">
-								<font size="4" class="cms-font-color">Select Template ID : </font><select
-									id="selectTemplates"></select>
+								<font size="4" class="cms-font-color">Select Template ID
+									: </font><select id="selectTemplates"></select>
 							</div>
 							<br> <label class="custom-file"> <input type="file"
 								id="FileUpload" name="file" /><br /> <span
@@ -265,9 +281,8 @@
 								<p class="butt">
 									<button type="submit" id="Submit" value="Submit"
 										class="btn btn-default cms-font-color pull-left">Submit</button>
-								</p>
-                                </br></br>
-								<p id="uploadStatus"class="cms-font-color"></p>
+								</p> </br> </br>
+								<p id="uploadStatus" class="cms-font-color"></p>
 
 							</label>
 						</div>

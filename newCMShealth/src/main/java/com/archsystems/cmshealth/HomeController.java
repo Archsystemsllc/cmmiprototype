@@ -107,6 +107,20 @@ public class HomeController {
 		modelAndView.setViewName("savedData");
 		return modelAndView;
 	}
+	
+	@RequestMapping("/downloads")
+	public ModelAndView download(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("downloads");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/datereport")
+	public ModelAndView dateReports(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("datereport");
+		return modelAndView;
+	}
 
 
 }
