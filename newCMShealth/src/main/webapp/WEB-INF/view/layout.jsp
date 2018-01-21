@@ -40,22 +40,22 @@
 }
 
 .navbar-cms {
-    background-color: #112e51;
-    border-color: #E7E7E7;
-    height: 80px;
+	background-color: #112e51;
+	border-color: #E7E7E7;
+	height: 80px;
 }
 
-.cms-font-color > li > a {
-    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
-    color: #ffffff;
-    text-transform: capitalize;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-right: 18px;
-    font-size: 17px;
-    font-weight: 500;
+.cms-font-color>li>a {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', 'Helvetica', 'Roboto',
+		'Arial', sans-serif;
+	color: #ffffff;
+	text-transform: capitalize;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 18px;
+	font-size: 17px;
+	font-weight: 500;
 }
-
 </style>
 </head>
 <body>
@@ -68,29 +68,17 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="https://www.cms.gov/">
-                    <img src="resources/images/logo.png" style="width: 40%">
-                </a>
+				<a class="navbar-brand" href="https://www.cms.gov/"> <img
+					src="resources/images/logo.png" style="width: 40%">
+				</a>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right cms-font-color">
 					<li class="active"><a href="applications">Applications</a></li>
-					<li><a href="createtemplate">
-                       
-                        CreateTemplate
-                    </a></li>
-					<li><a href="./upload">
-                        Upload
-                        </a>
-                    </li>
-					<li><a href="./reports">
-                        Reports
-                        </a>
-                    </li>
-                    <li><a href="./demonstration">
-                        Demonstration
-                        </a>
-                    </li>
+					<li><a href="createtemplate"> CreateTemplate </a></li>
+					<li><a href="./upload"> Upload </a></li>
+					<li><a href="./reports"> Reports </a></li>
+					<li><a href="./demonstration"> Demonstration </a></li>
 					<!-- <li><a href="./demonstration">Demonstration Description</a></li> -->
 				</ul>
 			</div>

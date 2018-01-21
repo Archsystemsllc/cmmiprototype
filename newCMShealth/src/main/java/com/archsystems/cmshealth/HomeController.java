@@ -101,12 +101,6 @@ public class HomeController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/savedData")
-	public ModelAndView savedData(){
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("savedData");
-		return modelAndView;
-	}
 	
 	@RequestMapping("/downloads")
 	public ModelAndView download(){
@@ -115,12 +109,7 @@ public class HomeController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/datereport")
-	public ModelAndView dateReports(){
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("datereport");
-		return modelAndView;
-	}
+
 
 
 }
