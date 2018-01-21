@@ -16,6 +16,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>UPLOAD</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="./resources/images/adda_ico.png" />
 <!--   http://localhost:8080
    http://cmstest-1.us-east-1.elasticbeanstalk.com
  -->

@@ -1,3 +1,6 @@
+
+<link rel="shortcut icon" type="image/x-icon"
+	href="./resources/images/adda_ico.png" />
 <style>
 	.mt {
 		margin-top: 5%;

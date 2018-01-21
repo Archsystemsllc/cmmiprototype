@@ -9,6 +9,8 @@
 
 <title>CreateTemplate</title>
 
+<link rel="shortcut icon" type="image/x-icon"
+	href="./resources/images/adda_ico.png" />
 
 
 <script src="resources/jquery-3.2.1.js"></script>

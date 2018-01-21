@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <title>CMS Health</title>
+<link rel="shortcut icon" type="image/x-icon"
+	href="./resources/images/adda_ico.png" />
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
