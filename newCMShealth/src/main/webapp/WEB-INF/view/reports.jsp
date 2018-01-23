@@ -12,7 +12,7 @@
 <script>
 	var up = {}
 	up.jQuery = $;
-	var svcUrlBase = 'http://localhost:8080';
+	var svcUrlBase = 'http://cmstest-1.us-east-1.elasticbeanstalk.com';
 
 	//http://cmstest-1.us-east-1.elasticbeanstalk.com
 	//http://localhost:8080
@@ -95,11 +95,15 @@ td {
 
 					//  console.log("Data : "+data);
 					$.each(response, function(index, item) {
-						//	  console.log(JSON.stringify(item));
+							  console.log(JSON.stringify(item));
 
 						$("#reports1 tbody").append(
 								"<tr>" + "<td>" + item.id + "</td>" + "<td>"
 										+ item.templateId + "</td>" + "<td>"
+										+ item.nameOfInitiative + "</td>" + "<td>"
+										+ item.orgName + "</td>" + "<td>"
+										+ item.mergedCol1 + "</td>" + "<td>"
+										+ item.status + "</td>" + "<td>"
 										+ item.processedDate + "</td>"
 										+ "</tr>");
 
@@ -183,7 +187,7 @@ td {
 																								+ "<td>"
 																								+ item.message
 																								+ "</td>"
-																								+ "<td><a alt='Upload a file to save information based on a template.' href='javascript:getContents("
+																								+ "<td><a alt='See the contents of uploads for this date.' href='javascript:getContents("
 																								+ pdate
 																								+ ");' >"
 																								+ item.processedDate
@@ -262,9 +266,13 @@ td {
 						<thead>
 
 							<tr>
-								<th>id</th>
-								<th>templateId</th>
-								<th>processedDate</th>
+								<th>Database ID</th>
+								<th>Template ID</th>
+								<th>Initiative Name</th>
+								<th>Organization Name</th>
+								<th>Unique ID</th>
+								<th>Status</th>
+								<th>Processed Date</th>
 							</tr>
 						</thead>
 

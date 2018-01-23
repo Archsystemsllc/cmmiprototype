@@ -8,7 +8,7 @@
 <script>
 	var up = {}
 	up.jQuery = $;
-	var svcUrlBase = 'http://localhost:8080';
+	var svcUrlBase = 'http://cmstest-1.us-east-1.elasticbeanstalk.com';
 	//http://cmstest-1.us-east-1.elasticbeanstalk.com
 	//http://localhost:8080
 </script>
@@ -180,9 +180,9 @@
 																	$(
 																			"#uploadStatus")
 																			.show();
-																			$("#uploadStatus").html("File uploaded " + trueRecords.length
+																			$("#uploadStatus").html("Uploaded " + trueRecords.length
 																							+ " rows successfully and "
-																							+ falseRecords.length + " rows have been failed.");
+																							+ falseRecords.length + " rows failed.");
 				
 																},
 																error : function(

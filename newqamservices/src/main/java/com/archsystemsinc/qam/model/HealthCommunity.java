@@ -80,7 +80,7 @@ public class HealthCommunity {
 		builder.append(address.getState());				
 		builder.append(", StateBase=");
 		builder.append(address.getStateBase());	
-		builder.append(", UniqueId=");
+		builder.append(", mergedCol1=");
 		builder.append(mergedCol1);			
 		builder.append(", processedDate=");
 		builder.append(processedDate);

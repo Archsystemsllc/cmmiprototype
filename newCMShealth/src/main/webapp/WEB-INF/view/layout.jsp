@@ -77,10 +77,11 @@
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav navbar-right cms-font-color">
 					<li class="active"><a href="applications">Applications</a></li>
-					<li><a href="createtemplate"> CreateTemplate </a></li>
+					<li><a href="createtemplate"> Configure Template </a></li>
 					<li><a href="./upload"> Upload </a></li>
 					<li><a href="./reports"> Reports </a></li>
 					<li><a href="./demonstration"> Demonstration </a></li>
+					<li><a href="./downloads"> Instructions </a></li>
 					<!-- <li><a href="./demonstration">Demonstration Description</a></li> -->
 				</ul>
 			</div>

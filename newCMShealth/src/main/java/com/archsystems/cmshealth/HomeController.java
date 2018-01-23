@@ -5,6 +5,7 @@ package com.archsystems.cmshealth;
 import java.io.File;
 import java.io.FileInputStream;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -52,11 +53,56 @@ public class HomeController {
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-		return null;
-		
+		return null;		
 		
 	}
 
+	@RequestMapping("/bpcifile")
+	public ModelAndView bpcDload(HttpServletRequest request, HttpServletResponse response){
+		
+		
+		response.setHeader("Content-Disposition",
+				"attachment;filename=BPCI_Initiative.xlsx");
+		//Accountable_Health_Communities.xlsx
+		//BPCI_Initiative.xlsx
+		try {
+			//File file = new File("downloadfilename.csv");
+			//String abs = file.getAbsolutePath();
+			//String can = file.getCanonicalPath();
+			File rootDir = new File( servletContext.getRealPath("/resources/") );
+			
+			File dload = new File(rootDir+"/BPCI_Initiative.xlsx");
+			
+            // Gets MIME type of the file
+            String mimeType = new MimetypesFileTypeMap().getContentType(dload);
+
+            if (mimeType == null) {
+                // Set to binary type if MIME mapping not found
+                mimeType = "application/octet-stream";
+            }
+            response.setContentType(mimeType);
+			
+			
+			
+			FileInputStream fileIn = new FileInputStream(dload);
+			ServletOutputStream out = response.getOutputStream();
+	
+			byte[] outputByte = new byte[4096];
+			//copy binary contect to output stream
+			while(fileIn.read(outputByte, 0, 4096) != -1)
+			{
+				out.write(outputByte, 0, 4096);
+			}
+			fileIn.close();
+			out.flush();
+			out.close();
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return null;		
+		
+	}
+	
 	@RequestMapping("/")
 	public ModelAndView viewHome(){
 		ModelAndView modelAndView = new ModelAndView();
