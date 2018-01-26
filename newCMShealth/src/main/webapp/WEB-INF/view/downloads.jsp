@@ -98,10 +98,11 @@
 				The features only represent a limited scenario and are purely for a demonstration. An assumption built into the 
 				demonstration that there is an (unseen) ability to create templates and two have been created so far. 
 				 
-				 There are three primary scenarios:<br>
+				 There are four primary scenarios:<br>
 				 1. Configuring a template.<br>
 				 2. Uploading a file using a template for writing data.<br>
 				 3. Retrieving reports for file uploads status and content written from uploads.<br>
+				 4. Upload a file using a template for writing data from Salesforce.
 				 		 
 				</p>
 				<p>
@@ -116,14 +117,46 @@
 				Select the fileds desired and copy them over using the arrows.</li>
 				<li>Select submit to save the template configuration. There is always only one configuration for 
 				each template. It is meant to be set-up once and used many times.</li>
-				</ul>
-				
-				 
+				</ul>				 
 				<br>
 				<B>2. UPLOADING A FILE</B><br>
+				<ul>
+				<li>Ensure you are using one of the two templates that you have downloaded and stored on your local 
+				file system from the download links above. The content is example data and can be replaced if desired
+				 but it is not necessary for the demonstration.</li>
+				<li>Simply upload the document and Submit. A message will return giving a count of rows succeeeded and failed.</li>
+				</ul>				
 				<br>
 				<B>3. RETRIEVING REPORTS</B><br>
+				<ul>
+				<li>Open the Reports page to view a report of all downloads and there status. You can verify that the Salesforce 
+				uploads (see instructions below) have been posted to the common database by way of the upload microservices by
+				 alternating templates between the Salesforce client application and this Java client application and reviewing 
+				 the report for the last two uploads and noticing that the templates are different.
+				</li>
+				<li>
+				There is also a "drill down" report available that will show all the contents uploaded per template from the date 
+				selected when the link in the date field is clicked.
+				</li>
+				</ul>
 				<br>
+				<B>4. UPLOAD FROM SALESFORCE</B><br>
+				<ul>
+				<li>
+				Log-in to Salesforce.com as archtest@archsystemsinc.com using test@123 as the password.
+				</li>
+				<li>
+				Simply select one of the templates from the drop down and then upload the appropriate file 
+				(one of the two templates as described above) and submit. The configuration part is not active and any selections will have no effect.
+				</li>
+				<li>
+				Raw data is returned and displayed unprocessed to the Salesforce client. As with the template configuration 
+				reports were not completed for the Salesforce client. The purpose of the demonstration i satisfied by the 
+				common use of the upload microservcie fro external end-points.
+				</li>
+				<li>
+				Review the Report in this client to see the upload succeeeded through the file upload microservice.
+				</li>
 				</p>
 				
 				<br>

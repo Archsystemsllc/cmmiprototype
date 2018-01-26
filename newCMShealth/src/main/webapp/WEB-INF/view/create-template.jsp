@@ -25,7 +25,7 @@
 	up.jQuery = $;
 
 	var mappedItems = {};
-	var svcUrlBase = 'http://localhost:8080';
+	var svcUrlBase = 'http://cmstest-1.us-east-1.elasticbeanstalk.com';
 	//http://cmstest-1.us-east-1.elasticbeanstalk.com
 	//http://localhost:8080
 </script>

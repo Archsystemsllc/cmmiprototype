@@ -2,8 +2,10 @@ package com.archsystems.cmshealth;
 
 
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.ServletContext;
@@ -27,7 +29,7 @@ public class HomeController {
 		
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition",
-				"attachment;filename=Accountable_Health_Communities.xlsx");
+				"attachment;filename=Accountable_Health_Communities.xls");
 		//Accountable_Health_Communities.xlsx
 		//BPCI_Initiative.xlsx
 		try {
@@ -36,7 +38,14 @@ public class HomeController {
 			//String can = file.getCanonicalPath();
 			File rootDir = new File( servletContext.getRealPath("/resources/") );
 			
-			File dload = new File(rootDir+"/Accountable_Health_Communities.xlsx");
+			File dload = new File(rootDir+"/Accountable_Health_Communities.xls");
+			
+            String mimeType = new MimetypesFileTypeMap().getContentType(dload);
+
+            if (mimeType == null) {
+                // Set to binary type if MIME mapping not found
+                mimeType = "application/octet-stream";
+            }
 			
 			FileInputStream fileIn = new FileInputStream(dload);
 			ServletOutputStream out = response.getOutputStream();
@@ -62,7 +71,7 @@ public class HomeController {
 		
 		
 		response.setHeader("Content-Disposition",
-				"attachment;filename=BPCI_Initiative.xlsx");
+				"attachment;filename=BPCI_Initiative.xls");
 		//Accountable_Health_Communities.xlsx
 		//BPCI_Initiative.xlsx
 		try {
@@ -71,7 +80,7 @@ public class HomeController {
 			//String can = file.getCanonicalPath();
 			File rootDir = new File( servletContext.getRealPath("/resources/") );
 			
-			File dload = new File(rootDir+"/BPCI_Initiative.xlsx");
+			File dload = new File(rootDir+"/BPCI_Initiative.xls");
 			
             // Gets MIME type of the file
             String mimeType = new MimetypesFileTypeMap().getContentType(dload);
@@ -80,18 +89,22 @@ public class HomeController {
                 // Set to binary type if MIME mapping not found
                 mimeType = "application/octet-stream";
             }
+            mimeType = "application/vnd.ms-excel";
             response.setContentType(mimeType);
 			
 			
 			
 			FileInputStream fileIn = new FileInputStream(dload);
+			//InputStream in =
+                  //  new ByteArrayInputStream(sb.toString().getBytes("UTF-8"));
+			
 			ServletOutputStream out = response.getOutputStream();
-	
-			byte[] outputByte = new byte[4096];
+			int bsize=1024;
+			byte[] outputByte = new byte[bsize];
 			//copy binary contect to output stream
-			while(fileIn.read(outputByte, 0, 4096) != -1)
+			while(fileIn.read(outputByte, 0, bsize) != -1)
 			{
-				out.write(outputByte, 0, 4096);
+				out.write(outputByte, 0, bsize);
 			}
 			fileIn.close();
 			out.flush();

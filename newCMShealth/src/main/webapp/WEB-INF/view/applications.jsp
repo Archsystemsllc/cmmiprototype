@@ -69,7 +69,7 @@
 			<div class="thumbnail">
 					<div class="caption cms-box-height" style="padding-top: 20px;">
 						<h4 id="thumbnail-label">
-							<a alt="See a description of this demonstration." href="downloads">Download</a>
+							<a alt="Read instructions and download the templates for the demonstration." href="downloads">Instructions</a>
 						</h4>
 					<p style="padding-top: 20px;">
 						<img style="height:50%" alt="" src="resources/images/download1.png">

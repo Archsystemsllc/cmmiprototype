@@ -3,7 +3,9 @@
  */
 package com.archsystemsinc.qam.service;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,8 +138,10 @@ public class HealthCommunityDataService {
 	 * @return
 	 */
 	public List<HealthCommunity> listHealthDataForUpload(Date ulDate) {
-		
-		List<HealthCommunity> data = healthCommunityRepository.findByProcessedDateLessThanEqual(ulDate);
+		Calendar date = new GregorianCalendar();
+		date.setTime(ulDate);
+		date.add(Calendar.DAY_OF_MONTH, 1);
+		List<HealthCommunity> data = healthCommunityRepository.findByProcessedDateLessThanEqual(date.getTime());
 		
 		if(!data.isEmpty()) {
 			Map<Long,HealthDataTemplateConfig> healthDataTemplateConfigMap = new HashMap<Long,HealthDataTemplateConfig>();
